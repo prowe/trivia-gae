@@ -2,39 +2,52 @@ package com.rowe.trivia.domain;
 
 import java.util.Random;
 
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Persistent;
 
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Parent;
+import com.googlecode.objectify.condition.IfNotNull;
 import com.rowe.trivia.repo.UserQuestionRepository;
 
 @Configurable
-@PersistenceCapable
+@Entity
 public class UserQuestion {
 	private static Random random = new Random();
 	
-	@Autowired
+	@Autowired @Ignore
 	private transient UserQuestionRepository repo;
 
-	@PrimaryKey
-	private User contestant;
-	@PrimaryKey
-	private Contest contest;
+	@Parent
+	private Ref<User> contestant;
+	@Id
+	private String contestId;
+	
+	private Ref<Contest> contest;
 
 	private String choosenAnswer;
 
+	@Persistent
 	private DateTime answerDate;
+	
+	@Index(IfNotNull.class)
 	private Integer correctAnswerTicket;
 	
 	public UserQuestion(User contestant, Contest contest) {
-		this.contestant = contestant;
-		this.contest = contest;
-		
+		this.contestant = Ref.create(contestant);
+		this.contest = Ref.create(contest);
+		this.contestId = contest.getContestId();
 	}
+	
+	@SuppressWarnings("unused")
+	private UserQuestion(){}
 	
 	@Override
 	public String toString() {
@@ -81,10 +94,10 @@ public class UserQuestion {
 	}
 
 	public Contest getContest() {
-		return contest;
+		return contest == null ? null : contest.get();
 	}
 	public User getContestant() {
-		return contestant;
+		return contestant == null ? null : contestant.get();
 	}
 
 	public void save() {
@@ -98,10 +111,9 @@ public class UserQuestion {
 			issueCorrectAnswerTicket();
 		}
 	}
-	
 
 	public boolean isCorrect(){
-		return contest.isCorrect(choosenAnswer);
+		return getContest().isCorrect(choosenAnswer);
 	}
 	
 	public DateTime getAnswerDate() {
@@ -113,5 +125,9 @@ public class UserQuestion {
 		if(correctAnswerTicket == null || correctAnswerTicket>newTicket){
 			correctAnswerTicket = newTicket;
 		}
+	}
+	
+	public String getChoosenAnswer() {
+		return choosenAnswer;
 	}
 }

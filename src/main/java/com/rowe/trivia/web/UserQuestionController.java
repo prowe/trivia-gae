@@ -45,6 +45,8 @@ public class UserQuestionController {
 		UserQuestion uq = questionRepo.findByUsernameContest(username, contestId);
 		logger.info("answering question {}", uq);
 		uq.answerQuestion(answer);
+		uq.save();
+		
 		modelMap.put("userQuestion", uq);
 		return "questions/answerSubmitted";
 	}

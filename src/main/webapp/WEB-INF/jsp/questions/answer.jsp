@@ -10,16 +10,28 @@
 </head>
 <body>
 	<%@ include file="../includes/navbar.jsp" %>
-	<h1>Answer question</h1>
 	
-	<p>
-		<c:out value="${userQuestion.contest.question}" />
-	</p>
-	
-	<form method="post">
-		<c:forEach items="${userQuestion.contest.possibleAnswers}" var="ans">
-			<button name="answer" type="submit" value="<c:out value='${ans}' />"><c:out value='${ans}' /></button>
-		</c:forEach>
-	</form>
+	<div id="main-body">
+		<h1>Answer question</h1>
+		
+		<p>
+			<c:out value="${userQuestion.contest.question}" />
+		</p>
+		
+		<form method="post">
+			<!-- Add CSRF token -->
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+				<label>Your Answer</label>
+					<div class="form-group">
+				<c:forEach items="${userQuestion.contest.possibleAnswers}" var="ans">
+						<button class="btn btn-default btn-block" name="answer" type="submit" value="<c:out value='${ans}' />"><c:out value='${ans}' /></button>
+				</c:forEach>
+					</div>
+			</div>
+		</form>
+		
+	</div>
+	<%@ include file="../includes/footer.jsp" %>
 </body>
 </html>

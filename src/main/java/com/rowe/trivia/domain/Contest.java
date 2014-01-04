@@ -5,8 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Persistent;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,44 +14,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.rowe.trivia.repo.ContestRepository;
 import com.rowe.trivia.strategy.ContestantSelectionStrategy;
 import com.rowe.trivia.strategy.impl.EveryoneContestantSelectionStrategy;
 
 @Configurable
-@PersistenceCapable
+@Entity
 public class Contest {
 	private static Logger logger = LoggerFactory.getLogger(Contest.class);
+	
+	private final ContestantSelectionStrategy selectionStrategy = new EveryoneContestantSelectionStrategy();
 			
-	@Autowired
+	@Autowired @Ignore
 	private transient ContestRepository repo;
 	
-	private static ContestantSelectionStrategy selectionStrategy = new EveryoneContestantSelectionStrategy();
-	
-	/*
-	 * To select contestents.
-	 * 
-	 * Sort the users according to "how much they need a question"
-	 * loop over them
-	 * for each:
-	 * 	If the user is eligible.
-	 * 	Calculate the cost and subtract it from the budget.
-	 * 	
-	 * stop when out of users or budget exausted.
-	 */
-	@PrimaryKey
-	private User sponsor;
-	@PrimaryKey
+	@Id
 	private String contestId;
 	
+	private Ref<User> sponsor;
 	private String question;
 	private String correctAnswer;
 	private List<String> possibleAnswers;
 	
+	@Persistent
 	private DateTime startTime;
+	@Persistent
 	private DateTime endTime;
 	
 	//prize info
@@ -65,11 +56,11 @@ public class Contest {
 			contestId = UUID.randomUUID().toString();
 		}
 		//set the sponsor
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
+		User currentUser = User.currentUser();
+        if (currentUser == null) {
             throw new IllegalStateException("Unable to set sponsor: no user signed in");
         }
-		sponsor = (User) authentication.getPrincipal();
+		setSponsor(currentUser);
 		
 		//make sure the possible answers contains the correct answers
 		if(possibleAnswers != null && !possibleAnswers.contains(correctAnswer)){
@@ -121,7 +112,7 @@ public class Contest {
 	}
 	
 	public User getSponsor() {
-		return sponsor;
+		return sponsor == null ? null : sponsor.get();
 	}
 	public String getContestId() {
 		return contestId;
@@ -136,7 +127,7 @@ public class Contest {
 		return possibleAnswers;
 	}
 	public void setSponsor(User sponsor) {
-		this.sponsor = sponsor;
+		this.sponsor = Ref.create(sponsor);
 	}
 	public void setContestId(String contestId) {
 		this.contestId = contestId;

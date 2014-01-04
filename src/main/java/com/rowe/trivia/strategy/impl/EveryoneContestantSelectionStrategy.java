@@ -17,7 +17,7 @@ import com.rowe.trivia.strategy.ContestantSelectionStrategy;
  *
  */
 @Configurable
-public class EveryoneContestantSelectionStrategy implements ContestantSelectionStrategy{
+public class EveryoneContestantSelectionStrategy implements ContestantSelectionStrategy {
 	private static Logger logger = LoggerFactory.getLogger(EveryoneContestantSelectionStrategy.class);
 
 	@Autowired

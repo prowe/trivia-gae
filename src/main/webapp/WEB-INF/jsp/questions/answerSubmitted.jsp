@@ -10,15 +10,19 @@
 </head>
 <body>
 	<%@ include file="../includes/navbar.jsp" %>
-	<h1>Answer question</h1>
-	
-	<p>
-		<c:out value="${userQuestion.contest.question}" />
-	</p>
-	
-	<c:choose>
-		<c:when test="${userQuestion.correct}">Correct</c:when>
-		<c:otherwise>Incorrect</c:otherwise>
-	</c:choose>
+	<div id="main-body">
+		<h1>Answer question</h1>
+		
+		<p>
+			<c:out value="${userQuestion.contest.question}" />
+		</p>
+		
+		<c:choose>
+			<c:when test="${userQuestion.correct}">Correct, <c:out value="${userQuestion.choosenAnswer}" /></c:when>
+			<c:otherwise>Incorrect! The correct answer was <c:out value="${userQuestion.contest.correctAnswer}" />, but you choose <c:out value="${userQuestion.choosenAnswer}" /></c:otherwise>
+		</c:choose>
+		
+	</div>
+	<%@ include file="../includes/footer.jsp" %>
 </body>
 </html>

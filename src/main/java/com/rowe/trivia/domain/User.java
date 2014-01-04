@@ -3,9 +3,6 @@ package com.rowe.trivia.domain;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.PrimaryKey;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.Authentication;
@@ -16,17 +13,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.social.security.SocialUserDetails;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.rowe.trivia.repo.UserRepository;
 
-@PersistenceCapable
+@Entity
 @Configurable
 public class User implements UserDetails, SocialUserDetails{
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired
+	@Autowired @Ignore
 	private transient UserRepository repo;
 	
-	@PrimaryKey
+	@Id
 	private String username;
 	
 	private String email;

@@ -92,6 +92,11 @@
 			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
+	      <groupId>org.aspectj</groupId>
+	      <artifactId>aspectjrt</artifactId>
+	      <version>1.7.3</version>
+	    </dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework.version}</version>
@@ -169,20 +174,10 @@
 
 		<!-- Persistance -->
         <dependency>
-            <groupId>com.google.appengine.orm</groupId>
-            <artifactId>datanucleus-appengine</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-  		<dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-api-jdo</artifactId>
-            <version>3.1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-jodatime</artifactId>
-            <version>3.1.1</version>
-        </dependency>
+			<groupId>com.googlecode.objectify</groupId>
+			<artifactId>objectify</artifactId>
+			<version>4.0rc2</version>
+	    </dependency>
 
 		<!-- Test Dependencies -->
 		<dependency>
@@ -208,12 +203,36 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<version>2.5.1</version>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+					<complianceLevel>1.7</complianceLevel>
+					<source>1.7</source>
+					<target>1.7</target>
+					<Xlint>ignore</Xlint>
+					<aspectLibraries>
+						<aspectLibrary>
+							<groupId>org.springframework</groupId>
+							<artifactId>spring-aspects</artifactId>
+							<!-- <version>${org.springframework.version}</version> -->
+						</aspectLibrary>
+					</aspectLibraries>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
@@ -239,29 +258,7 @@
 				<version>${appengine.target.version}</version>
 			</plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.4</version>
-				<configuration>
-					<complianceLevel>1.7</complianceLevel>
-					<Xlint>ignore</Xlint>
-					<aspectLibraries>
-						<aspectLibrary>
-							<groupId>org.springframework</groupId>
-							<artifactId>spring-aspects</artifactId>
-							<!-- <version>${org.springframework.version}</version> -->
-						</aspectLibrary>
-					</aspectLibraries>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			
 			<plugin>
 				<groupId>org.lesscss</groupId>
 				<artifactId>lesscss-maven-plugin</artifactId>
@@ -280,64 +277,7 @@
 					<outputDirectory>${basedir}/src/main/webapp/resources/css/</outputDirectory>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.datanucleus</groupId>
-                <artifactId>datanucleus-maven-plugin</artifactId>
-                <version>3.3.2</version>
-                <configuration>
-                    <api>JDO</api>
-                    <fork>false</fork>
-                    <persistenceUnitName>transactions-optional</persistenceUnitName>
-                    <verbose>true</verbose>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                	 <dependency>
-			            <groupId>org.datanucleus</groupId>
-			            <artifactId>datanucleus-enhancer</artifactId>
-			            <version>3.1.1</version>
-			        </dependency>
-                </dependencies>
-            </plugin>
 		</plugins>
-		
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.datanucleus</groupId>
-               							<artifactId>datanucleus-maven-plugin</artifactId>
-										<versionRange>[1.0.0,)</versionRange>
-										<goals>
-											<goal>enhance</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute>
-											<runOnIncremental>true</runOnIncremental>
-										</execute>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-				</plugins>
-		</pluginManagement>
 	</build>
 
 </project>

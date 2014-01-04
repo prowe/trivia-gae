@@ -17,7 +17,7 @@ import com.rowe.trivia.repo.UserQuestionRepository;
 import com.rowe.trivia.repo.UserRepository;
 import com.rowe.trivia.repo.dataStore.DatastoreRepositorySupport.ConvertingIterable;
 
-public class DatastoreUserQuestionRepository extends DatastoreRepositorySupport<UserQuestion> implements UserQuestionRepository{
+public abstract class DatastoreUserQuestionRepository extends DatastoreRepositorySupport<UserQuestion> implements UserQuestionRepository{
 	
 	@Autowired
 	private ContestRepository contestRepo;

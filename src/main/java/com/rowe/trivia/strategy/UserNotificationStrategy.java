@@ -15,4 +15,10 @@ public interface UserNotificationStrategy {
 	 * @param userQuestion
 	 */
 	public void questionAsked(UserQuestion userQuestion);
+	
+	/**
+	 * Notify the contestent that this {@link UserQuestion} has been choosen as a winner of its contest
+	 * @param userQuestion
+	 */
+	public void choosenAsWinner(UserQuestion userQuestion);
 }

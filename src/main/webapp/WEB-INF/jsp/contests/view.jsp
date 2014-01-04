@@ -41,6 +41,24 @@
 			<p class="form-control-static">${contest.startTime}</p>
 		</div>
 		
+		<div class="form-group">
+			<label class="control-label">Ended</label>
+			<p class="form-control-static">xxx</p>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Winners</label>
+			<table class="form-control-static">
+				<c:forEach items="${contest.winningAnswers}" var="uq">
+					<tr>
+						<td><c:out value="${uq.contestent.username}" /></td>
+						
+						<td><c:out value="${uq.correctAnswerTicket}" /></td>
+					</tr>
+				</c:forEach>
+			</table>
+			
+		</div>
+		
 		<div class="form-group row">
 			<form class="col-md-6" action="<c:url value='/contests/${contest.sponsor.username}/${contest.contestId}/start.html' />" method="post">
 				<!-- Add CSRF token -->

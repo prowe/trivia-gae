@@ -16,14 +16,14 @@ package com.rowe.trivia.repo.dataStore;
  * limitations under the License.
  */
 
+import static com.google.appengine.api.datastore.TransactionOptions.Builder.withXG;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
@@ -59,8 +59,6 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.Transaction;
 import com.rowe.trivia.domain.User;
-
-import static com.google.appengine.api.datastore.TransactionOptions.Builder.*;
 
 
 /** @author Vladislav Tserman */

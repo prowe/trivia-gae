@@ -2,7 +2,6 @@ package com.rowe.trivia.domain;
 
 import java.util.Random;
 
-import javax.jdo.annotations.Persistent;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.condition.IfNotNull;
+import com.rowe.trivia.repo.BetterRef;
 import com.rowe.trivia.repo.UserQuestionRepository;
 
 @Configurable
@@ -29,20 +29,19 @@ public class UserQuestion {
 	private Ref<User> contestant;
 	@Id
 	private String contestId;
-	
+	@Index
 	private Ref<Contest> contest;
 
 	private String choosenAnswer;
 
-	@Persistent
 	private DateTime answerDate;
 	
 	@Index(IfNotNull.class)
 	private Integer correctAnswerTicket;
 	
 	public UserQuestion(User contestant, Contest contest) {
-		this.contestant = Ref.create(contestant);
-		this.contest = Ref.create(contest);
+		this.contestant = BetterRef.create(contestant);
+		this.contest = BetterRef.create(contest);
 		this.contestId = contest.getContestId();
 	}
 	

@@ -1,11 +1,10 @@
 package com.rowe.trivia.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
-import javax.jdo.annotations.Persistent;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,18 +19,23 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
 import com.rowe.trivia.repo.ContestRepository;
-import com.rowe.trivia.strategy.ContestantSelectionStrategy;
-import com.rowe.trivia.strategy.impl.EveryoneContestantSelectionStrategy;
+import com.rowe.trivia.repo.UserQuestionRepository;
+import com.rowe.trivia.repo.UserRepository;
+import com.rowe.trivia.strategy.UserNotificationStrategy;
 
 @Configurable
 @Entity
 public class Contest {
 	private static Logger logger = LoggerFactory.getLogger(Contest.class);
-	
-	private final ContestantSelectionStrategy selectionStrategy = new EveryoneContestantSelectionStrategy();
 			
 	@Autowired @Ignore
 	private transient ContestRepository repo;
+	@Autowired @Ignore
+	private transient UserRepository userRepo;
+	@Autowired @Ignore
+	private transient UserQuestionRepository userQuestionRepo;
+	@Autowired @Ignore
+	private transient UserNotificationStrategy notificationStrategy;
 	
 	@Id
 	private String contestId;
@@ -41,15 +45,15 @@ public class Contest {
 	private String correctAnswer;
 	private List<String> possibleAnswers;
 	
-	@Persistent
 	private DateTime startTime;
-	@Persistent
 	private DateTime endTime;
 	
 	//prize info
 	private String prizeDescription;
 	private BigDecimal prizeValue;
 	private Integer prizeQuantity;
+	
+	private List<Ref<UserQuestion>> winningAnswers;
 	
 	public void completeCreation() {
 		if(contestId == null){
@@ -83,7 +87,7 @@ public class Contest {
 	 * @return
 	 */
 	public boolean isElgible(User user){
-		if(ObjectUtils.equals(sponsor, user)){
+		if(ObjectUtils.equals(getSponsor(), user)){
 			return false;
 		}
 		return true;
@@ -98,8 +102,22 @@ public class Contest {
 		if(endTime == null){
 			endTime = startTime.plusMinutes(10);
 		}
-		selectionStrategy.selectContestants(this);
+		selectContestants();
 		logger.info("Contest started: {}", this);
+	}
+	
+	private void selectContestants() {
+		logger.info("Starting contestant selection for {}", this);
+		int usersEntered = 0;
+		for(User user:userRepo.listAll()){
+			if(isElgible(user)){
+				UserQuestion uq = new UserQuestion(user, this);
+				userQuestionRepo.save(uq);
+				notificationStrategy.questionAsked(uq);
+				usersEntered++;
+			}
+		}
+		logger.info("Contestant selection done for {}. {} users entered", this, usersEntered);
 	}
 	
 	/**
@@ -107,8 +125,13 @@ public class Contest {
 	 */
 	public void end(){
 		logger.info("Ending contest {}", this);
-		
-		logger.info("Contest Ended");
+		List<UserQuestion> winners = userQuestionRepo.findWinners(this, prizeQuantity);
+		winningAnswers = new ArrayList<Ref<UserQuestion>>();
+		for(UserQuestion winner:winners){
+			winningAnswers.add(Ref.create(winner));
+			notificationStrategy.choosenAsWinner(winner);
+		}
+		logger.info("Contest Ended. {} winners selected", winners.size());
 	}
 	
 	public User getSponsor() {
@@ -164,5 +187,16 @@ public class Contest {
 	
 	public DateTime getStartTime() {
 		return startTime;
+	}
+	
+	public List<UserQuestion> getWinningAnswers() {
+		if(winningAnswers == null){
+			return null;
+		}
+		List<UserQuestion> list = new ArrayList<UserQuestion>();
+		for(Ref<UserQuestion> win:winningAnswers){
+			list.add(win.get());
+		}
+		return Collections.unmodifiableList(list);
 	}
 }

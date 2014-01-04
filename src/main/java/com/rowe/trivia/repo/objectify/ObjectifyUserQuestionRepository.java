@@ -1,7 +1,10 @@
 package com.rowe.trivia.repo.objectify;
 
+import java.util.List;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.rowe.trivia.domain.Contest;
 import com.rowe.trivia.domain.User;
 import com.rowe.trivia.domain.UserQuestion;
 import com.rowe.trivia.repo.UserQuestionRepository;
@@ -19,11 +22,22 @@ public class ObjectifyUserQuestionRepository extends ObjectifyRepositorySupport<
 	}
 
 	@Override
-	public Iterable<UserQuestion> findByUser(User user) {
+	public List<UserQuestion> findByUser(User user) {
 		return ObjectifyService.ofy()
 			.load()
 			.type(UserQuestion.class)
 			.ancestor(user)
+			.list();
+	}
+	
+	@Override
+	public List<UserQuestion> findWinners(Contest contest, int maxCount) {
+		 return ObjectifyService.ofy()
+			.load()
+			.type(UserQuestion.class)
+			.filter("contest", contest)
+			.order("correctAnswerTicket")
+			.limit(maxCount)
 			.list();
 	}
 

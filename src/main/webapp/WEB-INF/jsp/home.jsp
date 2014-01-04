@@ -11,34 +11,15 @@
 </head>
 <body>
 	<%@ include file="includes/navbar.jsp" %>
-	<h1>Home</h1>
-
-	<table>
-		<c:forEach items="${contestList}" var="contest">
-			<tr>
-				<td>${contest.sponsor.username}</td>
-				<td><a href="<c:url value='/contests/${contest.sponsor.username}/${contest.contestId}/view.html' />">${contest.contestId}</a></td>
-				<td>${contest.question}</td>
-				<td>${contest.correctAnswer}</td>
-				<td>
-					<ul>
-					<c:forEach items="${contest.possibleAnswers}" var="ans">
-						<li>${ans }</li>
-					</c:forEach>
-					</ul>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<a href='<c:url value="/contests/create.html" />'>Create Contest</a>
-	
-	
-	<table>
+	<div id="main-body">
+	<h1>Welcome!</h1>
 		<c:forEach items="${userQuestionList}" var="uq">
-			<tr>
-				<td><a href="<c:url value='/questions/${uq.contestant.username}/${uq.contest.contestId}/answer.html' />">${uq.contest.question}</a></td>
-			</tr>
+			<div class="well">
+				<c:out value='${uq.contest.question}' />
+				<a href="<c:url value='/questions/${uq.contestant.username}/${uq.contest.contestId}/answer.html' />">Answer</a>
+			</div>
 		</c:forEach>
-	</table>
+	</div>
+	<%@ include file="includes/footer.jsp" %>
 </body>
 </html>

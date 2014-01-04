@@ -6,7 +6,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.support.URIBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,10 +76,11 @@ public class ContestController {
 		Contest contest = contestRepo.getContest(userName, contestId);
 		logger.info("Starting contest");
 		contest.start();
+		contestRepo.save(contest);
 		return redirectToView(contest).toString();
 	}
 	
-	@RequestMapping(value="{userName}/{contestId}/end.html")
+	@RequestMapping(value="{userName}/{contestId}/stop.html")
 	public String endContest(
 		@PathVariable("userName") String userName,
 		@PathVariable("contestId") String contestId,
@@ -88,6 +88,7 @@ public class ContestController {
 		Contest contest = contestRepo.getContest(userName, contestId);
 		logger.info("Ending contest");
 		contest.end();
+		contestRepo.save(contest);
 		return redirectToView(contest).toString();
 	}
 }

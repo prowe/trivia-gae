@@ -5,4 +5,9 @@
 		<property name="providerId" direction="asc" />
 		<property name="rank" direction="desc" />
 	</datastore-index>
+	<datastore-index kind="UserQuestion" ancestor="true"
+		source="manual">
+		<property name="contest" direction="asc" />
+		<property name="correctAnswerTicket" direction="asc" />
+	</datastore-index>
 </datastore-indexes>

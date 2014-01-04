@@ -29,8 +29,7 @@ public class WelcomeController {
     public String root(Map<String, Object> modelMap) {
 		if(User.currentUser() != null){
 			logger.info("User logged in");
-			modelMap.put("contestList", contestRepo.listAll().iterator());
-			modelMap.put("userQuestionList", userQuestionRepo.findByUser(User.currentUser()).iterator());
+			modelMap.put("userQuestionList", userQuestionRepo.findByUser(User.currentUser()));
 			return "home";
 		}else{
 			modelMap.put("userList", userRepo.listAll().iterator());

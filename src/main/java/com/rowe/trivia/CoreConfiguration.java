@@ -10,7 +10,6 @@ import org.springframework.core.env.Environment;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.rowe.trivia.domain.Contest;
 import com.rowe.trivia.domain.User;
@@ -22,6 +21,8 @@ import com.rowe.trivia.repo.objectify.JodaTimeTranslatorFactory;
 import com.rowe.trivia.repo.objectify.ObjectifyContestRepository;
 import com.rowe.trivia.repo.objectify.ObjectifyUserQuestionRepository;
 import com.rowe.trivia.repo.objectify.ObjectifyUserRepository;
+import com.rowe.trivia.service.EmailService;
+import com.rowe.trivia.service.impl.EmailServiceImpl;
 
 @Import({
 	DevelopmentConfiguration.class, 
@@ -34,7 +35,7 @@ import com.rowe.trivia.repo.objectify.ObjectifyUserRepository;
 @EnableSpringConfigured
 public class CoreConfiguration implements InitializingBean{
 	@Autowired
-	private Environment environment;
+	private Environment env;
 	
 	@Bean
 	public DatastoreService datastoreService() {
@@ -54,8 +55,20 @@ public class CoreConfiguration implements InitializingBean{
 		return new ObjectifyUserQuestionRepository();
 	}
 	
+	@Bean
+	public EmailService emailService(){
+		EmailServiceImpl service = new EmailServiceImpl(env.getProperty("applicationURL"));
+		service.setFromAddress(env.getProperty("email.fromAddress"));
+		return service;
+	}
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		registerObjectify();
+	}
+	
+	//TODO: should be a better way of doing this
+	public static void registerObjectify(){
 		ObjectifyService.factory().getTranslators().add(new JodaTimeTranslatorFactory());
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(Contest.class);

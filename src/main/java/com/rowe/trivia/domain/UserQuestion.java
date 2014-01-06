@@ -1,8 +1,10 @@
 package com.rowe.trivia.domain;
 
+import java.util.List;
 import java.util.Random;
 
-
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -45,24 +47,24 @@ public class UserQuestion {
 		this.contestId = contest.getContestId();
 	}
 	
+	//added for Objectify
 	@SuppressWarnings("unused")
 	private UserQuestion(){}
 	
 	@Override
 	public String toString() {
-		return "UserQuestion [contestant=" + contestant + ", contest="
-				+ contest + "]";
+		return "UserQuestion [contestant=" + getContestant() + ", contest="
+				+ getContest() + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((contest == null) ? 0 : contest.hashCode());
-		result = prime * result
-				+ ((contestant == null) ? 0 : contestant.hashCode());
-		return result;
+		return new HashCodeBuilder()
+			.append(getContest())
+			.append(getContestant())
+			.toHashCode();
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -71,25 +73,14 @@ public class UserQuestion {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof UserQuestion)) {
-			return false;
+		if (obj instanceof UserQuestion) {
+			UserQuestion right = (UserQuestion) obj;
+			return new EqualsBuilder()
+				.append(getContest(), right.getContest())
+				.append(getContestant(), right.getContestant())
+				.isEquals();
 		}
-		UserQuestion other = (UserQuestion) obj;
-		if (contest == null) {
-			if (other.contest != null) {
-				return false;
-			}
-		} else if (!contest.equals(other.contest)) {
-			return false;
-		}
-		if (contestant == null) {
-			if (other.contestant != null) {
-				return false;
-			}
-		} else if (!contestant.equals(other.contestant)) {
-			return false;
-		}
-		return true;
+		return false;
 	}
 
 	public Contest getContest() {
@@ -114,9 +105,26 @@ public class UserQuestion {
 	public boolean isCorrect(){
 		return getContest().isCorrect(choosenAnswer);
 	}
+	/**
+	 * Has the contestant answered this question?
+	 * @return
+	 */
+	public boolean isAnswered(){
+		return answerDate != null;
+	}
+	public boolean isWinner(){
+		List<UserQuestion> winningAnswers = getContest().getWinningAnswers();
+		if(winningAnswers != null && winningAnswers.contains(this)){
+			return true;
+		}
+		return false;
+	}
 	
 	public DateTime getAnswerDate() {
 		return answerDate;
+	}
+	public Integer getCorrectAnswerTicket() {
+		return correctAnswerTicket;
 	}
 	
 	private void issueCorrectAnswerTicket() {
@@ -129,4 +137,5 @@ public class UserQuestion {
 	public String getChoosenAnswer() {
 		return choosenAnswer;
 	}
+	
 }

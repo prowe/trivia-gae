@@ -12,7 +12,7 @@
 		</#list> 
 	</ol>
 	<div>
-		<a href="${applicationURL}/questions/${userQuestion.contestant.username}/${userQuestion.contest.contestId}/answer.html">Answer this question</a>
+		<a href="${applicationURL}/questions/${userQuestion.contest.contestId}/answer.html">Answer this question</a>
 	</div>
 </body>
 </html>

@@ -8,7 +8,9 @@ import com.rowe.trivia.domain.UserQuestion;
 
 public interface UserQuestionRepository extends BaseRepository<UserQuestion>{
 
-	public UserQuestion findByUsernameContest(String username, String contestId);
+	public UserQuestion findByUsernameContest(String user, String contestId);
+	
+	public UserQuestion findByUserContest(User currentUser, String contestId);
 
 	public List<UserQuestion> findByUser(User user);
 	
@@ -19,4 +21,7 @@ public interface UserQuestionRepository extends BaseRepository<UserQuestion>{
 	 * @return
 	 */
 	public List<UserQuestion> findWinners(Contest contest, int maxCount);
+	
+
+	
 }

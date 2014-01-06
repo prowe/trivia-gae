@@ -21,45 +21,46 @@
 		<!-- Add CSRF token -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						
-		<div class="form-group">
+		<div class="form-group <form:errors path='username'>has-error</form:errors>">
 			<form:label cssClass="control-label" path="username">Username:</form:label>
 			<div class="form-input">
 				<form:input cssClass="form-control" path="username" />
-				<form:errors cssClass="form-error" path="username" />
+				<form:errors cssClass="help-block" path="username" />
 				<span class="help-block">Your unique username within the system. You may use this to sign in.</span>
 			</div>
    		</div>
    		
-   		<div class="form-group ">
+   		<div class="form-group <form:errors path='displayName'>has-error</form:errors>">
 			<form:label cssClass="control-label" path="displayName">Display Name:</form:label>
 			<div class="form-input">
 				<form:input cssClass="form-control" path="displayName" />
-				<form:errors cssClass="form-error" path="displayName" />
+				<form:errors cssClass="help-block"  path="displayName" />
 				<span class="help-block">What you'd like to be called</span>
 			</div>
    		</div>
    		
-   		<div class="form-group ">
+   		<div class="form-group <form:errors path='email'>has-error</form:errors>">
 			<form:label cssClass="control-label" path="email">Email:</form:label>
 			<div class="form-input">
 				<form:input cssClass="form-control" path="email" />
-				<form:errors cssClass="form-error" path="email" />
-				<span class="help-block">Your email address</span>
+				<form:errors cssClass="help-block" path="email" />
+				<span class="help-block">Your email address.</span>
 			</div>
    		</div>
    		
+   		<!-- 
    		<div class="form-group ">
 			<form:label cssClass="control-label" path="phoneNumber">Phone Number:</form:label>
 			<div class="form-input">
 				<form:input cssClass="form-control" path="phoneNumber" />
 				<form:errors cssClass="form-error" path="phoneNumber" />
-				<span class="help-block">A phone number we can use to reach you if we need to.</span>
+				<span class="help-block">Optional, unless you want us to alert you of new questions and prizes via text message.</span>
 			</div>
    		</div>
    		
    		<fieldset>
    			<legend>Address</legend>
-   			<span class="help-block">We'll use this to mail you your prize</span>
+   			<span class="help-block">You can skip this for now, but many prizes are physical and we'll need to know where to mail them to</span>
    			
 	   		<div class="form-group ">
 				<form:label cssClass="control-label sr-only" path="addressLine1">Line 1:</form:label>
@@ -101,9 +102,10 @@
 				</div>
 	   		</div>
 		</fieldset>
+		-->
 		
 		<div class="form-group ">
-			<button type="submit" class="btn btn-primary">Sign Up</button>
+			<button type="submit" class="btn btn-primary">Complete Sign Up</button>
 		</div>
 	</form:form>
 	</div>

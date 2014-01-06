@@ -6083,46 +6083,46 @@ fieldset[disabled] .primary-button.active {
   }
 }
 #footer {
-  border-top: solid thin #ffa100;
-}
-#footer UL {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
-  padding-left: 0;
-  list-style: none;
+  border-top: solid thin #ffa100;
 }
-#footer UL:before,
-#footer UL:after {
+#footer:before,
+#footer:after {
   content: " ";
   display: table;
 }
-#footer UL:after {
+#footer:after {
   clear: both;
 }
-#footer UL:before,
-#footer UL:after {
+#footer:before,
+#footer:after {
   content: " ";
   display: table;
 }
-#footer UL:after {
+#footer:after {
   clear: both;
 }
 @media (min-width: 768px) {
-  #footer UL {
+  #footer {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  #footer UL {
+  #footer {
     width: 970px;
   }
 }
 @media (min-width: 1200px) {
-  #footer UL {
+  #footer {
     width: 1170px;
   }
+}
+#footer UL {
+  padding-left: 0;
+  list-style: none;
 }
 #footer UL > li {
   display: inline-block;

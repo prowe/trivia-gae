@@ -11,6 +11,7 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.connect.web.SignInAdapter;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -33,6 +34,10 @@ public class SocialConfiguration {
 			environment.getProperty("twitter.consumerKey"), 
 			environment.getProperty("twitter.consumerSecret"))
 		);
+		registry.addConnectionFactory(new FacebookConnectionFactory(
+				environment.getProperty("facebook.appId"), 
+				environment.getProperty("facebook.appSecret"))
+			);
 		return registry;
 	}
 

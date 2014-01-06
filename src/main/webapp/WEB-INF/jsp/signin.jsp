@@ -36,7 +36,7 @@
 	                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div id="form-group-email" class="form-group ">
 					    <label class="control-label" for="user-email">Username:</label>
-					    <input id="user-email" name="username" type="text" class="form-control"/>
+					    <input id="user-email" name="username" type="text" class="form-control" />
 					</div>
 					<div id="form-group-password" class="form-group ">
 					    <label class="control-label" for="user-password">Password:</label>

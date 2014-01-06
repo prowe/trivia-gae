@@ -1,5 +1,7 @@
 package com.rowe.trivia.web;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.Connection;
@@ -37,7 +39,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/signup.html", method=RequestMethod.POST)
-	public String signup(User user, BindingResult formBinding, WebRequest request) {
+	public String signup(@Valid User user, BindingResult formBinding, WebRequest request) {
 	    if (formBinding.hasErrors()) {
 	        return null;
 	    }
@@ -46,9 +48,23 @@ public class UserController {
 	        
 	        user.save();
 	        user.signInAsCurrentUser();
-	        //TODO: sign in the user here
 	        return "redirect:/";
 	    }
 	    return null;
+	}
+	
+	@RequestMapping(value="/myAccount.html", method=RequestMethod.GET)
+	public User myAccount(WebRequest request){
+		User user = User.currentUser();
+		return user;
+	}
+	
+	@RequestMapping(value="/myAccount.html", method=RequestMethod.POST)
+	public String myAccount(User user, BindingResult formBinding, WebRequest request) {
+	    if (formBinding.hasErrors()) {
+	        return null;
+	    }
+	    user.save();
+	    return "redirect:/myAccount.html";
 	}
 }

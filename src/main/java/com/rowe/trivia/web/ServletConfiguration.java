@@ -9,6 +9,8 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.connect.web.SignInAdapter;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -33,6 +35,12 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 		viewResolver.setPrefix("/WEB-INF/jsp/");
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
+	}
+	
+	@Override
+	protected Validator getValidator() {
+		LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
+		return factoryBean;
 	}
 	
 	@Override

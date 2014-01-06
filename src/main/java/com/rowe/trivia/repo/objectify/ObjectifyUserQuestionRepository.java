@@ -20,6 +20,11 @@ public class ObjectifyUserQuestionRepository extends ObjectifyRepositorySupport<
 			.id(contestId)
 			.now();
 	}
+	
+	@Override
+	public UserQuestion findByUserContest(User user, String contestId) {
+		return findByUsernameContest(user.getUsername(), contestId);
+	}
 
 	@Override
 	public List<UserQuestion> findByUser(User user) {

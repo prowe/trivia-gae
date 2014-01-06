@@ -50,8 +50,8 @@
 			<table class="form-control-static">
 				<c:forEach items="${contest.winningAnswers}" var="uq">
 					<tr>
-						<td><c:out value="${uq.contestent.username}" /></td>
-						
+						<td><c:out value="${uq.contestant.username}" /></td>
+						<td><c:out value="${answerDate}" /></td>
 						<td><c:out value="${uq.correctAnswerTicket}" /></td>
 					</tr>
 				</c:forEach>

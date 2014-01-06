@@ -115,7 +115,7 @@ public class EmailServiceImpl implements EmailService{
 	
 	public void setFromAddress(String address) {
 		try {
-			this.fromAddress = new InternetAddress(address, "Quel Marth");
+			this.fromAddress = new InternetAddress(address, "RT");
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalArgumentException(e);
 		} 

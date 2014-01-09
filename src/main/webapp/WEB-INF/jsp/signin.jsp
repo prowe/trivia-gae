@@ -86,7 +86,7 @@
 	
 	<form action="debug/createUser.html" >
 		<label>User Name</label>
-		<input type="text" name="username" />
+		<input type="text" name="email" />
 		
 		<button type="submit">Create User</button>
 	</form>

@@ -26,7 +26,7 @@
 				<sec:authorize access="isAuthenticated()">
 					<sec:authentication property="principal" var="currentUser" />
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${currentUser.username}" /> <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${currentUser.displayName}" /> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li ><a href="<c:url value='/myAccount.html'/>">My Account</a></li>
 							<li>

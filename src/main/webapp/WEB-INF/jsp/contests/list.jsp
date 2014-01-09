@@ -18,7 +18,7 @@
 			<c:forEach items="${contestList}" var="contest">
 				<tr>
 					<td>${contest.sponsor.username}</td>
-					<td><a href="<c:url value='/contests/${contest.sponsor.username}/${contest.contestId}/view.html' />">${contest.contestId}</a></td>
+					<td><a href="<c:url value='/contests/${contest.contestId}/view.html' />">${contest.contestId}</a></td>
 					<td>${contest.question}</td>
 					<td>${contest.correctAnswer}</td>
 					<td>

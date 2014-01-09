@@ -32,7 +32,8 @@ public class UserController {
 		Connection<?> connection = ProviderSignInUtils.getConnection(request);
 	    if (connection != null) {
 	    	UserProfile userProfile = connection.fetchUserProfile();
-	        user.setUsername(userProfile.getUsername());
+	        user.setEmail(userProfile.getEmail());
+	        user.setDisplayName(userProfile.getName());
 	    }
 		logger.info("Built user {}", user);
 		return user;
@@ -46,6 +47,7 @@ public class UserController {
 	    if (user != null) {
 	        ProviderSignInUtils.handlePostSignUp(user.getUsername(), request);
 	        
+	        user.signUpForInProgressContests();
 	        user.save();
 	        user.signInAsCurrentUser();
 	        return "redirect:/";

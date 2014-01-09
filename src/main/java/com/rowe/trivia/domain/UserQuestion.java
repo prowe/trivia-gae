@@ -18,6 +18,7 @@ import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.condition.IfNotNull;
 import com.rowe.trivia.repo.BetterRef;
 import com.rowe.trivia.repo.UserQuestionRepository;
+import com.rowe.trivia.strategy.UserNotificationStrategy;
 
 @Configurable
 @Entity
@@ -136,6 +137,23 @@ public class UserQuestion {
 	
 	public String getChoosenAnswer() {
 		return choosenAnswer;
+	}
+
+	/**
+	 * Notify the Contestant that this question is pending
+	 */
+	public void notifyUserQuestionAsked() {
+		List<UserNotificationStrategy> strategies = getContestant().getUserNotificationStrategies();
+		for(UserNotificationStrategy strategy:strategies){
+			strategy.questionAsked(this);
+		}
+	}
+
+	public void notifyUserIsWinner() {
+		List<UserNotificationStrategy> strategies = getContestant().getUserNotificationStrategies();
+		for(UserNotificationStrategy strategy:strategies){
+			strategy.choosenAsWinner(this);
+		}
 	}
 	
 }

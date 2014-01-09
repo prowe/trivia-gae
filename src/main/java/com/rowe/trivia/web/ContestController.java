@@ -3,10 +3,13 @@ package com.rowe.trivia.web;
 import java.net.URI;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +45,10 @@ public class ContestController {
 	}
 	
 	@RequestMapping(value="create.html", method=RequestMethod.POST)
-	public String submitNewContest(@ModelAttribute("contest") Contest contest){
+	public String submitNewContest(@Valid @ModelAttribute("contest") Contest contest, BindingResult bindingResult){
+		if(bindingResult.hasErrors()){
+			return null;
+		}
 		contest.completeCreation();
 		contest.save();
 		logger.info("Submitted Contest: {}", contest);
@@ -52,40 +58,36 @@ public class ContestController {
 	}
 
 	private URI redirectToView(Contest contest) {
-		URI expanded = new UriTemplate("redirect:/contests/{userName}/{contestId}/view.html")
-			.expand(contest.getSponsor().getUsername(), contest.getContestId());
+		URI expanded = new UriTemplate("redirect:/contests/{contestId}/view.html").expand(contest.getContestId());
 		return expanded;
 	}
 	
-	@RequestMapping(value="{userName}/{contestId}/view.html")
+	@RequestMapping(value="{contestId}/view.html")
 	public String viewContest(
-		@PathVariable("userName") String userName,
 		@PathVariable("contestId") String contestId,
 		Map<String, Object> modelMap){
-		Contest contest = contestRepo.getContest(userName, contestId);
+		Contest contest = contestRepo.getContest(contestId);
 		modelMap.put("contest", contest);
 		
 		return "contests/view";
 	}
 	
-	@RequestMapping(value="{userName}/{contestId}/start.html")
+	@RequestMapping(value="{contestId}/start.html")
 	public String startContest(
-		@PathVariable("userName") String userName,
 		@PathVariable("contestId") String contestId,
 		Map<String, Object> modelMap) {
-		Contest contest = contestRepo.getContest(userName, contestId);
+		Contest contest = contestRepo.getContest(contestId);
 		logger.info("Starting contest");
 		contest.start();
 		contestRepo.save(contest);
 		return redirectToView(contest).toString();
 	}
 	
-	@RequestMapping(value="{userName}/{contestId}/stop.html")
+	@RequestMapping(value="{contestId}/stop.html")
 	public String endContest(
-		@PathVariable("userName") String userName,
 		@PathVariable("contestId") String contestId,
 		Map<String, Object> modelMap) {
-		Contest contest = contestRepo.getContest(userName, contestId);
+		Contest contest = contestRepo.getContest(contestId);
 		logger.info("Ending contest");
 		contest.end();
 		contestRepo.save(contest);

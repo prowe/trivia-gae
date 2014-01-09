@@ -40,7 +40,7 @@ public class EmailServiceImplTest {
 	public void buildQuestionAskedBody() throws IOException{
 		User contestant = new User();
 		contestant.setDisplayName("Display Name");
-		contestant.setUsername("username");
+		contestant.setEmail("username");
 		Contest contest = new Contest();
 		contest.setContestId("1234");
 		contest.setQuestion("Question goes here");

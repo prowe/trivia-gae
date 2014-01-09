@@ -21,16 +21,16 @@
 		<!-- Add CSRF token -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						
-		<div class="form-group <form:errors path='username'>has-error</form:errors>">
-			<form:label cssClass="control-label" path="username">Username:</form:label>
+		<div class="form-group email <form:errors path='email'>has-error</form:errors>">
+			<form:label cssClass="control-label" path="email">Email:</form:label>
 			<div class="form-input">
-				<form:input cssClass="form-control" path="username" />
-				<form:errors cssClass="help-block" path="username" />
-				<span class="help-block">Your unique username within the system. You may use this to sign in.</span>
+				<form:input cssClass="form-control" path="email" />
+				<form:errors cssClass="help-block" path="email" />
+				<span class="help-block">Your email address. You may use this to sign in.</span>
 			</div>
    		</div>
    		
-   		<div class="form-group <form:errors path='displayName'>has-error</form:errors>">
+   		<div class="form-group displayName <form:errors path='displayName'>has-error</form:errors>">
 			<form:label cssClass="control-label" path="displayName">Display Name:</form:label>
 			<div class="form-input">
 				<form:input cssClass="form-control" path="displayName" />
@@ -39,12 +39,21 @@
 			</div>
    		</div>
    		
-   		<div class="form-group <form:errors path='email'>has-error</form:errors>">
-			<form:label cssClass="control-label" path="email">Email:</form:label>
+   		<div class="form-group password <form:errors path='password'>has-error</form:errors>">
+			<form:label cssClass="control-label" path="password">Password:</form:label>
 			<div class="form-input">
-				<form:input cssClass="form-control" path="email" />
-				<form:errors cssClass="help-block" path="email" />
-				<span class="help-block">Your email address.</span>
+				<form:password cssClass="form-control" path="password" />
+				<form:errors cssClass="help-block"  path="password" />
+				<span class="help-block"></span>
+			</div>
+   		</div>
+   		
+   		<div class="form-group passwordConfirmation <form:errors path='passwordConfirmation'>has-error</form:errors>">
+			<form:label cssClass="control-label" path="passwordConfirmation">Confirm Password:</form:label>
+			<div class="form-input">
+				<form:password cssClass="form-control" path="passwordConfirmation" />
+				<form:errors cssClass="help-block" path="passwordConfirmation" />
+				<span class="help-block"></span>
 			</div>
    		</div>
    		

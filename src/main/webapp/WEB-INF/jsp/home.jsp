@@ -14,34 +14,31 @@
 	<div id="main-body">
 	<h1>Welcome!</h1>
 		<c:forEach items="${userQuestionList}" var="uq">
-			<div class="row well" id="${uq.contest.contestId}">
-				<div class="col-lg-6">
-					<c:out value="${uq.contest.question}" />
-				</div>
-				<div class="col-lg-6">
-					<c:choose>
-						<c:when test="${not uq.answered}">
-							<form class="row" method="post" action="<c:url value='/questions/${uq.contest.contestId}/answer.html' />">
-								<!-- Add CSRF token -->
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-								<c:forEach items="${uq.contest.possibleAnswers}" var="ans">
-									<div class="col-lg-3">
-										<button class="btn btn-default btn-block" name="answer" type="submit" value="<c:out value='${ans}' />"><c:out value='${ans}' /></button>
-									</div>
-								</c:forEach>
-							</form>
-						</c:when>
-						<c:when test="${uq.correct}">
-							<div>You correctly answered <c:out value="${uq.contest.correctAnswer}" /></div>
-						</c:when>
-						<c:otherwise>
-							<div>Sorry, you answered, "<c:out value="${uq.choosenAnswer}" />", but the correct answer was "<c:out value="${uq.contest.correctAnswer}" />."</div>
-						</c:otherwise>
-					</c:choose>
-					<c:if test="${uq.winner}">
-						<div>Congratulations! You have won <c:out value="${uq.contest.prizeDescription}" /></div>
-					</c:if>
-				</div>
+			<div class="question-row" id="${uq.contest.contestId}">
+				<div class="question"><c:out value="${uq.contest.question}" /></div>
+				<c:choose>
+					<c:when test="${not uq.answered}">
+						<div class="prize-description">
+							If you answer this question correctly before <c:out value="${uq.contest.endTime}" />, you will be entered to win a <c:out value="${uq.contest.prizeDescription}" />.
+						</div>
+						<form class="answer-form" method="post" action="<c:url value='/questions/${uq.contest.contestId}/answer.html' />">
+							<!-- Add CSRF token -->
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+							<c:forEach items="${uq.contest.possibleAnswers}" var="ans">
+								<button class="btn btn-answer" name="answer" type="submit" value="<c:out value='${ans}' />"><c:out value='${ans}' /></button>
+							</c:forEach>
+						</form>
+					</c:when>
+					<c:when test="${uq.correct}">
+						<div class="answer-correctness">You correctly answered <c:out value="${uq.contest.correctAnswer}" /> and have been entered to win a <c:out value="${uq.contest.prizeDescription}" /></div>
+					</c:when>
+					<c:otherwise>
+						<div class="answer-correctness">Sorry, you answered, "<c:out value="${uq.choosenAnswer}" />", but the correct answer was "<c:out value="${uq.contest.correctAnswer}" />."</div>
+					</c:otherwise>
+				</c:choose>
+				<c:if test="${uq.winner}">
+					<div>Congratulations! You have won <c:out value="${uq.contest.prizeDescription}" /></div>
+				</c:if>
 			</div>
 		</c:forEach>
 	</div>

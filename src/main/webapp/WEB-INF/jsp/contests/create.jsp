@@ -59,10 +59,11 @@
 				<form:errors path="prizeQuantity" />
 			</div>
 			
-			<div class="form-group">
-				<button class="btn btn-primary" type="submit">Submit</button>
-			</div>
 		</fieldset>
+		
+		<div class="form-group">
+			<button class="btn btn-primary" type="submit">Submit</button>
+		</div>
 	</form:form>
 	
 	</div>

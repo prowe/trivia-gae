@@ -20,6 +20,7 @@ public class DebugController {
 	
 	@RequestMapping(value="/createUser.html")
 	public String createUser(@ModelAttribute User user){
+		user.setPassword("password");
 		userRepo.save(user);
 		logger.info("Created user {}", user);
 		return "redirect:/";

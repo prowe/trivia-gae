@@ -6,14 +6,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import javax.validation.constraints.Size;
+
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -22,6 +29,7 @@ import com.rowe.trivia.repo.ContestRepository;
 import com.rowe.trivia.repo.UserQuestionRepository;
 import com.rowe.trivia.repo.UserRepository;
 import com.rowe.trivia.strategy.UserNotificationStrategy;
+import com.google.appengine.api.taskqueue.TaskOptions.Builder;
 
 @Configurable
 @Entity
@@ -34,22 +42,25 @@ public class Contest {
 	private transient UserRepository userRepo;
 	@Autowired @Ignore
 	private transient UserQuestionRepository userQuestionRepo;
-	@Autowired @Ignore
-	private transient UserNotificationStrategy notificationStrategy;
 	
 	@Id
 	private String contestId;
 	
 	private Ref<User> sponsor;
+	@NotBlank
 	private String question;
+	@NotBlank
 	private String correctAnswer;
+	@Size(min=1, max=3)
 	private List<String> possibleAnswers;
 	
 	private DateTime startTime;
 	private DateTime endTime;
 	
+	//TODO: wrap in Prize class
 	//prize info
 	private String prizeDescription;
+	//TODO: make form editable
 	private BigDecimal prizeValue;
 	private Integer prizeQuantity;
 	
@@ -100,20 +111,30 @@ public class Contest {
 		logger.info("Starting contest {}", this);
 		startTime = new DateTime();
 		if(endTime == null){
-			endTime = startTime.plusMinutes(10);
+			endTime = startTime.plusMinutes(30);
 		}
 		selectContestants();
+		scheduleEndContest();
 		logger.info("Contest started: {}", this);
 	}
 	
+	private void scheduleEndContest() {
+		Queue queue = QueueFactory.getDefaultQueue();
+		queue.add(Builder.withUrl("/contests/" + contestId + "/stop.html")
+			//.param("contestId", contestId)
+			.method(Method.POST)
+			.etaMillis(endTime.getMillis()));
+		
+	}
+
 	private void selectContestants() {
 		logger.info("Starting contestant selection for {}", this);
 		int usersEntered = 0;
 		for(User user:userRepo.listAll()){
 			if(isElgible(user)){
 				UserQuestion uq = new UserQuestion(user, this);
+				uq.notifyUserQuestionAsked();
 				userQuestionRepo.save(uq);
-				notificationStrategy.questionAsked(uq);
 				usersEntered++;
 			}
 		}
@@ -129,7 +150,7 @@ public class Contest {
 		winningAnswers = new ArrayList<Ref<UserQuestion>>();
 		for(UserQuestion winner:winners){
 			winningAnswers.add(Ref.create(winner));
-			notificationStrategy.choosenAsWinner(winner);
+			winner.notifyUserIsWinner();
 		}
 		logger.info("Contest Ended. {} winners selected", winners.size());
 	}
@@ -188,6 +209,9 @@ public class Contest {
 	public DateTime getStartTime() {
 		return startTime;
 	}
+	public DateTime getEndTime() {
+		return endTime;
+	}
 	
 	public List<UserQuestion> getWinningAnswers() {
 		if(winningAnswers == null){
@@ -198,5 +222,16 @@ public class Contest {
 			list.add(win.get());
 		}
 		return Collections.unmodifiableList(list);
+	}
+
+	/**
+	 * Has this contest been started and not ended
+	 * @return
+	 */
+	public boolean isInProgress() {
+		DateTime now = new DateTime();
+		return startTime != null
+			&& now.isAfter(startTime)
+			&& (endTime == null || now.isBefore(endTime));
 	}
 }

@@ -60,13 +60,13 @@
 		</div>
 		
 		<div class="form-group row">
-			<form class="col-md-6" action="<c:url value='/contests/${contest.sponsor.username}/${contest.contestId}/start.html' />" method="post">
+			<form class="col-md-6" action="<c:url value='/contests/${contest.contestId}/start.html' />" method="post">
 				<!-- Add CSRF token -->
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<button type="submit" class="btn btn-default">Start Contest</button>
 			</form>
 			
-			<form class="col-md-6" action="<c:url value='/contests/${contest.sponsor.username}/${contest.contestId}/stop.html' />" method="post">
+			<form class="col-md-6" action="<c:url value='/contests/${contest.contestId}/stop.html' />" method="post">
 				<!-- Add CSRF token -->
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<button type="submit" class="btn btn-default">Stop Contest</button>

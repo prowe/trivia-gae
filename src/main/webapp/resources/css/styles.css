@@ -6088,6 +6088,7 @@ fieldset[disabled] .primary-button.active {
   padding-left: 15px;
   padding-right: 15px;
   border-top: solid thin #ffa100;
+  padding-top: 15px;
 }
 #footer:before,
 #footer:after {
@@ -6121,6 +6122,10 @@ fieldset[disabled] .primary-button.active {
   }
 }
 #footer UL {
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: 0;
   list-style: none;
 }
@@ -6132,7 +6137,100 @@ fieldset[disabled] .primary-button.active {
 #footer UL > li:first-child {
   padding-left: 0;
 }
-.signup-form {
-  /* TODO: styling */
-
+.question-row {
+  margin-bottom: 15px;
+}
+.question-row .question {
+  font-weight: bolder;
+  font-size: larger;
+}
+.question-row .btn-answer {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.question-row .btn-answer:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.question-row .btn-answer:hover,
+.question-row .btn-answer:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.question-row .btn-answer:active,
+.question-row .btn-answer.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.question-row .btn-answer.disabled,
+.question-row .btn-answer[disabled],
+fieldset[disabled] .question-row .btn-answer {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.question-row .btn-answer:hover,
+.question-row .btn-answer:focus,
+.question-row .btn-answer:active,
+.question-row .btn-answer.active,
+.open .dropdown-toggle.question-row .btn-answer {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.question-row .btn-answer:active,
+.question-row .btn-answer.active,
+.open .dropdown-toggle.question-row .btn-answer {
+  background-image: none;
+}
+.question-row .btn-answer.disabled,
+.question-row .btn-answer[disabled],
+fieldset[disabled] .question-row .btn-answer,
+.question-row .btn-answer.disabled:hover,
+.question-row .btn-answer[disabled]:hover,
+fieldset[disabled] .question-row .btn-answer:hover,
+.question-row .btn-answer.disabled:focus,
+.question-row .btn-answer[disabled]:focus,
+fieldset[disabled] .question-row .btn-answer:focus,
+.question-row .btn-answer.disabled:active,
+.question-row .btn-answer[disabled]:active,
+fieldset[disabled] .question-row .btn-answer:active,
+.question-row .btn-answer.disabled.active,
+.question-row .btn-answer[disabled].active,
+fieldset[disabled] .question-row .btn-answer.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.question-row .btn-answer .badge {
+  color: #ffffff;
+  background-color: #fff;
 }

@@ -43,7 +43,6 @@ public class JodaTimeTranslatorFactory extends
 				if (AbstractInstant.class.isAssignableFrom(clazz)) {
 					instance = ((AbstractInstant) instance); //.toDateTime(DateTimeZone.UTC);
 				}
-
 				return instance;
 			}
 

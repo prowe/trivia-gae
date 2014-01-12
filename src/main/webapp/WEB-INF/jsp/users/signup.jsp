@@ -31,7 +31,7 @@
    		</div>
    		
    		<div class="form-group displayName <form:errors path='displayName'>has-error</form:errors>">
-			<form:label cssClass="control-label" path="displayName">Display Name:</form:label>
+			<form:label cssClass="control-label" path="displayName">Your Name:</form:label>
 			<div class="form-input">
 				<form:input cssClass="form-control" path="displayName" />
 				<form:errors cssClass="help-block"  path="displayName" />
@@ -113,7 +113,7 @@
 		</fieldset>
 		-->
 		
-		<div class="form-group ">
+		<div class="form-group submit">
 			<button type="submit" class="btn btn-primary">Complete Sign Up</button>
 		</div>
 	</form:form>

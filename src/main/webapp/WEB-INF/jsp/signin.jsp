@@ -35,7 +35,7 @@
 	                <!-- Add CSRF token -->
 	                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div id="form-group-email" class="form-group ">
-					    <label class="control-label" for="user-email">Username:</label>
+					    <label class="control-label" for="user-email">Email:</label>
 					    <input id="user-email" name="username" type="text" class="form-control" />
 					</div>
 					<div id="form-group-password" class="form-group ">
@@ -74,21 +74,5 @@
     </div>
     
     <%@ include file="includes/footer.jsp" %>
-	
-	Trash below
-	<table>
-		<c:forEach items="${userList}" var="user">
-			<tr>
-				<td>${user.username}</td>
-			</tr>
-		</c:forEach>
-	</table>
-	
-	<form action="debug/createUser.html" >
-		<label>User Name</label>
-		<input type="text" name="email" />
-		
-		<button type="submit">Create User</button>
-	</form>
 </body>
 </html>

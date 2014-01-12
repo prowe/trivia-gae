@@ -6,12 +6,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Period;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,7 @@ import com.google.appengine.api.taskqueue.TaskOptions.Builder;
 @Entity
 public class Contest {
 	private static Logger logger = LoggerFactory.getLogger(Contest.class);
+	
 			
 	@Autowired @Ignore
 	private transient ContestRepository repo;
@@ -53,6 +57,8 @@ public class Contest {
 	private String correctAnswer;
 	@Size(min=1, max=3)
 	private List<String> possibleAnswers;
+	@NotNull
+	private Period duration;
 	
 	private DateTime startTime;
 	private DateTime endTime;
@@ -111,7 +117,7 @@ public class Contest {
 		logger.info("Starting contest {}", this);
 		startTime = new DateTime();
 		if(endTime == null){
-			endTime = startTime.plusMinutes(30);
+			endTime = startTime.plus(duration);
 		}
 		selectContestants();
 		scheduleEndContest();
@@ -184,6 +190,12 @@ public class Contest {
 	}
 	public void setPossibleAnswers(List<String> possibleAnswers) {
 		this.possibleAnswers = possibleAnswers;
+	}
+	public void setDuration(Period duration) {
+		this.duration = duration;
+	}
+	public Period getDuration() {
+		return duration;
 	}
 
 	public boolean isCorrect(String choosenAnswer) {

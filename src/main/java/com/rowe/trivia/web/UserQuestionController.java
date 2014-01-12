@@ -46,7 +46,8 @@ public class UserQuestionController {
 		uq.answerQuestion(answer);
 		questionRepo.save(uq);
 		
-		modelMap.put("userQuestion", uq);
-		return "questions/answerSubmitted";
+		//modelMap.put("userQuestion", uq);
+		//return "questions/answerSubmitted";
+		return "redirect:/#" + uq.getContest().getContestId();
 	}
 }

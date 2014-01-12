@@ -44,6 +44,12 @@
 			</div>
 		</fieldset>
 		
+		<div class="form-group  <form:errors path='duration'>has-error</form:errors>">
+			<form:label path="duration">Contest Duration</form:label>
+			<form:input cssClass="form-control" path="duration" />
+			<form:errors path="duration" />
+		</div>
+		
 		<fieldset>
 			<legend>Prize information</legend>
 		

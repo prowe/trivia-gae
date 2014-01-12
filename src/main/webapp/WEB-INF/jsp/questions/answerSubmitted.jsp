@@ -11,17 +11,24 @@
 <body>
 	<%@ include file="../includes/navbar.jsp" %>
 	<div id="main-body">
-		<h1>Answer question</h1>
-		
-		<p>
-			<c:out value="${userQuestion.contest.question}" />
-		</p>
+		<h1><c:out value="${userQuestion.contest.question}" /></h1>
 		
 		<c:choose>
-			<c:when test="${userQuestion.correct}">Correct, <c:out value="${userQuestion.choosenAnswer}" /></c:when>
-			<c:otherwise>Incorrect! The correct answer was <c:out value="${userQuestion.contest.correctAnswer}" />, but you choose <c:out value="${userQuestion.choosenAnswer}" /></c:otherwise>
+			<c:when test="${userQuestion.correct}">
+				You correctly answered "<c:out value="${userQuestion.choosenAnswer}" />", and have been entered for a chance to win a <c:out value="${userQuestion.contest.prizeDescription}" />!
+			</c:when>
+			<c:otherwise>
+				Sorry, You the correct answer was <c:out value="${userQuestion.contest.correctAnswer}" />, but you choose <c:out value="${userQuestion.choosenAnswer}" />
+			</c:otherwise>
 		</c:choose>
 		
+		<c:if test="${userQuestion.correct}">
+			<div></div>
+		</c:if>
+		
+		<div class="form-group">
+			<a class="btn btn-primary" href="<c:url value='/' />">Continue</a>
+		</div>
 	</div>
 	<%@ include file="../includes/footer.jsp" %>
 </body>

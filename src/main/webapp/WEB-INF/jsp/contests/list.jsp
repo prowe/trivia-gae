@@ -14,18 +14,17 @@
 	<div id="main-body">
 		<h1>Contests</h1>
 		
-		<table>
+		<table class="table contest-list">
 			<c:forEach items="${contestList}" var="contest">
 				<tr>
-					<td>${contest.sponsor.username}</td>
 					<td><a href="<c:url value='/contests/${contest.contestId}/view.html' />">${contest.contestId}</a></td>
+					<td>${contest.sponsor.username}</td>
 					<td>${contest.question}</td>
-					<td>${contest.correctAnswer}</td>
 					<td>
-						<ul>
-						<c:forEach items="${contest.possibleAnswers}" var="ans">
-							<li>${ans }</li>
-						</c:forEach>
+						<ul class="unstyled-list">
+							<c:forEach items="${contest.possibleAnswers}" var="ans">
+								<li >${ans}<c:if test="${ans eq contest.correctAnswer}"> (correct)</c:if></li>
+							</c:forEach>
 						</ul>
 					</td>
 				</tr>

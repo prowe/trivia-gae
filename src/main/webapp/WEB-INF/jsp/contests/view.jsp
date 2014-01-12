@@ -42,8 +42,18 @@
 		</div>
 		
 		<div class="form-group">
+			<label class="control-label">Prize</label>
+			<p class="form-control-static">${contest.prizeDescription}</p>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label">Prize Quantity</label>
+			<p class="form-control-static">${contest.prizeQuantity}</p>
+		</div>
+		
+		<div class="form-group">
 			<label class="control-label">Ended</label>
-			<p class="form-control-static">xxx</p>
+			<p class="form-control-static">${contest.endTime}</p>
 		</div>
 		<div class="form-group">
 			<label class="control-label">Winners</label>

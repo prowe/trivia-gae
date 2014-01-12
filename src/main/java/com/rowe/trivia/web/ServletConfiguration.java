@@ -3,8 +3,10 @@ package com.rowe.trivia.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInController;
@@ -15,6 +17,9 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.rowe.trivia.CoreConfiguration;
+import com.rowe.trivia.convert.PeriodFormatter;
 
 @Configuration
 //@EnableTransactionManagement(mode=AdviceMode.ASPECTJ)
@@ -44,6 +49,12 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	}
 	
 	@Override
+	protected void addFormatters(FormatterRegistry registry) {
+		super.addFormatters(registry);
+		registry.addFormatter(new PeriodFormatter());
+	}
+	
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**")
 			.addResourceLocations("/resources/")
@@ -57,6 +68,10 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	@Bean
 	public UserController userController(){
 		return new UserController();
+	}
+	@Bean
+	public MyAccountController myAccountController(){
+		return new MyAccountController();
 	}
 	
 	@Bean

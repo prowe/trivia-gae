@@ -13,6 +13,7 @@ import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.impl.translate.TranslatorRegistry;
 import com.rowe.trivia.domain.Contest;
 import com.rowe.trivia.domain.User;
 import com.rowe.trivia.domain.UserQuestion;
@@ -23,6 +24,7 @@ import com.rowe.trivia.repo.objectify.JodaTimeTranslatorFactory;
 import com.rowe.trivia.repo.objectify.ObjectifyContestRepository;
 import com.rowe.trivia.repo.objectify.ObjectifyUserQuestionRepository;
 import com.rowe.trivia.repo.objectify.ObjectifyUserRepository;
+import com.rowe.trivia.repo.objectify.PeriodTranslatorFactory;
 import com.rowe.trivia.service.EmailService;
 import com.rowe.trivia.service.impl.EmailServiceImpl;
 
@@ -71,7 +73,10 @@ public class CoreConfiguration implements InitializingBean{
 	
 	//TODO: should be a better way of doing this
 	public static void registerObjectify(){
-		ObjectifyService.factory().getTranslators().add(new JodaTimeTranslatorFactory());
+		TranslatorRegistry translators = ObjectifyService.factory().getTranslators();
+		translators.add(new JodaTimeTranslatorFactory());
+		translators.add(new PeriodTranslatorFactory());
+		
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(Contest.class);
 		ObjectifyService.register(UserQuestion.class);

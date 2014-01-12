@@ -20,7 +20,9 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li ><a href="/">Home</a></li>
-				<li ><a href="<c:url value='/contests/list.html'/>">Contests</a></li>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li ><a href="<c:url value='/contests/list.html'/>">Contests</a></li>
+				</sec:authorize>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="isAuthenticated()">
@@ -28,7 +30,7 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${currentUser.displayName}" /> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li ><a href="<c:url value='/myAccount.html'/>">My Account</a></li>
+							<li ><a href="<c:url value='/users/myAccount.html'/>">My Account</a></li>
 							<li>
 								<a href="#" onclick="javascript:$('#logout-form').submit();">Sign Out</a>
 								<form id="logout-form" action="/logout" method="post">

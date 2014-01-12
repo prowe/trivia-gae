@@ -1,11 +1,9 @@
 package com.rowe.trivia.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
-import javax.validation.constraints.AssertTrue;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Email;
@@ -55,6 +53,8 @@ public class User implements UserDetails, SocialUserDetails{
 	private String password;
 	@NotBlank
 	private String passwordConfirmation;
+	
+	private Set<NotificationMethod> selectedNotificationMethods;
 	
 	//TODO: add age
 	private String phoneNumber;
@@ -132,7 +132,12 @@ public class User implements UserDetails, SocialUserDetails{
 	/* UserDetails implementation */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+		List<GrantedAuthority> grantedAuthList = new ArrayList<GrantedAuthority>();
+		grantedAuthList.add(new SimpleGrantedAuthority("ROLE_USER"));
+		if("paul.w.rowe@gmail.com".equalsIgnoreCase(getEmail())){
+			grantedAuthList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		}
+		return grantedAuthList;
 	}
 
 	@Override
@@ -168,7 +173,7 @@ public class User implements UserDetails, SocialUserDetails{
 	 * Sign in this user as the current user. Making this user the current user returned by {@link User#currentUser()}
 	 */
 	public void signInAsCurrentUser() {
-		Authentication authenticationToken = new PreAuthenticatedAuthenticationToken(this, null, Arrays.asList(new SimpleGrantedAuthority("USER")));
+		Authentication authenticationToken = new PreAuthenticatedAuthenticationToken(this, null, getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	}
 
@@ -233,6 +238,14 @@ public class User implements UserDetails, SocialUserDetails{
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+	
+	public Set<NotificationMethod> getSelectedNotificationMethods() {
+		return selectedNotificationMethods;
+	}
+	public void setSelectedNotificationMethods(
+			Set<NotificationMethod> selectedNotificationMethods) {
+		this.selectedNotificationMethods = selectedNotificationMethods;
 	}
 
 	/**

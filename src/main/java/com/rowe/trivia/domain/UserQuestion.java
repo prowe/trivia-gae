@@ -1,6 +1,7 @@
 package com.rowe.trivia.domain;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -16,6 +17,7 @@ import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.condition.IfNotNull;
+import com.rowe.trivia.convert.ExpirationTimePrinter;
 import com.rowe.trivia.repo.BetterRef;
 import com.rowe.trivia.repo.UserQuestionRepository;
 import com.rowe.trivia.strategy.UserNotificationStrategy;
@@ -154,6 +156,10 @@ public class UserQuestion {
 		for(UserNotificationStrategy strategy:strategies){
 			strategy.choosenAsWinner(this);
 		}
+	}
+	
+	public String getFormattedExpirationTime(){
+		return new ExpirationTimePrinter().print(getContest().getEndTime(), Locale.getDefault());
 	}
 	
 }

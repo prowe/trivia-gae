@@ -43,7 +43,12 @@
 		
 		<div class="form-group">
 			<label class="control-label">Prize</label>
-			<p class="form-control-static">${contest.prizeDescription}</p>
+			<p class="form-control-static">${contest.prize.title}</p>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label">Prize Description</label>
+			<p class="form-control-static">${contest.prize.description}</p>
 		</div>
 		
 		<div class="form-group">

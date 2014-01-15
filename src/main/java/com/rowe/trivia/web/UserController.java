@@ -1,5 +1,8 @@
 package com.rowe.trivia.web;
 
+import java.util.Arrays;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -10,11 +13,11 @@ import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 
+import com.rowe.trivia.domain.NotificationMethod;
 import com.rowe.trivia.domain.User;
 import com.rowe.trivia.repo.UserRepository;
 import com.rowe.trivia.repo.UserRepository.UsernameTakenExeption;
@@ -28,7 +31,9 @@ public class UserController {
 	private UserRepository userRepo;
 
 	@RequestMapping(value="/signup.html", method=RequestMethod.GET)
-	public User signUp(WebRequest request){
+	public User signUp(WebRequest request, Map<String, Object> modelMap){
+		modelMap.put("notificationMethods", Arrays.asList(NotificationMethod.values()));
+		
 		User user = new User();
 		Connection<?> connection = ProviderSignInUtils.getConnection(request);
 	    if (connection != null) {

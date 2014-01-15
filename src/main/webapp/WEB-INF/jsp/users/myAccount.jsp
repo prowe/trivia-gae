@@ -34,11 +34,11 @@
 				</div>
 	   		</div>
 			
-			<fieldset>
-				<legend>Selected Notification Methods:</legend>
+			<fieldset class="notification-method">
+				<legend>Notification Method:</legend>
 				<span class="help-block">How we will notify you of pending questions or winnings.</span>
-				<c:forEach  items="${notificationMethods}" var="method" varStatus="status">
-					<div class="checkbox">
+				<c:forEach items="${notificationMethods}" var="method" varStatus="status">
+					<div class="checkbox form-input">
 						<label for="notificationMethods${status.index}">
 							<form:checkbox path="selectedNotificationMethods" value="${method}" id="notificationMethods${status.index}"/>
 							<c:out value="${method}" />

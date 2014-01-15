@@ -9,14 +9,16 @@
 <head>
 <%@ include file="../includes/headSection.jsp" %>
 
-<title>Insert title here</title>
+<title><spring:message code="brand.title" /> - Sign Up</title>
 </head>
 <body>
 	<%@ include file="../includes/navbar.jsp" %>
 	
 	<div id="main-body">
 	<h1>Sign Up</h1>
-	
+	<p>
+		Fill out the fields below to create an account.
+	</p>
 	<form:form cssClass="signup-form" modelAttribute="user">
 		<!-- Add CSRF token -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -26,7 +28,7 @@
 			<div class="form-input">
 				<form:input cssClass="form-control" path="email" />
 				<form:errors cssClass="help-block" path="email" />
-				<span class="help-block">Your email address. You may use this to sign in.</span>
+				<span class="help-block">You may use this to sign in. We never share your email addresses.</span>
 			</div>
    		</div>
    		
@@ -55,6 +57,20 @@
 				<form:errors cssClass="help-block" path="passwordConfirmation" />
 				<span class="help-block"></span>
 			</div>
+   		</div>
+   		
+   		<div class="form-group selectedNotificationMethods">
+   			<label class="control-label">Notification Methods:</label>
+   			<div class="form-input">
+   				<c:forEach  items="${notificationMethods}" var="method" varStatus="status">
+					<label for="notificationMethods${status.index}" class="checkbox-inline">
+						<form:checkbox path="selectedNotificationMethods" value="${method}" id="notificationMethods${status.index}"/>
+						<spring:message code="NotificationMethod.${method}" text="${method}" />
+					</label>
+				</c:forEach>
+				<form:errors cssClass="help-block"  path="selectedNotificationMethods" />
+				<span class="help-block">How would you like to be notified of new trivia or that you have won a prize?</span>
+   			</div>
    		</div>
    		
    		<!-- 

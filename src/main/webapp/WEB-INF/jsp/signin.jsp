@@ -7,19 +7,24 @@
 <html>
 <head>
 <%@ include file="includes/headSection.jsp" %>
-
-<title>Insert title here</title>
+<title><spring:message code="brand.title" /> - Sign In</title>
 </head>
 <body>
-	<%@ include file="includes/navbar.jsp" %>
+	<%--@ include file="includes/navbar.jsp" --%>
 	
 	<div id="main-body" class="row">
-		<div class="col-lg-8">
-			Explination text goes here
+		<div class="col-lg-8 sigin-explination">
+			<h2>How it works</h2>
+			<p>
+				We'll ask you trivia questions. If you answer them correctly before they expire, you will be entered into a contest to win a prize.
+			</p>
+			<p>
+				Log in or create an account to get started.
+			</p>
 		</div>
 		
 		<!-- Login form -->
-	    <div class="col-lg-4 panel">
+	    <div class="col-lg-4 signin-panel">
 	    	<div class="panel-heading">Sign in</div>
 	        <div class="panel-body">
 	            <!-- Error message is shown if login fails. -->

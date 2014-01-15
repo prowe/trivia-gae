@@ -1,6 +1,5 @@
 package com.rowe.trivia.domain;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import org.joda.time.Period;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +20,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
-import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.appengine.api.taskqueue.TaskOptions.Builder;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
@@ -31,8 +29,6 @@ import com.googlecode.objectify.annotation.Ignore;
 import com.rowe.trivia.repo.ContestRepository;
 import com.rowe.trivia.repo.UserQuestionRepository;
 import com.rowe.trivia.repo.UserRepository;
-import com.rowe.trivia.strategy.UserNotificationStrategy;
-import com.google.appengine.api.taskqueue.TaskOptions.Builder;
 
 @Configurable
 @Entity
@@ -63,11 +59,7 @@ public class Contest {
 	private DateTime startTime;
 	private DateTime endTime;
 	
-	//TODO: wrap in Prize class
-	//prize info
-	private String prizeDescription;
-	//TODO: make form editable
-	private BigDecimal prizeValue;
+	private Prize prize;
 	private Integer prizeQuantity;
 	
 	private List<Ref<UserQuestion>> winningAnswers;
@@ -160,7 +152,12 @@ public class Contest {
 		}
 		logger.info("Contest Ended. {} winners selected", winners.size());
 	}
-	
+	public Prize getPrize() {
+		return prize;
+	}
+	public void setPrize(Prize prize) {
+		this.prize = prize;
+	}
 	public User getSponsor() {
 		return sponsor == null ? null : sponsor.get();
 	}
@@ -202,16 +199,8 @@ public class Contest {
 		return StringUtils.equalsIgnoreCase(choosenAnswer, correctAnswer);
 	}
 
-	public String getPrizeDescription() {
-		return prizeDescription;
-	}
-
 	public Integer getPrizeQuantity() {
 		return prizeQuantity;
-	}
-
-	public void setPrizeDescription(String prizeDescription) {
-		this.prizeDescription = prizeDescription;
 	}
 
 	public void setPrizeQuantity(Integer prizeQuantity) {

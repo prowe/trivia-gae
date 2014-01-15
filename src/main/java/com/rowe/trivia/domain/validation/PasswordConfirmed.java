@@ -20,7 +20,6 @@ import com.rowe.trivia.domain.validation.PasswordConfirmed.PasswordConfirmedVali
 @Constraint(validatedBy = PasswordConfirmedValidator.class)
 @Target(TYPE)
 @Retention(RUNTIME)
-@ReportAsSingleViolation
 public @interface PasswordConfirmed {
 
 	String message() default "Passwords do not match";

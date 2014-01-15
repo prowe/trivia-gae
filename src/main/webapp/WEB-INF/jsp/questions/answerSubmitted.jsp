@@ -15,7 +15,7 @@
 		
 		<c:choose>
 			<c:when test="${userQuestion.correct}">
-				You correctly answered "<c:out value="${userQuestion.choosenAnswer}" />", and have been entered for a chance to win a <c:out value="${userQuestion.contest.prizeDescription}" />!
+				You correctly answered "<c:out value="${userQuestion.choosenAnswer}" />", and have been entered for a chance to win a <c:out value="${userQuestion.contest.prize.title}" />!
 			</c:when>
 			<c:otherwise>
 				Sorry, You the correct answer was <c:out value="${userQuestion.contest.correctAnswer}" />, but you choose <c:out value="${userQuestion.choosenAnswer}" />

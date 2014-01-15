@@ -1,11 +1,13 @@
 package com.rowe.trivia.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
@@ -59,6 +61,14 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 		registry.addResourceHandler("/resources/**")
 			.addResourceLocations("/resources/")
 			.setCachePeriod(0);
+	}
+	
+	@Bean
+	public MessageSource messageSource(){
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("WEB-INF/messages");
+		messageSource.setCacheSeconds(5);
+		return messageSource;
 	}
 	
 	@Bean

@@ -6,7 +6,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<groupId>com.rowe</groupId>
-	<artifactId>trivia-gae</artifactId>
 
 	<properties>
 		<appengine.app.version>1</appengine.app.version>
@@ -300,4 +299,5 @@
 		</plugins>
 	</build>
 
+	<artifactId>prizemat</artifactId>
 </project>

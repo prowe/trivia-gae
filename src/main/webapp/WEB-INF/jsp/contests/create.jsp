@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -52,16 +53,21 @@
 		
 		<fieldset>
 			<legend>Prize information</legend>
-		
-			<div class="form-group  <form:errors path='prizeDescription'>has-error</form:errors>">
-				<form:label path="prizeDescription">Prize Description</form:label>
-				<form:input cssClass="form-control" path="prizeDescription" />
-				<form:errors path="prizeDescription" />
+			<div class="form-group  <form:errors path='prize.title'>has-error</form:errors>">
+				<form:label path="prize.title">Prize Title</form:label>
+				<form:input cssClass="form-control" path="prize.title" />
+				<form:errors path="prize.title" />
+			</div>
+			
+			<div class="form-group  <form:errors path='prize.description'>has-error</form:errors>">
+				<form:label path="prize.description">Prize Description</form:label>
+				<form:textarea id="prizeDescriptionArea" cssClass="form-control" path="prize.description" />
+				<form:errors path="prize.description" />
 			</div>
 			
 			<div class="form-group  <form:errors path='prizeQuantity'>has-error</form:errors>">
 				<form:label path="prizeQuantity">Quantity to award</form:label>
-				<form:input cssClass="form-control" path="prizeQuantity" />
+				<form:input  cssClass="form-control" path="prizeQuantity" />
 				<form:errors path="prizeQuantity" />
 			</div>
 			

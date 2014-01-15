@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <div id="main-navbar" class="navbar navbar-default" role="navigation" >
@@ -15,11 +15,10 @@
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/" >Logo</a>
+			<a class="navbar-brand" href="/" ><spring:message code="brand.title" /></a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li ><a href="/">Home</a></li>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li ><a href="<c:url value='/contests/list.html'/>">Contests</a></li>
 				</sec:authorize>

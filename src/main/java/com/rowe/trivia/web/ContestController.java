@@ -62,6 +62,14 @@ public class ContestController {
 		return expanded;
 	}
 	
+	@RequestMapping(value="{contestId}/prizeDetails.html")
+	public void prizeDetails(@PathVariable("contestId") String contestId,
+			Map<String, Object> modelMap) {
+		Contest contest = contestRepo.getContest(contestId);
+		modelMap.put("contest", contest);
+		modelMap.put("prize", contest.getPrize());
+	}
+	
 	@RequestMapping(value="{contestId}/view.html")
 	public String viewContest(
 		@PathVariable("contestId") String contestId,

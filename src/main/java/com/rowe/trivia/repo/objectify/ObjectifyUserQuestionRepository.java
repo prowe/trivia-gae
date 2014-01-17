@@ -2,6 +2,8 @@ package com.rowe.trivia.repo.objectify;
 
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.rowe.trivia.domain.Contest;
@@ -33,6 +35,13 @@ public class ObjectifyUserQuestionRepository extends ObjectifyRepositorySupport<
 			.type(UserQuestion.class)
 			.ancestor(user)
 			.list();
+	}
+	
+	@Override
+	public List<UserQuestion> findAvailableForUser(User user) {
+		//TODO: fix me
+		LoggerFactory.getLogger(getClass()).warn("Returning all questions for user");
+		return findByUser(user);
 	}
 	
 	@Override

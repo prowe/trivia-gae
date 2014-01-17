@@ -19,6 +19,7 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
+				<li><a href="<c:url value='/questions/history.html'/>" >History</a></li>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li ><a href="<c:url value='/contests/list.html'/>">Contests</a></li>
 				</sec:authorize>

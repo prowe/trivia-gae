@@ -34,20 +34,17 @@
 				</div>
 	   		</div>
 			
-			<fieldset class="notification-method">
-				<legend>Notification Method:</legend>
-				<span class="help-block">How we will notify you of pending questions or winnings.</span>
-				<c:forEach items="${notificationMethods}" var="method" varStatus="status">
-					<div class="checkbox form-input">
-						<label for="notificationMethods${status.index}">
-							<form:checkbox path="selectedNotificationMethods" value="${method}" id="notificationMethods${status.index}"/>
-							<c:out value="${method}" />
-						</label>
-					</div>
-				</c:forEach>
-				<form:errors cssClass="help-block"  path="selectedNotificationMethods" />
-			</fieldset>
-
+			<div class="form-group emailNotificationEnabled <form:errors path='emailNotificationEnabled'>has-error</form:errors>">
+				<div class="checkbox form-input">
+					<form:label cssClass="control-label" path="emailNotificationEnabled" for="emailNotificationEnabled">
+						<form:checkbox path="emailNotificationEnabled" id="emailNotificationEnabled" />
+						Notify by Email
+					</form:label>
+					<form:errors cssClass="help-block"  path="emailNotificationEnabled" />
+					<span class="help-block">Should we use email to notify you when there are new questions available or you have winnings to claim?</span>
+				</div>
+			</div>
+			
 			<div class="form-group ">
 				<button type="submit" class="btn btn-primary">Save</button>
 			</div>			

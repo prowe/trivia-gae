@@ -28,7 +28,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.util.CollectionUtils;
 
+import com.rowe.trivia.domain.NotificationMethod;
 import com.rowe.trivia.domain.User;
 import com.rowe.trivia.domain.UserQuestion;
 import com.rowe.trivia.service.EmailService;
@@ -54,7 +56,27 @@ public class EmailServiceImpl implements EmailService{
 	}
 	
 	@Override
-	public void questionAsked(UserQuestion userQuestion) {
+	public void questionAvailable(UserQuestion userQuestion) {
+		User contestant = userQuestion.getContestant();
+		if(!contestant.isEmailNotificationEnabled()){
+			// or the user has been notified recently.	
+			return;
+		}
+		logger.info("Notifying user of available question {}", userQuestion);
+		//TODO: implement me
+	}
+	
+	@Override
+	public void selectedAsWinningQuestion(UserQuestion userQuestion) {
+		User contestant = userQuestion.getContestant();
+		if(!contestant.isEmailNotificationEnabled()){
+			return;
+		}
+		logger.info("Notifying user of winning {}", userQuestion);
+		//TODO: implement me
+	}
+	
+	private void questionAsked(UserQuestion userQuestion) {
 		final User user = userQuestion.getContestant();
 		if(StringUtils.isBlank(user.getEmail())){
 			logger.warn("No email address so email not sent: {}", user);
@@ -78,12 +100,6 @@ public class EmailServiceImpl implements EmailService{
 		logger.info("Sent questionAskedEmail to {}", user);
 	}
 
-	@Override
-	public void choosenAsWinner(UserQuestion userQuestion) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	String buildQuestionAskedBody(UserQuestion userQuestion){
 		final Map<String, Object> model = new HashMap<String, Object>();
 		model.put("userQuestion", userQuestion);

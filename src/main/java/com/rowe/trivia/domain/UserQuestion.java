@@ -20,7 +20,7 @@ import com.googlecode.objectify.condition.IfNotNull;
 import com.rowe.trivia.convert.ExpirationTimePrinter;
 import com.rowe.trivia.repo.BetterRef;
 import com.rowe.trivia.repo.UserQuestionRepository;
-import com.rowe.trivia.strategy.UserNotificationStrategy;
+import com.rowe.trivia.service.UserQuestionListener;
 
 @Configurable
 @Entity
@@ -29,6 +29,9 @@ public class UserQuestion {
 	
 	@Autowired @Ignore
 	private transient UserQuestionRepository repo;
+	
+	@Autowired
+	private transient List<UserQuestionListener> listeners;
 
 	@Parent
 	private Ref<User> contestant;
@@ -145,19 +148,25 @@ public class UserQuestion {
 	 * Notify the Contestant that this question is pending
 	 */
 	public void notifyUserQuestionAsked() {
-		List<UserNotificationStrategy> strategies = getContestant().getUserNotificationStrategies();
-		for(UserNotificationStrategy strategy:strategies){
-			strategy.questionAsked(this);
+		if(listeners != null){
+			for(UserQuestionListener listener:listeners){
+				listener.questionAvailable(this);
+			}
 		}
 	}
 
 	public void notifyUserIsWinner() {
-		List<UserNotificationStrategy> strategies = getContestant().getUserNotificationStrategies();
-		for(UserNotificationStrategy strategy:strategies){
-			strategy.choosenAsWinner(this);
+		if(listeners != null){
+			for(UserQuestionListener listener:listeners){
+				listener.selectedAsWinningQuestion(this);
+			}
 		}
 	}
 	
+	/**
+	 * TODO: clean this up, should be in a JSP tag
+	 * @return
+	 */
 	public String getFormattedExpirationTime(){
 		return new ExpirationTimePrinter().print(getContest().getEndTime(), Locale.getDefault());
 	}

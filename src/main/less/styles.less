@@ -63,5 +63,54 @@
 	}
 }
 
-.contest-list {
+.question-pane {
+	.well();
+	.question-text {
+		font-size: larger;
+		font-weight: bolder;
+		margin-bottom: 15px;
+	}
+	.answer-group {
+		.row();
+		.answer {
+			margin-bottom: 15px;
+			.make-md-column(3);
+			.make-xs-column(6);
+			
+			.btn-answer {
+				.btn();
+				.btn-block();
+				.btn-default();
+			}
+			.btn-answer.correct {
+				color: #fff;
+				background-color: #47a447;
+				border-color: #398439;
+			}
+			.btn-answer.incorrect {
+				color: #fff;
+				background-color: #d9534f;
+				border-color: #d43f3a;
+			}
+		}
+	}
+	.prize-description {
+	}
+}
+
+
+.history-table {
+	.choosen-answer {
+		color: #d9534f;
+	}
+	.fa-thumbs-down {
+		color: #d9534f;
+	}
+	
+	.fa-thumbs-up {
+		color: #47a447;
+	}
+	.correct-answer {
+		color: #47a447;
+	}
 }

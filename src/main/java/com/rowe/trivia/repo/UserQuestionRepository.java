@@ -15,12 +15,21 @@ public interface UserQuestionRepository extends BaseRepository<UserQuestion>{
 	public List<UserQuestion> findByUser(User user);
 	
 	/**
+	 * Return a list of {@link UserQuestion} that the provided user is able to answer
+	 * @param currentUser
+	 * @return
+	 */
+	public List<UserQuestion> findAvailableForUser(User user);
+	
+	/**
 	 * Return at most maxCount {@link UserQuestion} objects that have non null winningTickets ordered by ticketNumber
 	 * @param contest
 	 * @param maxCount
 	 * @return
 	 */
 	public List<UserQuestion> findWinners(Contest contest, int maxCount);
+
+	
 	
 
 	

@@ -35,6 +35,11 @@ public class UserQuestionController {
 		return "questions/answer";
 	}
 	
+	@RequestMapping(value="history.html")
+	public void history(Map<String, Object> modelMap){
+		modelMap.put("userQuestionList", questionRepo.findByUser(User.currentUser()));
+	}
+	
 	@RequestMapping(value="{contestId}/answer.html", method=RequestMethod.POST)
 	public String submitAnswer(
 		@PathVariable("contestId") String contestId,
@@ -49,5 +54,21 @@ public class UserQuestionController {
 		//modelMap.put("userQuestion", uq);
 		//return "questions/answerSubmitted";
 		return "redirect:/#" + uq.getContest().getContestId();
+	}
+	
+	//TODO: combine these methods
+	@RequestMapping(value="{contestId}/answer.json", method=RequestMethod.POST)
+	public String submitAnswerJson(
+		@PathVariable("contestId") String contestId,
+		@RequestParam("answer") String answer,
+		Map<String, Object> modelMap	
+		){
+		UserQuestion uq = questionRepo.findByUserContest(User.currentUser(), contestId);
+		logger.info("answering question {}", uq);
+		uq.answerQuestion(answer);
+		questionRepo.save(uq);
+		
+		modelMap.put("userQuestion", uq);
+		return "questions/answerSubmitted";
 	}
 }

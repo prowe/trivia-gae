@@ -14,7 +14,8 @@
 	
 	<div id="main-body" class="row">
 		<div class="col-lg-8 sigin-explination">
-			<h2>How it works</h2>
+			<h2>PrizeMat</h2>
+			<h3>How it works</h3>
 			<p>
 				We'll ask you trivia questions. If you answer them correctly before they expire, you will be entered into a contest to win a prize.
 			</p>

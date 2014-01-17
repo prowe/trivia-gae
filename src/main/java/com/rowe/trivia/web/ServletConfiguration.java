@@ -1,5 +1,7 @@
 package com.rowe.trivia.web;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.MediaType;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInController;
@@ -18,6 +21,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.rowe.trivia.CoreConfiguration;
@@ -38,9 +42,17 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	
 	@Bean
 	public ViewResolver viewResolver(){
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
+		InternalResourceViewResolver jsonViewResolver = new InternalResourceViewResolver();
+		jsonViewResolver.setPrefix("/WEB-INF/jsp/");
+		jsonViewResolver.setSuffix(".json.jsp");
+		jsonViewResolver.setContentType(MediaType.APPLICATION_JSON.toString());
+		
+		InternalResourceViewResolver defaultViewResolver = new InternalResourceViewResolver();
+		defaultViewResolver.setPrefix("/WEB-INF/jsp/");
+		defaultViewResolver.setSuffix(".jsp");
+		
+		ContentNegotiatingViewResolver viewResolver = new ContentNegotiatingViewResolver();
+		viewResolver.setViewResolvers(Arrays.asList((ViewResolver)jsonViewResolver, defaultViewResolver));
 		return viewResolver;
 	}
 	

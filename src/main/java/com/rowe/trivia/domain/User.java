@@ -25,7 +25,6 @@ import com.rowe.trivia.domain.validation.PasswordConfirmed;
 import com.rowe.trivia.repo.ContestRepository;
 import com.rowe.trivia.repo.UserRepository;
 import com.rowe.trivia.service.EmailService;
-import com.rowe.trivia.strategy.UserNotificationStrategy;
 
 @Entity
 @Configurable
@@ -54,7 +53,10 @@ public class User implements UserDetails, SocialUserDetails{
 	@NotBlank
 	private String passwordConfirmation;
 	
-	private Set<NotificationMethod> selectedNotificationMethods;
+	/**
+	 * Has this user elected to receive email communication?
+	 */
+	private boolean emailNotificationEnabled = false;
 	
 	//TODO: add age
 	private String phoneNumber;
@@ -69,7 +71,7 @@ public class User implements UserDetails, SocialUserDetails{
 	//TODO: make an enum
 	private String state;
 	private String zip;
-	
+
 	public static User currentUser(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication == null){
@@ -239,14 +241,6 @@ public class User implements UserDetails, SocialUserDetails{
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
-	public Set<NotificationMethod> getSelectedNotificationMethods() {
-		return selectedNotificationMethods;
-	}
-	public void setSelectedNotificationMethods(
-			Set<NotificationMethod> selectedNotificationMethods) {
-		this.selectedNotificationMethods = selectedNotificationMethods;
-	}
 
 	/**
 	 * Sign up for all inProgress contests
@@ -259,15 +253,11 @@ public class User implements UserDetails, SocialUserDetails{
 		}
 	}
 
-	/**
-	 * Return a list of {@link UserNotificationStrategy}s that should be used to notify this user.
-	 * @return
-	 */
-	public List<UserNotificationStrategy> getUserNotificationStrategies() {
-		List<UserNotificationStrategy> strategies =  new ArrayList<UserNotificationStrategy>();
-		if(true){
-			strategies.add(emailService);
-		}
-		return strategies;
+	public boolean isEmailNotificationEnabled() {
+		return emailNotificationEnabled;
 	}
+	public void setEmailNotificationEnabled(boolean emailNotificationEnabled) {
+		this.emailNotificationEnabled = emailNotificationEnabled;
+	}
+	
 }

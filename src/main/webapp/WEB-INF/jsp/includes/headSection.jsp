@@ -3,6 +3,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <link href="/resources/css/styles.css" rel="stylesheet">
 
 <script src="https://code.jquery.com/jquery.js"></script>

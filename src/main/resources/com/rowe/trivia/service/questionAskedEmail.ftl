@@ -2,17 +2,14 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Answer a question</title>
+	
+	<title>Questions</title>
 </head>
 <body>
-	<p>${userQuestion.contest.question?html}</p>
-	<ol type="a">
-		<#list userQuestion.contest.possibleAnswers as ans>
-			<li>${ans}</li>
-		</#list> 
-	</ol>
-	<div>
-		<a href="${applicationURL}/questions/${userQuestion.contest.contestId}/answer.html">Answer this question</a>
-	</div>
+	<h1>${userQuestion.contestant.displayName?html}, you have questions waiting!</h1>
+	
+	<p>
+		Answer your pending questions to be entered to win prizes. <a href="${applicationURL}">Go to my questions.</a>
+	</p>
 </body>
 </html>

@@ -59,19 +59,16 @@
 			</div>
    		</div>
    		
-   		<div class="form-group selectedNotificationMethods">
-   			<label class="control-label">Notification Methods:</label>
-   			<div class="form-input">
-   				<c:forEach  items="${notificationMethods}" var="method" varStatus="status">
-					<label for="notificationMethods${status.index}" class="checkbox-inline">
-						<form:checkbox path="selectedNotificationMethods" value="${method}" id="notificationMethods${status.index}"/>
-						<spring:message code="NotificationMethod.${method}" text="${method}" />
-					</label>
-				</c:forEach>
-				<form:errors cssClass="help-block"  path="selectedNotificationMethods" />
-				<span class="help-block">How would you like to be notified of new trivia or that you have won a prize?</span>
-   			</div>
-   		</div>
+   		<div class="form-group emailNotificationEnabled <form:errors path='emailNotificationEnabled'>has-error</form:errors>">
+			<div class="checkbox form-input">
+				<form:label cssClass="control-label" path="emailNotificationEnabled" for="emailNotificationEnabled">
+					<form:checkbox path="emailNotificationEnabled" id="emailNotificationEnabled" />
+					Notify by Email
+				</form:label>
+				<form:errors cssClass="help-block"  path="emailNotificationEnabled" />
+				<span class="help-block">Should we use email to notify you when there are new questions available or you have winnings to claim?</span>
+			</div>
+		</div>
    		
    		<!-- 
    		<div class="form-group ">

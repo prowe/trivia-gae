@@ -6224,70 +6224,17 @@ fieldset[disabled] .primary-button.active {
   font-size: x-large;
   font-weight: bolder;
 }
-.signup-form .control-label,
-.signup-form .radio,
-.signup-form .checkbox,
-.signup-form .radio-inline,
-.signup-form .checkbox-inline {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 7px;
-}
-.signup-form .radio,
-.signup-form .checkbox {
-  min-height: 27px;
-}
-.signup-form .form-group {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-.signup-form .form-group:before,
-.signup-form .form-group:after {
-  content: " ";
-  display: table;
-}
-.signup-form .form-group:after {
-  clear: both;
-}
-.signup-form .form-group:before,
-.signup-form .form-group:after {
-  content: " ";
-  display: table;
-}
-.signup-form .form-group:after {
-  clear: both;
-}
-.signup-form .form-control-static {
-  padding-top: 7px;
-}
-@media (min-width: 768px) {
-  .signup-form .control-label {
-    text-align: right;
-  }
-}
-.signup-form .control-label {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  .signup-form .control-label {
-    float: left;
-    width: 16.666666666666664%;
-  }
-}
-.signup-form .form-input {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  .signup-form .form-input {
-    float: left;
-    width: 83.33333333333334%;
-  }
+.signup-form {
+  /*.form-horizontal(); */
+
+  /*.control-label {
+		.make-md-column(2);
+	}
+	.form-input {
+		.make-md-column(10);
+	}
+	*/
+
 }
 .signup-form .submit {
   padding-right: 15px;

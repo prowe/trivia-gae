@@ -56,14 +56,29 @@ public class EmailServiceImpl implements EmailService{
 	}
 	
 	@Override
-	public void questionAvailable(UserQuestion userQuestion) {
-		User contestant = userQuestion.getContestant();
+	public void questionAvailable(final UserQuestion userQuestion) {
+		final User contestant = userQuestion.getContestant();
 		if(!contestant.isEmailNotificationEnabled()){
 			// or the user has been notified recently.	
 			return;
 		}
 		logger.info("Notifying user of available question {}", userQuestion);
-		//TODO: implement me
+		if(StringUtils.isBlank(contestant.getEmail())){
+			logger.warn("No email address so email not sent: {}", contestant);
+			return;
+		}
+		mailSender.send(new MimeMessagePreparator() {
+			@Override
+			public void prepare(MimeMessage message) throws Exception {
+				MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
+				if(fromAddress != null){
+					helper.setFrom(fromAddress);
+				}
+				helper.addTo(contestant.getEmail(), contestant.getDisplayName());
+				helper.setSubject(contestant.getDisplayName() + ", you have a question waiting!");
+				helper.setText(buildQuestionAskedBody(userQuestion), true);
+			}
+		});
 	}
 	
 	@Override
@@ -131,7 +146,7 @@ public class EmailServiceImpl implements EmailService{
 	
 	public void setFromAddress(String address) {
 		try {
-			this.fromAddress = new InternetAddress(address, "RT");
+			this.fromAddress = new InternetAddress(address, "PrizeMat");
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalArgumentException(e);
 		} 

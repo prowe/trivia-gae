@@ -29,8 +29,20 @@ public interface UserQuestionRepository extends BaseRepository<UserQuestion>{
 	 */
 	public List<UserQuestion> findWinners(Contest contest, int maxCount);
 
-	
-	
+	/**
+	 * Find a list of the {@link UserQuestion} the the provided user has won
+	 * @param currentUser
+	 * @return
+	 */
+	public List<UserQuestion> findWinningByUser(User currentUser);
+
+	/**
+	 * Return list of {@link UserQuestion}s the provided user has answered
+	 * @param currentUser
+	 * @return
+	 */
+	public Object findAnsweredByUser(User currentUser);
+
 
 	
 }

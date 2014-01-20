@@ -5,7 +5,7 @@
 <html>
 <head>
 <%@ include file="../includes/headSection.jsp" %>
-
+<!-- page is defunct -->
 <title>Insert title here</title>
 </head>
 <body>

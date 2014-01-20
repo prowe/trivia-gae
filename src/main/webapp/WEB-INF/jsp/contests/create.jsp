@@ -19,36 +19,43 @@
 		<!-- Add CSRF token -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	                
-		<div class="form-group  <form:errors path='question'>has-error</form:errors>">
-			<form:label path="question">Question</form:label>
-			<form:textarea cssClass="form-control" path="question" rows="3" />
-			<form:errors path="question" />
-		</div>
-		<div class="form-group  <form:errors path='correctAnswer'>has-error</form:errors>">
-			<form:label path="correctAnswer">Correct Answer</form:label>
-			<form:input cssClass="form-control" path="correctAnswer" />
-			<form:errors path="correctAnswer" />
-		</div>
-		<fieldset>
-			<legend><form:label path="possibleAnswers">Wrong Answers</form:label></legend>
-			<div class="form-group  <form:errors path='possibleAnswers[0]'>has-error</form:errors>">
-				<form:input cssClass="form-control" path="possibleAnswers[0]" />
-				<form:errors path="possibleAnswers[0]" />
-			</div>
-			<div class="form-group  <form:errors path='possibleAnswers[1]'>has-error</form:errors>">
-				<form:input cssClass="form-control" path="possibleAnswers[1]" />
-				<form:errors path="possibleAnswers[1]" />
-			</div>
-			<div class="form-group  <form:errors path='possibleAnswers[2]'>has-error</form:errors>">
-				<form:input cssClass="form-control" path="possibleAnswers[2]" />
-				<form:errors path="possibleAnswers[2]" />
-			</div>
-		</fieldset>
+		Choose Question
 		
 		<div class="form-group  <form:errors path='duration'>has-error</form:errors>">
 			<form:label path="duration">Contest Duration</form:label>
 			<form:input cssClass="form-control" path="duration" />
 			<form:errors path="duration" />
+		</div>
+		
+		<div class="form-group  <form:errors path='question'>has-error</form:errors>">
+		
+			<div class="form-input">
+				<table class="table">
+					<thead>
+						<tr>
+						
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${questionList}" var="question" varStatus="status">
+							<tr>
+								<td>
+									<form:label path="question" for="question${status.index}">
+										<form:radiobutton path="question" id="question${status.index}" value="${question.questionId}" />
+										<c:out value="${question.question}" />
+									</form:label>
+								</td>
+								<td>
+									<c:forEach items="${question.possibleAnswers}" var="ans">
+										<span class="answer"><c:if test="${question.correctAnswer == ans}"><i class="fa fa-check"> </i></c:if><c:out value='${ans}' /></span>
+									</c:forEach>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<form:errors path="question" />
+			</div>
 		</div>
 		
 		<fieldset>
@@ -65,12 +72,19 @@
 				<form:errors path="prize.description" />
 			</div>
 			
+			<div class="form-group  <form:errors path='prize.redemptionMethod'>has-error</form:errors>">
+				<form:label path="prize.redemptionMethod">Method to redeem</form:label>
+				<form:select path="prize.redemptionMethod">
+					<form:options items="${redemptionMethodList}"/>
+				</form:select>
+				<form:errors path="prize.redemptionMethod" />
+			</div>
+			
 			<div class="form-group  <form:errors path='prizeQuantity'>has-error</form:errors>">
 				<form:label path="prizeQuantity">Quantity to award</form:label>
 				<form:input  cssClass="form-control" path="prizeQuantity" />
 				<form:errors path="prizeQuantity" />
 			</div>
-			
 		</fieldset>
 		
 		<div class="form-group">

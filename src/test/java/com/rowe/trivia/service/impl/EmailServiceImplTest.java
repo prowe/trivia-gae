@@ -18,6 +18,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.rowe.trivia.CoreConfiguration;
 import com.rowe.trivia.domain.Contest;
 import com.rowe.trivia.domain.Prize;
+import com.rowe.trivia.domain.Question;
 import com.rowe.trivia.domain.User;
 import com.rowe.trivia.domain.UserQuestion;
 
@@ -44,8 +45,10 @@ public class EmailServiceImplTest {
 		contestant.setEmail("username");
 		Contest contest = new Contest();
 		contest.setContestId("1234");
-		contest.setQuestion("Question goes here");
-		contest.setPossibleAnswers(Arrays.asList("ans 1", "ans 2", "ans 3", "ans 4"));
+		Question question = new Question();
+		question.setQuestion("Question goes here");
+		question.setPossibleAnswers(Arrays.asList("ans 1", "ans 2", "ans 3", "ans 4"));
+		contest.setQuestion(question);
 		contest.setPrize(new Prize());
 		contest.getPrize().setTitle("Great Prize");
 		UserQuestion uq = new UserQuestion(contestant, contest);

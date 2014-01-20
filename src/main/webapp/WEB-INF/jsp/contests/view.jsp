@@ -19,18 +19,18 @@
 	
 		<div class="form-group">
 			<label class="control-label">Question</label>
-			<p class="form-control-static">${contest.question}</p>
+			<p class="form-control-static">${contest.question.question}</p>
 		</div>
 		
 		<div class="form-group">
 			<label class="control-label">Correct</label>
-			<p class="form-control-static">${contest.correctAnswer}</p>
+			<p class="form-control-static">${contest.question.correctAnswer}</p>
 		</div>
 		
 		<div class="form-group">
 			<label class="control-label">Possible:
 			<ul class="form-control-static unstyled-list">
-				<c:forEach items="${contest.possibleAnswers}" var="ans">
+				<c:forEach items="${contest.question.possibleAnswers}" var="ans">
 					<li>${ans }</li>
 				</c:forEach>
 			</ul>

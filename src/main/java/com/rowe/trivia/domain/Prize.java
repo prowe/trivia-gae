@@ -11,10 +11,16 @@ import com.googlecode.objectify.annotation.Embed;
  */
 @Embed
 public class Prize {
+	public enum RedemptionMethod {
+		MAIL,
+		EMAIL
+	};
 
+	
 	private String title;
 	private String description;
 	private BigDecimal value;
+	private RedemptionMethod redemptionMethod;
 	
 	public String getTitle() {
 		return title;
@@ -25,6 +31,9 @@ public class Prize {
 	public BigDecimal getValue() {
 		return value;
 	}
+	public RedemptionMethod getRedemptionMethod() {
+		return redemptionMethod;
+	}
 	
 	public void setDescription(String description) {
 		this.description = description;
@@ -34,5 +43,8 @@ public class Prize {
 	}
 	public void setValue(BigDecimal value) {
 		this.value = value;
+	}
+	public void setRedemptionMethod(RedemptionMethod redemptionMethod) {
+		this.redemptionMethod = redemptionMethod;
 	}
 }

@@ -37,7 +37,12 @@ public class UserQuestionController {
 	
 	@RequestMapping(value="history.html")
 	public void history(Map<String, Object> modelMap){
-		modelMap.put("userQuestionList", questionRepo.findByUser(User.currentUser()));
+		modelMap.put("userQuestionList", questionRepo.findAnsweredByUser(User.currentUser()));
+	}
+	
+	@RequestMapping(value="winning.html")
+	public void winning(Map<String, Object> modelMap){
+		modelMap.put("userQuestionList", questionRepo.findWinningByUser(User.currentUser()));
 	}
 	
 	@RequestMapping(value="{contestId}/answer.html", method=RequestMethod.POST)

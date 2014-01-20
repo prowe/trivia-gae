@@ -30,7 +30,7 @@ public class UserQuestion {
 	@Autowired @Ignore
 	private transient UserQuestionRepository repo;
 	
-	@Autowired
+	@Autowired @Ignore
 	private transient List<UserQuestionListener> listeners;
 
 	@Parent
@@ -101,6 +101,12 @@ public class UserQuestion {
 	}
 
 	public void answerQuestion(String answer) {
+		if(isAnswered()){
+			throw new IllegalStateException("UserQuestion already answered: " + this);
+		}
+		if(!getContest().isInProgress()){
+			throw new IllegalStateException("Contest not in progress for user question: " + this);
+		}
 		choosenAnswer = answer;
 		answerDate = new DateTime();
 		if(isCorrect()){
@@ -109,7 +115,7 @@ public class UserQuestion {
 	}
 
 	public boolean isCorrect(){
-		return getContest().isCorrect(choosenAnswer);
+		return getQuestion().isCorrect(choosenAnswer);
 	}
 	/**
 	 * Has the contestant answered this question?
@@ -163,12 +169,24 @@ public class UserQuestion {
 		}
 	}
 	
+	public Question getQuestion(){
+		return getContest().getQuestion();
+	}
+	
 	/**
 	 * TODO: clean this up, should be in a JSP tag
 	 * @return
 	 */
 	public String getFormattedExpirationTime(){
 		return new ExpirationTimePrinter().print(getContest().getEndTime(), Locale.getDefault());
+	}
+
+	/**
+	 * Returns true if this question has not yet been answered and it has not expired
+	 * @return
+	 */
+	public boolean isAvailable() {
+		return !isAnswered() && getContest().isInProgress();
 	}
 	
 }

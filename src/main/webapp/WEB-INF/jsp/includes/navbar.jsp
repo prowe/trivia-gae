@@ -19,9 +19,12 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="<c:url value='/questions/history.html'/>" >History</a></li>
+				<li><a href="<c:url value='/'/>" ><i class="fa fa-home"></i> Home</a></li>
+				<li><a href="<c:url value='/questions/winning.html'/>" ><i class="fa fa-gift"></i> Winnings</a></li>
+				<li><a href="<c:url value='/questions/history.html'/>" ><i class="fa fa-clock-o"></i> History</a></li>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li ><a href="<c:url value='/contests/list.html'/>">Contests</a></li>
+					<li ><a href="<c:url value='/questions/list.html'/>">Questions</a></li>
 				</sec:authorize>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

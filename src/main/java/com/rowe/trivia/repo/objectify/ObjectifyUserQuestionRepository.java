@@ -1,5 +1,6 @@
 package com.rowe.trivia.repo.objectify;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
@@ -39,9 +40,38 @@ public class ObjectifyUserQuestionRepository extends ObjectifyRepositorySupport<
 	
 	@Override
 	public List<UserQuestion> findAvailableForUser(User user) {
-		//TODO: fix me
-		LoggerFactory.getLogger(getClass()).warn("Returning all questions for user");
-		return findByUser(user);
+		List<UserQuestion> results = new ArrayList<UserQuestion>();
+		//TODO: push this down into the datastore
+		for(UserQuestion uq:findByUser(user)){
+			if(uq.isAvailable()){
+				results.add(uq);
+			}
+		}
+		return results;
+	}
+	
+	@Override
+	public Object findAnsweredByUser(User user) {
+		List<UserQuestion> results = new ArrayList<UserQuestion>();
+		//TODO: push this down into the datastore
+		for(UserQuestion uq:findByUser(user)){
+			if(uq.isAnswered()){
+				results.add(uq);
+			}
+		}
+		return results;
+	}
+	
+	@Override
+	public List<UserQuestion> findWinningByUser(User user) {
+		List<UserQuestion> results = new ArrayList<UserQuestion>();
+		//TODO: push this down into the datastore
+		for(UserQuestion uq:findByUser(user)){
+			if(uq.isWinner()){
+				results.add(uq);
+			}
+		}
+		return results;
 	}
 	
 	@Override

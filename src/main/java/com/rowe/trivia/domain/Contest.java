@@ -6,11 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.slf4j.Logger;
@@ -26,6 +23,7 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
+import com.rowe.trivia.repo.BetterRef;
 import com.rowe.trivia.repo.ContestRepository;
 import com.rowe.trivia.repo.UserQuestionRepository;
 import com.rowe.trivia.repo.UserRepository;
@@ -34,7 +32,6 @@ import com.rowe.trivia.repo.UserRepository;
 @Entity
 public class Contest {
 	private static Logger logger = LoggerFactory.getLogger(Contest.class);
-	
 			
 	@Autowired @Ignore
 	private transient ContestRepository repo;
@@ -47,12 +44,8 @@ public class Contest {
 	private String contestId;
 	
 	private Ref<User> sponsor;
-	@NotBlank
-	private String question;
-	@NotBlank
-	private String correctAnswer;
-	@Size(min=1, max=3)
-	private List<String> possibleAnswers;
+	private Ref<Question> question;
+	
 	@NotNull
 	private Period duration;
 	
@@ -74,16 +67,6 @@ public class Contest {
             throw new IllegalStateException("Unable to set sponsor: no user signed in");
         }
 		setSponsor(currentUser);
-		
-		//make sure the possible answers contains the correct answers
-		if(possibleAnswers != null && !possibleAnswers.contains(correctAnswer)){
-			possibleAnswers.add(correctAnswer);
-		}
-		//shuffle the answers
-		if(possibleAnswers != null){
-			Collections.shuffle(possibleAnswers);
-		}
-		
 	}
 	
 	public void save(){
@@ -164,14 +147,8 @@ public class Contest {
 	public String getContestId() {
 		return contestId;
 	}
-	public String getQuestion() {
-		return question;
-	}
-	public String getCorrectAnswer() {
-		return correctAnswer;
-	}
-	public List<String> getPossibleAnswers() {
-		return possibleAnswers;
+	public Question getQuestion() {
+		return question == null ? null : question.get();
 	}
 	public void setSponsor(User sponsor) {
 		this.sponsor = Ref.create(sponsor);
@@ -179,24 +156,14 @@ public class Contest {
 	public void setContestId(String contestId) {
 		this.contestId = contestId;
 	}
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-	public void setCorrectAnswer(String correctAnswer) {
-		this.correctAnswer = correctAnswer;
-	}
-	public void setPossibleAnswers(List<String> possibleAnswers) {
-		this.possibleAnswers = possibleAnswers;
+	public void setQuestion(Question question) {
+		this.question = BetterRef.create(question);
 	}
 	public void setDuration(Period duration) {
 		this.duration = duration;
 	}
 	public Period getDuration() {
 		return duration;
-	}
-
-	public boolean isCorrect(String choosenAnswer) {
-		return StringUtils.equalsIgnoreCase(choosenAnswer, correctAnswer);
 	}
 
 	public Integer getPrizeQuantity() {

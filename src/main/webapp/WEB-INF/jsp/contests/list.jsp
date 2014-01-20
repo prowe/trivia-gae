@@ -19,14 +19,7 @@
 				<tr>
 					<td><a href="<c:url value='/contests/${contest.contestId}/view.html' />">${contest.contestId}</a></td>
 					<td>${contest.sponsor.username}</td>
-					<td>${contest.question}</td>
-					<td>
-						<ul class="unstyled-list">
-							<c:forEach items="${contest.possibleAnswers}" var="ans">
-								<li >${ans}<c:if test="${ans eq contest.correctAnswer}"> (correct)</c:if></li>
-							</c:forEach>
-						</ul>
-					</td>
+					<td>${contest.question.question}</td>
 				</tr>
 			</c:forEach>
 		</table>

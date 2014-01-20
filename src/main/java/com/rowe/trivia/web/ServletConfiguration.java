@@ -26,6 +26,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.rowe.trivia.CoreConfiguration;
 import com.rowe.trivia.convert.PeriodFormatter;
+import com.rowe.trivia.convert.QuestionConverter;
+import com.rowe.trivia.repo.QuestionRepository;
 
 @Configuration
 //@EnableTransactionManagement(mode=AdviceMode.ASPECTJ)
@@ -39,6 +41,9 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	//private ConnectionRepository connectionRepository;
 	@Autowired
 	private SignInAdapter signInAdapter;
+	
+	@Autowired
+	private QuestionRepository questionRepo;
 	
 	@Bean
 	public ViewResolver viewResolver(){
@@ -66,6 +71,8 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	protected void addFormatters(FormatterRegistry registry) {
 		super.addFormatters(registry);
 		registry.addFormatter(new PeriodFormatter());
+		
+		registry.addConverter(new QuestionConverter(questionRepo));
 	}
 	
 	@Override
@@ -90,6 +97,10 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	@Bean
 	public UserController userController(){
 		return new UserController();
+	}
+	@Bean
+	public QuestionController questionController(){
+		return new QuestionController();
 	}
 	@Bean
 	public MyAccountController myAccountController(){

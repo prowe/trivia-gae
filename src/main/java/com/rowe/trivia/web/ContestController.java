@@ -1,6 +1,7 @@
 package com.rowe.trivia.web;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriTemplate;
 
 import com.rowe.trivia.domain.Contest;
+import com.rowe.trivia.domain.Question;
+import com.rowe.trivia.domain.Prize.RedemptionMethod;
 import com.rowe.trivia.repo.ContestRepository;
+import com.rowe.trivia.repo.QuestionRepository;
 
 @Controller
 @RequestMapping("/contests")
@@ -26,6 +30,8 @@ public class ContestController {
 
 	@Autowired
 	private ContestRepository contestRepo;
+	@Autowired
+	private QuestionRepository questionRepo;
 	
 	@RequestMapping("list.html")
 	public void list(Map<String, Object> modelMap){
@@ -37,6 +43,14 @@ public class ContestController {
 		Contest contest = new Contest();
 		logger.info("Created contest {}", contest);
 		return contest;
+	}
+	@ModelAttribute("questionList")
+	public List<Question> getQuestionList(){
+		return questionRepo.listAll();
+	}
+	@ModelAttribute("redemptionMethodList")
+	public RedemptionMethod[] getRedemptionMethodList(){
+		return RedemptionMethod.values();
 	}
 	
 	@RequestMapping("create.html")

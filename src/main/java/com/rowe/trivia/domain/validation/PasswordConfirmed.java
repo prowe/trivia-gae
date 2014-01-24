@@ -38,7 +38,7 @@ public @interface PasswordConfirmed {
 		public boolean isValid(User user, ConstraintValidatorContext context) {
 			if(!StringUtils.equals(user.getPassword(), user.getPasswordConfirmation())){
 				context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-					.addPropertyNode("passwordConfirmation")
+					.addNode("passwordConfirmation")
 					.addConstraintViolation();
 				context.disableDefaultConstraintViolation();
 				return false;

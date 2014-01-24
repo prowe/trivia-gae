@@ -16,15 +16,15 @@
 
 	<repositories>
 		<repository>
-	        <id>spring-milestones</id>
-	        <name>Spring Milestones</name>
-	        <url>http://repo.spring.io/milestone</url>
-	        <snapshots>
-	            <enabled>false</enabled>
-	        </snapshots>
-	    </repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
-	
+
 	<dependencies>
 		<!-- Compile/runtime dependencies -->
 		<dependency>
@@ -64,9 +64,9 @@
 			<version>2.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-		    <version>5.0.2.Final</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.1.Final</version>
 		</dependency>
 
 		<dependency>
@@ -96,10 +96,10 @@
 			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
-	      <groupId>org.aspectj</groupId>
-	      <artifactId>aspectjrt</artifactId>
-	      <version>1.7.3</version>
-	    </dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.7.3</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -110,28 +110,28 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-		
+
 		<!-- spring security -->
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-core</artifactId>
-		    <version>3.2.0.RELEASE</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-config</artifactId>
-		    <version>3.2.0.RELEASE</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
-		    <version>3.2.0.RELEASE</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>3.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
-		    <version>3.2.0.RELEASE</version>
-		    <exclusions>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.2.0.RELEASE</version>
+			<exclusions>
 				<exclusion>
 					<artifactId>spring-jdbc</artifactId>
 					<groupId>org.springframework</groupId>
@@ -142,27 +142,27 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<!-- Spring Social -->
 		<dependency>
-		    <groupId>org.springframework.social</groupId>
-		    <artifactId>spring-social-config</artifactId>
-		    <version>1.1.0.M4</version>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-config</artifactId>
+			<version>1.1.0.M4</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.social</groupId>
-		    <artifactId>spring-social-core</artifactId>
-		    <version>1.1.0.M4</version>
-		</dependency>
-		<dependency>     
-		    <groupId>org.springframework.social</groupId>
-		    <artifactId>spring-social-security</artifactId>
-		    <version>1.1.0.M4</version>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>1.1.0.M4</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.social</groupId>
-		    <artifactId>spring-social-web</artifactId>
-		    <version>1.1.0.M4</version>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-security</artifactId>
+			<version>1.1.0.M4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>1.1.0.M4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
@@ -174,7 +174,7 @@
 			<artifactId>spring-social-facebook</artifactId>
 			<version>1.1.0.M4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -187,11 +187,11 @@
 		</dependency>
 
 		<!-- Persistance -->
-        <dependency>
+		<dependency>
 			<groupId>com.googlecode.objectify</groupId>
 			<artifactId>objectify</artifactId>
 			<version>4.0rc2</version>
-	    </dependency>
+		</dependency>
 
 		<!-- Test Dependencies -->
 		<dependency>
@@ -210,6 +210,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.2</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -277,7 +283,7 @@
 				<version>${appengine.target.version}</version>
 			</plugin>
 
-			
+
 			<plugin>
 				<groupId>org.lesscss</groupId>
 				<artifactId>lesscss-maven-plugin</artifactId>

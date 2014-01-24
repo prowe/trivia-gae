@@ -13,11 +13,15 @@
 	<%--@ include file="includes/navbar.jsp" --%>
 	
 	<div id="main-body" class="row">
+		<h2 class="col-lg-12">PrizeMat</h2>
 		<div class="col-lg-8 sigin-explination">
-			<h2>PrizeMat</h2>
 			<h3>How it works</h3>
 			<p>
 				We'll ask you trivia questions. If you answer them correctly before they expire, you will be entered into a contest to win a prize.
+			</p>
+			<p>
+				Welcome to the Prize Mat alpha. Please be patient as we continue to build out the site.
+				We are always looking for suggestions any any comments can be sent to <a href="email:paul.w.rowe@gmail.com">paul.w.rowe@gmail.com</a>.
 			</p>
 			<p>
 				Log in or create an account to get started.
@@ -56,23 +60,20 @@
 	            
 	            <div class="row">
 					<!-- Twitter sign in Button -->
-					<form class="col-sm-6" action="<c:url value='/signin/twitter'/>" method="post">
+					<form class="social-signin" action="<c:url value='/signin/twitter'/>" method="post">
 						<!-- Add CSRF token -->
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		              	<button type="submit" class="btn btn-default">
-		              		<img height="14px" width="14px" src="<c:url value='/resources/images/Twitter_logo_blue.png' />" />
+		              	<button type="submit" class="btn-twitter-signin">
+		              		<!--<img src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" />-->
 		              		Sign in with Twitter
 		              	</button>
 					</form>
 					
 					<!-- Facebook sign in Button -->
-					<form class="col-sm-6" action="<c:url value='/signin/facebook'/>" method="post">
+					<form class="social-signin" action="<c:url value='/signin/facebook'/>" method="post">
 						<!-- Add CSRF token -->
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		              	<button type="submit" class="btn btn-default">
-		              		<img height="14px" width="14px" src="<c:url value='/resources/images/FB-f-Logo__blue_29.png' />" />
-		              		Sign in with Facebook
-		              	</button>
+		              	<button type="submit" class="btn-facebook-signin">Sign in with Facebook</button>
 					</form>
 				</div>
 	        </div>

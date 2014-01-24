@@ -6224,21 +6224,218 @@ fieldset[disabled] .primary-button.active {
   font-size: x-large;
   font-weight: bolder;
 }
-.signup-form {
-  /*.form-horizontal(); */
-
-  /*.control-label {
-		.make-md-column(2);
-	}
-	.form-input {
-		.make-md-column(10);
-	}
-	*/
-
-}
-.signup-form .submit {
+.signin-panel .submit {
   padding-right: 15px;
   float: right !important;
+}
+.signin-panel .social-signin {
+  margin-bottom: 15px;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .signin-panel .social-signin {
+    float: left;
+    width: 50%;
+  }
+}
+.signin-panel .social-signin .btn-twitter-signin {
+  border: none;
+  padding: 0px;
+}
+.signin-panel .social-signin .btn-twitter-signin {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #55ACEE;
+  color: white;
+}
+.signin-panel .social-signin .btn-twitter-signin:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.signin-panel .social-signin .btn-twitter-signin:hover,
+.signin-panel .social-signin .btn-twitter-signin:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.signin-panel .social-signin .btn-twitter-signin:active,
+.signin-panel .social-signin .btn-twitter-signin.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.signin-panel .social-signin .btn-twitter-signin.disabled,
+.signin-panel .social-signin .btn-twitter-signin[disabled],
+fieldset[disabled] .signin-panel .social-signin .btn-twitter-signin {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.signin-panel .social-signin .btn-twitter-signin:hover,
+.signin-panel .social-signin .btn-twitter-signin:focus,
+.signin-panel .social-signin .btn-twitter-signin:active,
+.signin-panel .social-signin .btn-twitter-signin.active,
+.open .dropdown-toggle.signin-panel .social-signin .btn-twitter-signin {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.signin-panel .social-signin .btn-twitter-signin:active,
+.signin-panel .social-signin .btn-twitter-signin.active,
+.open .dropdown-toggle.signin-panel .social-signin .btn-twitter-signin {
+  background-image: none;
+}
+.signin-panel .social-signin .btn-twitter-signin.disabled,
+.signin-panel .social-signin .btn-twitter-signin[disabled],
+fieldset[disabled] .signin-panel .social-signin .btn-twitter-signin,
+.signin-panel .social-signin .btn-twitter-signin.disabled:hover,
+.signin-panel .social-signin .btn-twitter-signin[disabled]:hover,
+fieldset[disabled] .signin-panel .social-signin .btn-twitter-signin:hover,
+.signin-panel .social-signin .btn-twitter-signin.disabled:focus,
+.signin-panel .social-signin .btn-twitter-signin[disabled]:focus,
+fieldset[disabled] .signin-panel .social-signin .btn-twitter-signin:focus,
+.signin-panel .social-signin .btn-twitter-signin.disabled:active,
+.signin-panel .social-signin .btn-twitter-signin[disabled]:active,
+fieldset[disabled] .signin-panel .social-signin .btn-twitter-signin:active,
+.signin-panel .social-signin .btn-twitter-signin.disabled.active,
+.signin-panel .social-signin .btn-twitter-signin[disabled].active,
+fieldset[disabled] .signin-panel .social-signin .btn-twitter-signin.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.signin-panel .social-signin .btn-twitter-signin .badge {
+  color: #ffffff;
+  background-color: #fff;
+}
+.signin-panel .social-signin .btn-facebook-signin {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #4c66a4;
+  color: white;
+}
+.signin-panel .social-signin .btn-facebook-signin:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.signin-panel .social-signin .btn-facebook-signin:hover,
+.signin-panel .social-signin .btn-facebook-signin:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.signin-panel .social-signin .btn-facebook-signin:active,
+.signin-panel .social-signin .btn-facebook-signin.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.signin-panel .social-signin .btn-facebook-signin.disabled,
+.signin-panel .social-signin .btn-facebook-signin[disabled],
+fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.signin-panel .social-signin .btn-facebook-signin:hover,
+.signin-panel .social-signin .btn-facebook-signin:focus,
+.signin-panel .social-signin .btn-facebook-signin:active,
+.signin-panel .social-signin .btn-facebook-signin.active,
+.open .dropdown-toggle.signin-panel .social-signin .btn-facebook-signin {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.signin-panel .social-signin .btn-facebook-signin:active,
+.signin-panel .social-signin .btn-facebook-signin.active,
+.open .dropdown-toggle.signin-panel .social-signin .btn-facebook-signin {
+  background-image: none;
+}
+.signin-panel .social-signin .btn-facebook-signin.disabled,
+.signin-panel .social-signin .btn-facebook-signin[disabled],
+fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin,
+.signin-panel .social-signin .btn-facebook-signin.disabled:hover,
+.signin-panel .social-signin .btn-facebook-signin[disabled]:hover,
+fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin:hover,
+.signin-panel .social-signin .btn-facebook-signin.disabled:focus,
+.signin-panel .social-signin .btn-facebook-signin[disabled]:focus,
+fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin:focus,
+.signin-panel .social-signin .btn-facebook-signin.disabled:active,
+.signin-panel .social-signin .btn-facebook-signin[disabled]:active,
+fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin:active,
+.signin-panel .social-signin .btn-facebook-signin.disabled.active,
+.signin-panel .social-signin .btn-facebook-signin[disabled].active,
+fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.signin-panel .social-signin .btn-facebook-signin .badge {
+  color: #ffffff;
+  background-color: #fff;
 }
 .question-row {
   margin-bottom: 15px;
@@ -6491,6 +6688,24 @@ fieldset[disabled] .question-pane .answer-group .answer .btn-answer.active {
   background-color: #d9534f;
   border-color: #d43f3a;
 }
+.prize-pane {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.prize-pane blockquote {
+  border-color: #ddd;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+.prize-pane .prize-title {
+  font-size: larger;
+  font-weight: bolder;
+}
 .history-table .choosen-answer {
   color: #d9534f;
 }
@@ -6502,4 +6717,42 @@ fieldset[disabled] .question-pane .answer-group .answer .btn-answer.active {
 }
 .history-table .correct-answer {
   color: #47a447;
+}
+.address-entry .city {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-left: 0px;
+}
+@media (min-width: 992px) {
+  .address-entry .city {
+    float: left;
+    width: 50%;
+  }
+}
+.address-entry .state {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .address-entry .state {
+    float: left;
+    width: 16.666666666666664%;
+  }
+}
+.address-entry .zip {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-right: 0px;
+}
+@media (min-width: 992px) {
+  .address-entry .zip {
+    float: left;
+    width: 33.33333333333333%;
+  }
 }

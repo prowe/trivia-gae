@@ -3,7 +3,8 @@ package com.rowe.trivia.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Email;
@@ -42,7 +43,8 @@ public class User implements UserDetails, SocialUserDetails{
 	//using email as username
 	//can't rename this field because it is the ID
 	@Id
-	@NotBlank @Email
+	@NotBlank 
+	@Email
 	private String username;
 	
 	@NotBlank
@@ -61,17 +63,9 @@ public class User implements UserDetails, SocialUserDetails{
 	//TODO: add age
 	private String phoneNumber;
 	
-	//TODO: notification prefs
-	//TODO: verify email address
+	@Valid
+	private Address address;
 	
-	//TODO: wrap in address object
-	private String addressLine1;
-	private String addressLine2;
-	private String city;
-	//TODO: make an enum
-	private String state;
-	private String zip;
-
 	public static User currentUser(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication == null){
@@ -185,6 +179,10 @@ public class User implements UserDetails, SocialUserDetails{
 	public void setEmail(String email) {
 		this.username = email;
 	}
+	
+	public void setUsername(String username){
+		setEmail(username);
+	}
 
 	public String getDisplayName() {
 		return displayName;
@@ -194,25 +192,6 @@ public class User implements UserDetails, SocialUserDetails{
 		return phoneNumber;
 	}
 
-	public String getAddressLine1() {
-		return addressLine1;
-	}
-
-	public String getAddressLine2() {
-		return addressLine2;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public String getZip() {
-		return zip;
-	}
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
@@ -221,25 +200,11 @@ public class User implements UserDetails, SocialUserDetails{
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
+	public Address getAddress() {
+		return address;
 	}
-
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public void setZip(String zip) {
-		this.zip = zip;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	/**

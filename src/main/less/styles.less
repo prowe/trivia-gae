@@ -28,27 +28,43 @@
 	}
 }
 
+
 .signin-panel {
 	.panel();
 	.panel-heading {
 		font-size: x-large;
 		font-weight: bolder;
 	}
-}
-.signup-form {
-	/*.form-horizontal(); */
-	
-	/*.control-label {
-		.make-md-column(2);
-	}
-	.form-input {
-		.make-md-column(10);
-	}
-	*/
 	.submit {
 		padding-right: 15px;
 		.pull-right();
 	}
+	.social-signin {
+		margin-bottom: 15px;
+		.make-md-column(6);
+		
+		.btn-twitter-signin {
+			border: none;
+			padding: 0px;
+		}
+		.btn-twitter-signin {
+			.btn();
+			.btn-default();
+			.btn-sm();
+			.btn-block();
+			background-color: #55ACEE;
+			color: white;
+		}
+		.btn-facebook-signin {
+			.btn();
+			.btn-default();
+			.btn-sm();
+			.btn-block();
+			background-color: #4c66a4;
+			color: white;
+		}
+	}
+		
 }
 
 .question-row {
@@ -100,6 +116,19 @@
 }
 
 
+.prize-pane {
+	.well();
+	
+	.prize-title {
+		font-size: larger;
+		font-weight: bolder;
+	}
+	.redemption-instructions{
+		
+	}
+}
+
+
 .history-table {
 	.choosen-answer {
 		color: #d9534f;
@@ -114,4 +143,18 @@
 	.correct-answer {
 		color: #47a447;
 	}
+}
+
+.address-entry {
+	.city {
+		.make-md-column(6);
+		padding-left: 0px;
+	}
+	.state {
+		.make-md-column(2);
+	}	
+	.zip {
+		.make-md-column(4);
+		padding-right: 0px;
+	}	
 }

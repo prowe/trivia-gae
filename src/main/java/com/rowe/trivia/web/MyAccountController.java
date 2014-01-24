@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rowe.trivia.domain.NotificationMethod;
+import com.rowe.trivia.domain.StateCode;
 import com.rowe.trivia.domain.User;
 
 @Controller
@@ -28,6 +29,10 @@ public class MyAccountController {
 	@ModelAttribute("notificationMethods")
 	public List<NotificationMethod> getNotificationMethods(){
 		return Arrays.asList(NotificationMethod.values());
+	}
+	@ModelAttribute("stateCodes")
+	public StateCode[] getStateCodes(){
+		return StateCode.values();
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

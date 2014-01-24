@@ -23,12 +23,12 @@
 		<!-- Add CSRF token -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						
-		<div class="form-group email <form:errors path='email'>has-error</form:errors>">
-			<form:label cssClass="control-label" path="email">Email:</form:label>
+		<div class="form-group email <form:errors path='username'>has-error</form:errors>">
+			<form:label cssClass="control-label" path="username">Email:</form:label>
 			<div class="form-input">
-				<form:input cssClass="form-control" path="email" />
-				<form:errors cssClass="help-block" path="email" />
-				<span class="help-block">You may use this to sign in. We never share your email addresses.</span>
+				<form:input cssClass="form-control" path="username" />
+				<form:errors cssClass="help-block" path="username" />
+				<span class="help-block">You may use this to sign in. We never share your email address.</span>
 			</div>
    		</div>
    		
@@ -70,61 +70,52 @@
 			</div>
 		</div>
    		
-   		<!-- 
-   		<div class="form-group ">
-			<form:label cssClass="control-label" path="phoneNumber">Phone Number:</form:label>
-			<div class="form-input">
-				<form:input cssClass="form-control" path="phoneNumber" />
-				<form:errors cssClass="form-error" path="phoneNumber" />
-				<span class="help-block">Optional, unless you want us to alert you of new questions and prizes via text message.</span>
-			</div>
-   		</div>
-   		
-   		<fieldset>
-   			<legend>Address</legend>
-   			<span class="help-block">You can skip this for now, but many prizes are physical and we'll need to know where to mail them to</span>
-   			
-	   		<div class="form-group ">
-				<form:label cssClass="control-label sr-only" path="addressLine1">Line 1:</form:label>
-				<div class="form-input">
-					<form:input cssClass="form-control" path="addressLine1" />
-					<form:errors cssClass="form-error" path="addressLine1" />
-				</div>
-	   		</div>
-	   		<div class="form-group ">
-				<form:label cssClass="control-label sr-only" path="addressLine2">Line 2:</form:label>
-				<div class="form-input">
-					<form:input cssClass="form-control" path="addressLine2" />
-					<form:errors cssClass="form-error" path="addressLine2" />
-				</div>
-	   		</div>
+   		<fieldset class="address-entry" id="address-entry">
+			<legend>Address</legend>
+			<span class="help-block">Where should we send your winnings?</span>
 			
-			<div class="form-group ">
-				<div class="form-input row">
-					<div class="col-xs-6">
-						<form:input cssClass="form-control" path="city" />
-					</div>
-					<div class="col-xs-2">
-						<form:input cssClass="form-control" path="state" />
-					</div>
-					<div class="col-xs-4">
-						<form:input cssClass="form-control" path="zip" />
-					</div>
+			<div class="form-group line1 <form:errors path='address.line1'>has-error</form:errors>">
+				<form:label cssClass="control-label" path="address.line1">Line 1:</form:label>
+				<div class="form-input">
+					<form:input path="address.line1" cssClass="form-control" />
+					<form:errors cssClass="help-block"  path="address.line1" />
 				</div>
-				<div class="row">
-					<div class="col-xs-6">
-						<form:errors cssClass="form-error" path="city" />
-					</div>
-					<div class="col-xs-2">
-						<form:errors cssClass="form-error" path="state" />
-					</div>
-					<div class="col-xs-4">
-						<form:errors cssClass="form-error" path="zip" />
-					</div>
+			</div>
+			
+			<div class="form-group line2 <form:errors path='address.line2'>has-error</form:errors>">
+				<form:label cssClass="control-label" path="address.line2">Line 2:</form:label>
+				<div class="form-input">
+					<form:input path="address.line2" cssClass="form-control"/>
+					<form:errors cssClass="help-block"  path="address.line2" />
 				</div>
-	   		</div>
+			</div>
+			
+			<div class="form-group city <form:errors path='address.city'>has-error</form:errors>">
+				<form:label cssClass="control-label" path="address.city">City:</form:label>
+				<div class="form-input">
+					<form:input path="address.city" cssClass="form-control" />
+					<form:errors cssClass="help-block"  path="address.city" />
+				</div>
+			</div>
+			
+			<div class="form-group state <form:errors path='address.state'>has-error</form:errors>">
+				<form:label cssClass="control-label" path="address.state">State:</form:label>
+				<div class="form-input">
+					<form:select path="address.state" cssClass="form-control">
+						<form:option value=""></form:option>
+						<form:options items="${stateCodes}"/>
+					</form:select>
+					<form:errors cssClass="help-block"  path="address.state" />
+				</div>
+			</div>
+			<div class="form-group zip <form:errors path='address.zip'>has-error</form:errors>">
+				<form:label cssClass="control-label" path="address.zip">Zip:</form:label>
+				<div class="form-input">
+					<form:input path="address.zip" cssClass="form-control" />
+					<form:errors cssClass="help-block"  path="address.zip" />
+				</div>
+			</div>
 		</fieldset>
-		-->
 		
 		<div class="form-group submit">
 			<button type="submit" class="btn btn-primary">Complete Sign Up</button>

@@ -62,14 +62,29 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label">Winners</label>
-			<table class="form-control-static">
+			<table class="form-control-static table">
+				<thead>
+					<tr>
+						<th>Email</th>
+						<th>Display Name</th>
+						<th>Phone</th>
+						<th>Address</th>
+					</tr>
+				</thead>
+				<tbody>
 				<c:forEach items="${contest.winningAnswers}" var="uq">
 					<tr>
-						<td><c:out value="${uq.contestant.username}" /></td>
-						<td><c:out value="${answerDate}" /></td>
-						<td><c:out value="${uq.correctAnswerTicket}" /></td>
+						<td><c:out value="${uq.contestant.email}" /></td>
+						<td><c:out value="${uq.contestant.displayName}" /></td>
+						<td><c:out value="${uq.contestant.phoneNumber}" /></td>
+						<td>
+							<div><c:out value="${uq.contestant.address.line1}" /></div>
+							<div><c:out value="${uq.contestant.address.line2}" /></div>
+							<div><c:out value="${uq.contestant.address.city}" /> <c:out value="${uq.contestant.address.state}" />, <c:out value="${uq.contestant.address.zip}" /></div>
+						</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 			
 		</div>

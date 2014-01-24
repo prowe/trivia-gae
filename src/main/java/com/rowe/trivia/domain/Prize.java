@@ -16,11 +16,14 @@ public class Prize {
 		EMAIL
 	};
 
-	
 	private String title;
 	private String description;
 	private BigDecimal value;
 	private RedemptionMethod redemptionMethod;
+	
+	public boolean isAddressRequired(){
+		return redemptionMethod == RedemptionMethod.MAIL;
+	}
 	
 	public String getTitle() {
 		return title;

@@ -20,7 +20,6 @@ import com.googlecode.objectify.condition.IfNotNull;
 import com.rowe.trivia.convert.ExpirationTimePrinter;
 import com.rowe.trivia.repo.BetterRef;
 import com.rowe.trivia.repo.UserQuestionRepository;
-import com.rowe.trivia.service.UserQuestionListener;
 
 @Configurable
 @Entity
@@ -30,9 +29,6 @@ public class UserQuestion {
 	@Autowired @Ignore
 	private transient UserQuestionRepository repo;
 	
-	@Autowired @Ignore
-	private transient List<UserQuestionListener> listeners;
-
 	@Parent
 	private Ref<User> contestant;
 	@Id
@@ -148,25 +144,6 @@ public class UserQuestion {
 	
 	public String getChoosenAnswer() {
 		return choosenAnswer;
-	}
-
-	/**
-	 * Notify the Contestant that this question is pending
-	 */
-	public void notifyUserQuestionAsked() {
-		if(listeners != null){
-			for(UserQuestionListener listener:listeners){
-				listener.questionAvailable(this);
-			}
-		}
-	}
-
-	public void notifyUserIsWinner() {
-		if(listeners != null){
-			for(UserQuestionListener listener:listeners){
-				listener.selectedAsWinningQuestion(this);
-			}
-		}
 	}
 	
 	public Question getQuestion(){

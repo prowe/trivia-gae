@@ -56,17 +56,17 @@ public class EmailServiceImpl implements EmailService{
 	}
 	
 	@Override
-	public void questionAvailable(final UserQuestion userQuestion) {
+	public void notifyUserOfNewQuestionIfNeeded(final UserQuestion userQuestion) {
 		final User contestant = userQuestion.getContestant();
 		if(!contestant.isEmailNotificationEnabled()){
 			// or the user has been notified recently.	
 			return;
 		}
-		logger.info("Notifying user of available question {}", userQuestion);
 		if(StringUtils.isBlank(contestant.getEmail())){
 			logger.warn("No email address so email not sent: {}", contestant);
 			return;
 		}
+		logger.info("Notifying user of available question {}", userQuestion);
 		mailSender.send(new MimeMessagePreparator() {
 			@Override
 			public void prepare(MimeMessage message) throws Exception {
@@ -82,7 +82,7 @@ public class EmailServiceImpl implements EmailService{
 	}
 	
 	@Override
-	public void selectedAsWinningQuestion(UserQuestion userQuestion) {
+	public void notifyUserOfWinningQuestion(UserQuestion userQuestion) {
 		User contestant = userQuestion.getContestant();
 		if(!contestant.isEmailNotificationEnabled()){
 			return;

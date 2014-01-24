@@ -16,7 +16,7 @@
 		<h1>Welcome!</h1>
 		<c:choose>
 			<c:when test="${empty userQuestionList}">
-				<p>You don't have any questions.</p>
+				<p>You don't have any questions. Check back later for more questions to answer and prizes to win.</p>
 			</c:when>
 			<c:otherwise>
 				<p>Answer the questions to be entered to win prizes</p>

@@ -27,6 +27,7 @@ import com.rowe.trivia.repo.BetterRef;
 import com.rowe.trivia.repo.ContestRepository;
 import com.rowe.trivia.repo.UserQuestionRepository;
 import com.rowe.trivia.repo.UserRepository;
+import com.rowe.trivia.service.EmailService;
 
 @Configurable
 @Entity
@@ -39,6 +40,8 @@ public class Contest {
 	private transient UserRepository userRepo;
 	@Autowired @Ignore
 	private transient UserQuestionRepository userQuestionRepo;
+	@Autowired @Ignore
+	private transient EmailService emailService;
 	
 	@Id
 	private String contestId;
@@ -108,13 +111,14 @@ public class Contest {
 		
 	}
 
+	//TODO: move this to be a map reduce
 	private void selectContestants() {
 		logger.info("Starting contestant selection for {}", this);
 		int usersEntered = 0;
 		for(User user:userRepo.listAll()){
 			if(isElgible(user)){
 				UserQuestion uq = new UserQuestion(user, this);
-				uq.notifyUserQuestionAsked();
+				emailService.notifyUserOfNewQuestionIfNeeded(uq);
 				userQuestionRepo.save(uq);
 				usersEntered++;
 			}
@@ -131,7 +135,8 @@ public class Contest {
 		winningAnswers = new ArrayList<Ref<UserQuestion>>();
 		for(UserQuestion winner:winners){
 			winningAnswers.add(Ref.create(winner));
-			winner.notifyUserIsWinner();
+			emailService.notifyUserOfWinningQuestion(winner);
+			
 		}
 		logger.info("Contest Ended. {} winners selected", winners.size());
 	}

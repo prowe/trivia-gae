@@ -1,35 +1,33 @@
 package com.rowe.trivia.convert;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 import org.easymock.EasyMock;
+import org.easymock.EasyMockRunner;
+import org.easymock.Mock;
+import org.easymock.TestSubject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.rowe.trivia.domain.Question;
 import com.rowe.trivia.repo.QuestionRepository;
 
+@RunWith(EasyMockRunner.class)
 public class QuestionConverterTest {
 
+	@Mock
 	private QuestionRepository repo;
-	private QuestionConverter converter;
-
-	@Before
-	public void setUp() throws Exception {
-		repo = EasyMock.createMock(QuestionRepository.class);
-		converter = new QuestionConverter(repo);
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		EasyMock.reset(repo);
-	}
+	
+	@TestSubject
+	private QuestionConverter converter = new QuestionConverter(repo);
 	
 	@Test(expected=IllegalStateException.class)
 	public void testConvert_nullRepo() {
-		converter = new QuestionConverter(null);
-		converter.convert("a");
+		QuestionConverter convert = new QuestionConverter(null);
+		convert.convert("a");
 	}
 
 	@Test

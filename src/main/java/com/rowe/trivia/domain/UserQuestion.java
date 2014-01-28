@@ -7,8 +7,12 @@ import java.util.Random;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.twitter.api.TweetData;
+import org.springframework.social.twitter.api.Twitter;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
@@ -157,6 +161,9 @@ public class UserQuestion {
 	public String getFormattedExpirationTime(){
 		return new ExpirationTimePrinter().print(getContest().getEndTime(), Locale.getDefault());
 	}
+	public Period getRemainingTime(){
+		return new Period(new DateTime(), getContest().getEndTime());
+	}
 
 	/**
 	 * Returns true if this question has not yet been answered and it has not expired
@@ -164,6 +171,16 @@ public class UserQuestion {
 	 */
 	public boolean isAvailable() {
 		return !isAnswered() && getContest().isInProgress();
+	}
+	
+	public void shareViaTwitter(){
+		Connection<Twitter> twitterConnection = getContestant().getTwitterConnection();
+		if(twitterConnection == null){
+			throw new IllegalStateException("No twitter connection");
+		}
+		twitterConnection.getApi()
+			.timelineOperations()
+			.updateStatus(getQuestion().getQuestion());
 	}
 	
 }

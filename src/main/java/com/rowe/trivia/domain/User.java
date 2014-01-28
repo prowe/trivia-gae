@@ -17,7 +17,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.twitter.api.Twitter;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -39,6 +43,8 @@ public class User implements UserDetails, SocialUserDetails{
 	private transient ContestRepository contestRepo;
 	@Autowired @Ignore
 	private transient EmailService emailService;
+	@Autowired @Ignore
+	private transient UsersConnectionRepository usersConnectionRepository;
 	
 	//using email as username
 	//can't rename this field because it is the ID
@@ -60,11 +66,18 @@ public class User implements UserDetails, SocialUserDetails{
 	 */
 	private boolean emailNotificationEnabled = false;
 	
-	//TODO: add age
+	//TODO: add birthdate
 	private String phoneNumber;
 	
 	@Valid
 	private Address address;
+	
+	
+	public User() {
+	}
+	public User(String username) {
+		setUsername(username);
+	}
 	
 	public static User currentUser(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -225,4 +238,12 @@ public class User implements UserDetails, SocialUserDetails{
 		this.emailNotificationEnabled = emailNotificationEnabled;
 	}
 	
+	public boolean isTwitterConnected(){
+		return getTwitterConnection() != null;
+	}
+	
+	public Connection<Twitter> getTwitterConnection(){
+		ConnectionRepository connectionRepo = usersConnectionRepository.createConnectionRepository(getUserId());
+		return connectionRepo.findPrimaryConnection(Twitter.class);
+	}
 }

@@ -45,6 +45,15 @@ public class UserQuestionController {
 		modelMap.put("userQuestionList", questionRepo.findWinningByUser(User.currentUser()));
 	}
 	
+	@RequestMapping(value="{contestId}/shareViaTwitter.html", method=RequestMethod.POST)
+	public String shareViaTwitter(
+		@PathVariable("contestId") String contestId){
+		UserQuestion uq = questionRepo.findByUserContest(User.currentUser(), contestId);
+		logger.info("Sharing on twitter {}", uq);
+		uq.shareViaTwitter();
+		return "redirect:/#" + uq.getContest().getContestId();
+	}
+	
 	@RequestMapping(value="{contestId}/answer.html", method=RequestMethod.POST)
 	public String submitAnswer(
 		@PathVariable("contestId") String contestId,

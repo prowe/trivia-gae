@@ -1,5 +1,6 @@
 package com.rowe.trivia.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +32,9 @@ import com.rowe.trivia.service.EmailService;
 
 @Configurable
 @Entity
-public class Contest {
+public class Contest implements Serializable{
+	private static final long serialVersionUID = 6204432236658802049L;
+
 	private static Logger logger = LoggerFactory.getLogger(Contest.class);
 			
 	@Autowired @Ignore
@@ -156,7 +159,7 @@ public class Contest {
 		return question == null ? null : question.get();
 	}
 	public void setSponsor(User sponsor) {
-		this.sponsor = Ref.create(sponsor);
+		this.sponsor = BetterRef.create(sponsor);
 	}
 	public void setContestId(String contestId) {
 		this.contestId = contestId;

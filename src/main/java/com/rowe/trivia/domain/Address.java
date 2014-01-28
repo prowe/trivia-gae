@@ -1,5 +1,7 @@
 package com.rowe.trivia.domain;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -9,8 +11,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.googlecode.objectify.annotation.Embed;
 
 @Embed
-public class Address {
-
+public class Address implements Serializable{
+	private static final long serialVersionUID = -6373552100795466770L;
+	
 	@NotBlank
 	private String line1;
 	private String line2;

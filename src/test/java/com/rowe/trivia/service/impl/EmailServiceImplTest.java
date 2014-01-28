@@ -16,26 +16,20 @@ import org.junit.Test;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.rowe.trivia.CoreConfiguration;
+import com.rowe.trivia.ObjectifyTestCaseSupport;
 import com.rowe.trivia.domain.Contest;
 import com.rowe.trivia.domain.Prize;
 import com.rowe.trivia.domain.Question;
 import com.rowe.trivia.domain.User;
 import com.rowe.trivia.domain.UserQuestion;
 
-public class EmailServiceImplTest {
+public class EmailServiceImplTest extends ObjectifyTestCaseSupport{
 
 	private EmailServiceImpl service;
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 	
 	@Before
 	public void setup(){
-		helper.setUp();
 		service = new EmailServiceImpl("http://localhost:8080");
-		CoreConfiguration.registerObjectify();
-	}
-	@After
-	public void tearDown() { 
-		helper.tearDown();
 	}
 	
 	@Test

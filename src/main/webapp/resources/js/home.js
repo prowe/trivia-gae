@@ -2,7 +2,7 @@ $('.question-pane .btn-answer').click(function(event){
 	event.preventDefault();
 	var selectedBtn = $(this);
 	
-	var questionPane = selectedBtn.closest('.question-pane');
+	var questionPane = selectedBtn.closest('.question-panel');
 	$.ajax({
 		url: questionPane.data('action'),
 		dataType: "json",
@@ -17,7 +17,6 @@ $('.question-pane .btn-answer').click(function(event){
 			if(!response.correct){
 				selectedBtn.addClass('incorrect');
 			}
-			questionPane.delay(3000).fadeOut(1000);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			console.log("Error: ", errorThrown);

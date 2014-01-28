@@ -67,6 +67,56 @@
 		
 }
 
+
+.question-panel {
+	.question-text {
+		float: left;
+	}
+	.remaining {
+		.pull-right();
+	}
+	.result-indicator {
+		.pull-right();
+		padding-left: 15px;
+		.fa-thumbs-down {
+			color: #d9534f;
+		}
+	
+		.fa-thumbs-up {
+			color: #47a447;
+		}
+	}
+	.prize-description {
+		margin: 15px;
+	}
+	.answer-group {
+		margin: 15px;
+		.btn-answer {
+			.btn();
+			.btn-default();
+		}
+		@media (max-width: @screen-sm) {
+			.btn-answer {
+				.btn-block();
+			}
+			.btn-answer + .btn-answer {
+				margin-top: 5px;
+			}
+		}
+		
+		.btn-answer.correct {
+			color: #47a447;
+			border-color: #47a447;
+			opacity: 1;
+		}
+		.btn-answer.incorrect {
+			color: #d43f3a;
+			border-color: #d43f3a;
+			opacity: 1;
+		}
+	}
+}
+
 .question-row {
 	margin-bottom: 15px;
 	.question {
@@ -79,42 +129,6 @@
 		.btn-xs();
 	}
 }
-
-.question-pane {
-	.well();
-	.question-text {
-		font-size: larger;
-		font-weight: bolder;
-		margin-bottom: 15px;
-	}
-	.answer-group {
-		.row();
-		.answer {
-			margin-bottom: 15px;
-			.make-md-column(3);
-			.make-xs-column(6);
-			
-			.btn-answer {
-				.btn();
-				.btn-block();
-				.btn-default();
-			}
-			.btn-answer.correct {
-				color: #fff;
-				background-color: #47a447;
-				border-color: #398439;
-			}
-			.btn-answer.incorrect {
-				color: #fff;
-				background-color: #d9534f;
-				border-color: #d43f3a;
-			}
-		}
-	}
-	.prize-description {
-	}
-}
-
 
 .prize-pane {
 	.well();

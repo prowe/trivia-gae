@@ -18,12 +18,14 @@
 			<c:forEach items="${contestList}" var="contest">
 				<tr>
 					<td><a href="<c:url value='/contests/${contest.contestId}/view.html' />">${contest.contestId}</a></td>
-					<td>${contest.sponsor.username}</td>
 					<td>${contest.question.question}</td>
+					<td>${contest.startTime}</td>
+					<td>${contest.endTime}</td>
 				</tr>
 			</c:forEach>
 		</table>
 		<a href='create.html'>Create Contest</a>
+		<a href='recalcStats.html' >Recalculate Stats</a>
 	</div>
 	<%@ include file="../includes/footer.jsp" %>
 </body>

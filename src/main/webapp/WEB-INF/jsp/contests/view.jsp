@@ -86,7 +86,19 @@
 				</c:forEach>
 				</tbody>
 			</table>
-			
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label">Asked</label>
+			<p class="form-control-static">${contest.askedCount}</p>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Answered</label>
+			<p class="form-control-static">${contest.answeredCount}</p>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Correct</label>
+			<p class="form-control-static">${contest.correctCount}</p>
 		</div>
 		
 		<div class="form-group row">

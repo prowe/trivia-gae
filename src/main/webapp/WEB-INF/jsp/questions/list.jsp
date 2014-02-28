@@ -24,12 +24,12 @@
 			<tbody>
 				<c:forEach items="${questionList}" var="question">
 					<tr>
-						<td><c:out value="${question.question}" /></td>
-						<td>
-							<c:forEach items="${question.possibleAnswers}" var="ans">
+						<td><a href="/questions/${question.questionId}/edit.html" ><c:out value="${question.question}" /></a></td>
+						<c:forEach items="${question.possibleAnswers}" var="ans">
+							<td>
 								<span class="answer"><c:if test="${question.correctAnswer == ans}"><i class="fa fa-check"> </i></c:if><c:out value='${ans}' /></span>
-							</c:forEach>
-						</td>
+							</td>
+						</c:forEach>
 					</tr>
 				</c:forEach>
 			</tbody>

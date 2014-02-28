@@ -47,7 +47,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			"/signin/**",
 			"/auth/**",
 			"/users/signup*",
-			"/"
+			"/",
+			"/mapreduce/*", //TODO: remove and move to auth manager
+			"/_ah/pipeline/*" //TODO: remove and move to auth manager
 		).permitAll();
 		
 		//The rest of the our application is protected.

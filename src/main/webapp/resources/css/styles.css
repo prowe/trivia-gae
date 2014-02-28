@@ -6437,6 +6437,258 @@ fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin.active {
   color: #ffffff;
   background-color: #fff;
 }
+.question-panel2 {
+  margin-left: -15px;
+  margin-right: -15px;
+  border-top: solid thin #ffa100;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.question-panel2:before,
+.question-panel2:after {
+  content: " ";
+  display: table;
+}
+.question-panel2:after {
+  clear: both;
+}
+.question-panel2:before,
+.question-panel2:after {
+  content: " ";
+  display: table;
+}
+.question-panel2:after {
+  clear: both;
+}
+.question-panel2 .question,
+.question-panel2 .prize,
+.question-panel2 .remaining-time,
+.question-panel2 .share,
+.question-panel2 .claim {
+  /*
+		text-indent: -.75em;
+		padding-left: 1.5em;
+		*/
+
+}
+.question-panel2 .question .fa,
+.question-panel2 .prize .fa,
+.question-panel2 .remaining-time .fa,
+.question-panel2 .share .fa,
+.question-panel2 .claim .fa {
+  width: 1.5em;
+}
+.question-panel2 .question {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.question-panel2 .question .fa-thumbs-up {
+  color: #47a447;
+}
+.question-panel2 .answers {
+  margin-left: -15px;
+  margin-right: -15px;
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.question-panel2 .answers:before,
+.question-panel2 .answers:after {
+  content: " ";
+  display: table;
+}
+.question-panel2 .answers:after {
+  clear: both;
+}
+.question-panel2 .answers:before,
+.question-panel2 .answers:after {
+  content: " ";
+  display: table;
+}
+.question-panel2 .answers:after {
+  clear: both;
+}
+.question-panel2 .answers .answer {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 15px;
+  /* TODO: need to define colors */
+
+}
+@media (min-width: 768px) {
+  .question-panel2 .answers .answer {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .question-panel2 .answers .answer {
+    float: left;
+    width: 25%;
+  }
+}
+.question-panel2 .answers .answer BUTTON {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+.question-panel2 .answers .answer BUTTON:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.question-panel2 .answers .answer BUTTON:hover,
+.question-panel2 .answers .answer BUTTON:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.question-panel2 .answers .answer BUTTON:active,
+.question-panel2 .answers .answer BUTTON.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.question-panel2 .answers .answer BUTTON.disabled,
+.question-panel2 .answers .answer BUTTON[disabled],
+fieldset[disabled] .question-panel2 .answers .answer BUTTON {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.question-panel2 .answers .answer BUTTON:hover,
+.question-panel2 .answers .answer BUTTON:focus,
+.question-panel2 .answers .answer BUTTON:active,
+.question-panel2 .answers .answer BUTTON.active,
+.open .dropdown-toggle.question-panel2 .answers .answer BUTTON {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.question-panel2 .answers .answer BUTTON:active,
+.question-panel2 .answers .answer BUTTON.active,
+.open .dropdown-toggle.question-panel2 .answers .answer BUTTON {
+  background-image: none;
+}
+.question-panel2 .answers .answer BUTTON.disabled,
+.question-panel2 .answers .answer BUTTON[disabled],
+fieldset[disabled] .question-panel2 .answers .answer BUTTON,
+.question-panel2 .answers .answer BUTTON.disabled:hover,
+.question-panel2 .answers .answer BUTTON[disabled]:hover,
+fieldset[disabled] .question-panel2 .answers .answer BUTTON:hover,
+.question-panel2 .answers .answer BUTTON.disabled:focus,
+.question-panel2 .answers .answer BUTTON[disabled]:focus,
+fieldset[disabled] .question-panel2 .answers .answer BUTTON:focus,
+.question-panel2 .answers .answer BUTTON.disabled:active,
+.question-panel2 .answers .answer BUTTON[disabled]:active,
+fieldset[disabled] .question-panel2 .answers .answer BUTTON:active,
+.question-panel2 .answers .answer BUTTON.disabled.active,
+.question-panel2 .answers .answer BUTTON[disabled].active,
+fieldset[disabled] .question-panel2 .answers .answer BUTTON.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.question-panel2 .answers .answer BUTTON .badge {
+  color: #ffffff;
+  background-color: #fff;
+}
+.question-panel2 .answers .answer .correct-true.choosen-true {
+  color: #47a447;
+  border-color: #47a447;
+  opacity: 1;
+}
+.question-panel2 .answers .answer .correct-true.choosen-false {
+  color: #d43f3a;
+  border-color: #d43f3a;
+  opacity: 1;
+}
+.question-panel2 .remaining-time {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .question-panel2 .remaining-time {
+    float: left;
+    width: 50%;
+  }
+}
+.question-panel2 .prize {
+  float: left;
+  width: 100%;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .question-panel2 .prize {
+    float: left;
+    width: 50%;
+  }
+}
+.question-panel2 .share {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .question-panel2 .share {
+    float: left;
+    width: 50%;
+  }
+}
+.question-panel2 .claim {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.question-panel2.correct .fa-gift {
+  color: #ffa100;
+}
 .question-panel .question-text {
   float: left;
 }

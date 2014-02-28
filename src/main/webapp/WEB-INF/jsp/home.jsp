@@ -24,20 +24,178 @@
 		</c:choose>
 
 		<div class="modal fade" id="prizeDetailsModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
+			aria-hidden="true">
 		</div>
 		<!-- /.modal -->
 		
-		
 		<!-- 
-			each pane:
-			Question
-			Time remaining or result
-			Answers
-			Prize
-			Share link
+			end points needed:
+			
+			
+			answer the question
+			prize details
+			share question
+			claim the prize
 		
 		 -->
+		
+		<div>
+			<c:forEach items="${userQuestionList}" var="uq" >
+				<c:set scope="request" value="${uq}" var="userQuestion" />
+				<%@ include file="questions/questionPanel.jsp" %>
+			</c:forEach>
+			<script type="text/javascript">
+				/* TODO: move me */
+				$('.question-panel2 .btn-answer').click(function(event){
+					event.preventDefault();
+					//TODO: add loading indicator
+					var selectedBtn = $(this);
+					var questionPane = selectedBtn.closest('.question-panel2');
+					$.ajax({
+						url: questionPane.data('answer-url'),
+						dataType: "html",
+						type: "POST",
+						data: {
+							embedded: true,
+							answer: selectedBtn.attr('value')
+						},
+						success: function(response, textStatus, jqXHR){
+							console.log( "Sample of data:", response);
+							questionPane.html(response);
+						},
+						error: function(jqXHR, textStatus, errorThrown){
+							console.log("Error: ", errorThrown);
+						},
+						done: function(jqXHR, textStatus, errorThrown){
+							//TODO: remove loading indicator
+						}
+					});
+				});
+			</script>
+			
+				<div class="question-panel2">
+					<div class="question">
+						<i class="fa fa-question-circle"></i>In what year was pop artist Pharrell Willams born?
+					</div>
+					<div class="answers">
+						<div class="answer">
+							<button type="submit">1977</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1979</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1975</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1973</button>
+						</div>
+					</div>
+					<div class="prize">
+						<i class="fa fa-gift"></i>Answer correctly for 3 entries to win <a href="#">Happy (from 'Dispicable Me 2')" by Pharrell Williams</a> via digital download
+					</div>
+					<div class="remaining-time">
+						<i class="fa fa-clock-o"></i>4 days remaining to answer
+					</div>
+					
+					<!-- 
+					<div class="prize">
+						<i class="fa fa-gift"></i>You have 3 entries to win a digital download of "Happy (from 'Dispicable Me 2')" by Pharrell Williams
+					</div>
+					
+					<div class="share">
+						<i class="fa fa-share"></i><a href="#">Share this question for a bonus chance to win</a>
+					</div>
+					<div class="claim">
+						<i class="fa fa-gift"></i>Claim your <a href="#">digital download of "Happy (from 'Dispicable Me 2')" by Pharrell Williams</a>
+					</div> -->	
+				</div>
+				
+				<!-- answered correctly -->
+				<div class="question-panel2 correct">
+					<div class="question">
+						<i class="fa fa-thumbs-up"></i>In what year was pop artist Pharrell Willams born?
+					</div>
+					<div class="answers">
+						<div class="answer">
+							<button type="submit">1977</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1979</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1975</button>
+						</div>
+						<div class="answer correct-answer">
+							<button type="submit">1973</button>
+						</div>
+					</div>
+					<div class="prize">
+						<i class="fa fa-gift"></i>You have 3 entries to win <a href="#">Happy (from 'Dispicable Me 2')" by Pharrell Williams</a> via digital download
+					</div>
+					<div class="share">
+						<i class="fa fa-share"></i><a href="#">Share this question for a bonus chance to win</a>
+					</div>
+					<div class="remaining-time">
+						<i class="fa fa-clock-o"></i>4 days remaining
+					</div>
+					
+					<!-- 
+					<div class="claim">
+						<i class="fa fa-gift"></i>Claim your <a href="#">digital download of "Happy (from 'Dispicable Me 2')" by Pharrell Williams</a>
+					</div> -->	
+				</div>
+				
+				<!-- winner -->
+				<div class="question-panel2 correct winner">
+					<div class="question">
+						<i class="fa fa-question-circle"></i>In what year was pop artist Pharrell Willams born?
+					</div>
+					<div class="answers">
+						<div class="answer">
+							<button type="submit">1977</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1979</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1975</button>
+						</div>
+						<div class="answer correct-answer">
+							<button type="submit">1973</button>
+						</div>
+					</div>
+					<div class="claim">
+						<i class="fa fa-gift"></i><a href="#">Claim your prize: Happy (from 'Dispicable Me 2')" by Pharrell Williams</a>
+					</div>
+				</div>
+				
+				<!-- looser -->
+				<div class="question-panel2 looser">
+					<div class="question">
+						<i class="fa fa-question-circle"></i>In what year was pop artist Pharrell Willams born?
+					</div>
+					<div class="answers">
+						<div class="answer">
+							<button type="submit">1977</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1979</button>
+						</div>
+						<div class="answer">
+							<button type="submit">1975</button>
+						</div>
+						<div class="answer correct-answer">
+							<button type="submit">1973</button>
+						</div>
+					</div>
+					<div class="claim">
+						<i class="fa fa-gift"></i>You were not selected to win Happy (from 'Dispicable Me 2')" by Pharrell Williams
+						<a href="https://itunes.apple.com/us/album/happy-from-despicable-me-2/id823593445?i=823593456&uo=4" >Download on iTunes</a>
+					</div>
+				</div>
+		</div>
+		
 		<c:forEach items="${userQuestionList}" var="uq">
 		 	<div class="panel panel-default question-panel" 
 		 		id="${uq.contest.contestId}"
@@ -53,15 +211,20 @@
 			 			</c:choose>
 			 		</div>
 		 		</div>
-		 		<div class="panel-collapse collapse ${uq.available ? 'in' : ''}" id="${uq.contest.contestId}_details">
+		 		<div class="panel-collapse collapse ${uq.available or true ? 'in' : ''}" id="${uq.contest.contestId}_details">
 		 			<div class="prize-description">
 						<c:choose>
 							<c:when test="${uq.available}" >
 								If you answer this question correctly before <c:out value="${uq.formattedExpirationTime}" />, you will be entered to win a <a data-toggle="modal" data-target="#prizeDetailsModal" href="<c:url value='/contests/${uq.contest.contestId}/prizeDetails.html' />"><c:out value="${uq.contest.prize.title}" /></a>.
 							</c:when>
+							<c:when test="${uq.winner}">
+								Congratulations! You have won a <a data-toggle="modal" data-target="#prizeDetailsModal" href="<c:url value='/contests/${uq.contest.contestId}/prizeDetails.html' />"><c:out value="${uq.contest.prize.title}" /></a>
+							</c:when>
+							<c:when test="${not uq.contest.inProgress}">
+								You did not win this contest. Better luck next time. You can still purchase <a href="https://itunes.apple.com/us/album/happy-from-despicable-me-2/id783656910">${uq.contest.prize.title}</a>
+							</c:when>
 							<c:when test="${uq.correct}">
 								You have been entered to win a <a data-toggle="modal" data-target="#prizeDetailsModal" href="<c:url value='/contests/${uq.contest.contestId}/prizeDetails.html' />"><c:out value="${uq.contest.prize.title}" /></a> for correctly answering this question.
-								<a href="#">Share this question for a bonus chance to win.</a>
 							</c:when>
 							<c:otherwise>
 								 You have already answered this question.
@@ -89,6 +252,9 @@
 				 			</c:choose>
 						</c:forEach>
 		 			</form>
+		 			<c:if test="${uq.answered and not empty uq.question.sourceURL}">
+		 				<div class="source">Source: <a href="${uq.question.sourceURL}"><c:out value="${uq.question.sourceURL}" /></a></div>
+		 			</c:if>
 		 		</div>
 		 	</div>
 		</c:forEach>

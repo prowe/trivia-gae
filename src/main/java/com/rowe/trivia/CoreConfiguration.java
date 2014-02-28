@@ -16,6 +16,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.impl.translate.TranslatorRegistry;
+import com.googlecode.objectify.impl.translate.URLTranslatorFactory;
 import com.rowe.trivia.domain.Contest;
 import com.rowe.trivia.domain.Question;
 import com.rowe.trivia.domain.User;
@@ -85,6 +86,7 @@ public class CoreConfiguration implements InitializingBean{
 		TranslatorRegistry translators = ObjectifyService.factory().getTranslators();
 		translators.add(new JodaTimeTranslatorFactory());
 		translators.add(new PeriodTranslatorFactory());
+		translators.add(new URLTranslatorFactory());
 		
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(Contest.class);

@@ -50,6 +50,7 @@ public class Contest implements Serializable{
 	private String contestId;
 	
 	private Ref<User> sponsor;
+	@NotNull
 	private Ref<Question> question;
 	
 	@NotNull
@@ -60,8 +61,13 @@ public class Contest implements Serializable{
 	
 	private Prize prize;
 	private Integer prizeQuantity;
+	private int correctAnswerEntries = 3;
 	
 	private List<Ref<UserQuestion>> winningAnswers;
+	private Integer askedCount;
+	private Integer answeredCount;
+	private Integer correctCount;
+	
 	
 	public void completeCreation() {
 		if(contestId == null){
@@ -85,9 +91,10 @@ public class Contest implements Serializable{
 	 * @return
 	 */
 	public boolean isElgible(User user){
-		if(ObjectUtils.equals(getSponsor(), user)){
-			return false;
-		}
+		//commented out for testing
+		//if(ObjectUtils.equals(getSponsor(), user)){
+		//	return false;
+		//}
 		return true;
 	}
 	
@@ -209,5 +216,24 @@ public class Contest implements Serializable{
 		return startTime != null
 			&& now.isAfter(startTime)
 			&& (endTime == null || now.isBefore(endTime));
+	}
+	
+	public Integer getAskedCount() {
+		return askedCount;
+	}
+	public Integer getAnsweredCount() {
+		return answeredCount;
+	}
+	public Integer getCorrectCount() {
+		return correctCount;
+	}
+	
+	public void setStats(int asked, int answered, int correct){
+		askedCount = asked;
+		answeredCount = answered;
+		correctCount = correct;
+	}
+	public int getCorrectAnswerEntries() {
+		return correctAnswerEntries;
 	}
 }

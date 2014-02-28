@@ -1,5 +1,6 @@
 package com.rowe.trivia.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -11,7 +12,6 @@ import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.social.connect.Connection;
-import org.springframework.social.twitter.api.TweetData;
 import org.springframework.social.twitter.api.Twitter;
 
 import com.googlecode.objectify.Ref;
@@ -46,6 +46,7 @@ public class UserQuestion {
 	
 	@Index(IfNotNull.class)
 	private Integer correctAnswerTicket;
+	private int numberOfEntries = 0;
 	
 	public UserQuestion(User contestant, Contest contest) {
 		this.contestant = BetterRef.create(contestant);
@@ -110,7 +111,7 @@ public class UserQuestion {
 		choosenAnswer = answer;
 		answerDate = new DateTime();
 		if(isCorrect()){
-			issueCorrectAnswerTicket();
+			issueCorrectAnswerTickets(getCorrectAnswerEntries());
 		}
 	}
 
@@ -143,6 +144,14 @@ public class UserQuestion {
 		int newTicket = random.nextInt();
 		if(correctAnswerTicket == null || correctAnswerTicket>newTicket){
 			correctAnswerTicket = newTicket;
+		}
+	}
+	private void issueCorrectAnswerTickets(int numberOfEntries){
+		if(numberOfEntries <= 0){
+			throw new IllegalArgumentException("Illegal entries count " + numberOfEntries);
+		}
+		for(int i=0; i<numberOfEntries; i++){
+			issueCorrectAnswerTicket();
 		}
 	}
 	
@@ -183,4 +192,42 @@ public class UserQuestion {
 			.updateStatus(getQuestion().getQuestion());
 	}
 	
+	public int getCorrectAnswerEntries(){
+		return getContest().getCorrectAnswerEntries();
+	}
+	
+	public List<UserAnswer> getUserAnswers(){
+		List<UserAnswer> userAnswers = new ArrayList<UserAnswer>();
+		for(String answer:getQuestion().getPossibleAnswers()){
+			userAnswers.add(new UserAnswer(answer));
+		}
+		return userAnswers;
+	}
+	
+	/**
+	 * Holds the relationship between a {@link UserQuestion} and an answer
+	 * @author paulrowe
+	 *
+	 */
+	public class UserAnswer {
+		private String answer;
+		
+		private UserAnswer(String answer) {
+			this.answer = answer;
+		}
+		
+		public boolean isCorrect(){
+			return getQuestion().isCorrect(answer);
+		}
+		public boolean isChoosen(){
+			return getChoosenAnswer() != null && answer.equals(getChoosenAnswer());
+		}
+		public String getText(){
+			return answer;
+		}
+	}
+	
+	public int getNumberOfEntries() {
+		return numberOfEntries;
+	}
 }

@@ -45,11 +45,11 @@
 										<c:out value="${question.question}" />
 									</form:label>
 								</td>
-								<td>
-									<c:forEach items="${question.possibleAnswers}" var="ans">
+								<c:forEach items="${question.possibleAnswers}" var="ans">
+									<td>
 										<span class="answer"><c:if test="${question.correctAnswer == ans}"><i class="fa fa-check"> </i></c:if><c:out value='${ans}' /></span>
-									</c:forEach>
-								</td>
+									</td>
+								</c:forEach>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -78,6 +78,17 @@
 					<form:options items="${redemptionMethodList}"/>
 				</form:select>
 				<form:errors path="prize.redemptionMethod" />
+			</div>
+			
+			<div class="form-group  <form:errors path='prize.iTunesReferralLink'>has-error</form:errors>">
+				<form:label path="prize.title">iTunes Referral Link</form:label>
+				<form:input cssClass="form-control" path="prize.iTunesReferralLink" />
+				<form:errors path="prize.iTunesReferralLink" />
+			</div>
+			<div class="form-group  <form:errors path='value'>has-error</form:errors>">
+				<form:label path="prize.title">Value</form:label>
+				<form:input cssClass="form-control" path="prize.value" />
+				<form:errors path="prize.value" />
 			</div>
 			
 			<div class="form-group  <form:errors path='prizeQuantity'>has-error</form:errors>">

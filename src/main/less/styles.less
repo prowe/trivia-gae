@@ -64,9 +64,76 @@
 			color: white;
 		}
 	}
-		
 }
 
+
+.question-panel2 {
+	.make-row();
+	border-top: solid thin rgb(255, 161, 0);
+	padding-top: 15px;
+	padding-bottom: 15px;
+	.question, .prize, .remaining-time, .share, .claim {
+		/*
+		text-indent: -.75em;
+		padding-left: 1.5em;
+		*/
+		.fa {
+			width: 1.5em;
+		}
+	}
+	
+	.question {
+		.make-xs-column(12);
+		
+		.fa-thumbs-up {
+			color: #47a447;
+		}
+	}
+	.answers {
+		.make-row();
+		.make-xs-column(12);
+		.answer {
+			.make-sm-column(12);
+			.make-md-column(3);
+			margin-bottom: 15px;
+			BUTTON {
+				.btn();
+				.btn-default();
+				.btn-sm();
+				.btn-block();
+			}
+			/* TODO: need to define colors */
+			.correct-true.choosen-true {
+				color: #47a447;
+				border-color: #47a447;
+				opacity: 1;
+			}
+			.correct-true.choosen-false {
+				color: #d43f3a;
+				border-color: #d43f3a;
+				opacity: 1;
+			}
+		}
+	}
+	.remaining-time {
+		.make-md-column(6);
+	}
+	.prize {
+		.make-xs-column(12);
+		.make-md-column(6);
+	}
+	.share {
+		.make-md-column(6);
+	}
+	.claim {
+		.make-xs-column(12);
+	}
+}
+.question-panel2.correct {
+	.fa-gift {
+		color: rgb(255, 161, 0);
+	}
+}
 
 .question-panel {
 	.question-text {

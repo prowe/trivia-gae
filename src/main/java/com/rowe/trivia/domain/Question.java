@@ -1,5 +1,6 @@
 package com.rowe.trivia.domain;
 
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -30,7 +31,8 @@ public class Question {
 	@Size(min=1, max=3)
 	private List<String> possibleAnswers;
 	
-
+	private URL sourceURL;
+	
 	public Question() {
 		questionId = UUID.randomUUID().toString();
 	}
@@ -77,5 +79,13 @@ public class Question {
 	
 	public User getAuthor() {
 		return author == null ? null : author.get();
+	}
+	
+	
+	public URL getSourceURL() {
+		return sourceURL;
+	}
+	public void setSourceURL(URL sourceURL) {
+		this.sourceURL = sourceURL;
 	}
 }

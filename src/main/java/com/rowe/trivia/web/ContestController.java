@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriTemplate;
 
 import com.rowe.trivia.domain.Contest;
 import com.rowe.trivia.domain.Question;
 import com.rowe.trivia.domain.Prize.RedemptionMethod;
+import com.rowe.trivia.job.mapReduce.ContestStatsCalculation;
 import com.rowe.trivia.repo.ContestRepository;
 import com.rowe.trivia.repo.QuestionRepository;
 
@@ -36,6 +38,13 @@ public class ContestController {
 	@RequestMapping("list.html")
 	public void list(Map<String, Object> modelMap){
 		modelMap.put("contestList", contestRepo.listAll());
+	}
+	
+	@RequestMapping("recalcStats.html")
+	public RedirectView recalcStats(){
+		logger.info("Recacluating stats");
+		String jobId = ContestStatsCalculation.start();
+		return new RedirectView("/_ah/pipeline/status?root=" + jobId);
 	}
 	
 	@ModelAttribute("contest")

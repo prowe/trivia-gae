@@ -63,11 +63,11 @@ public class UserQuestionController {
 		UserQuestion uq = questionRepo.findByUserContest(User.currentUser(), contestId);
 		logger.info("answering question {}", uq);
 		uq.answerQuestion(answer);
-		questionRepo.save(uq);
+		//questionRepo.save(uq);
 		
-		//modelMap.put("userQuestion", uq);
-		//return "questions/answerSubmitted";
-		return "redirect:/#" + uq.getContest().getContestId();
+		modelMap.put("userQuestion", uq);
+		return "questions/answerSubmitted";
+		//return "redirect:/#" + uq.getContest().getContestId();
 	}
 	
 	//TODO: combine these methods

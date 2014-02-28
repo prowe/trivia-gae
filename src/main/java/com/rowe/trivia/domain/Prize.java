@@ -1,6 +1,7 @@
 package com.rowe.trivia.domain;
 
 import java.math.BigDecimal;
+import java.net.URL;
 
 import com.googlecode.objectify.annotation.Embed;
 
@@ -13,13 +14,16 @@ import com.googlecode.objectify.annotation.Embed;
 public class Prize {
 	public enum RedemptionMethod {
 		MAIL,
-		EMAIL
+		EMAIL,
+		ITUNES,
+		//??
 	};
 
 	private String title;
 	private String description;
 	private BigDecimal value;
 	private RedemptionMethod redemptionMethod;
+	private URL iTunesReferralLink;
 	
 	public boolean isAddressRequired(){
 		return redemptionMethod == RedemptionMethod.MAIL;
@@ -37,6 +41,9 @@ public class Prize {
 	public RedemptionMethod getRedemptionMethod() {
 		return redemptionMethod;
 	}
+	public URL getiTunesReferralLink() {
+		return iTunesReferralLink;
+	}
 	
 	public void setDescription(String description) {
 		this.description = description;
@@ -50,4 +57,8 @@ public class Prize {
 	public void setRedemptionMethod(RedemptionMethod redemptionMethod) {
 		this.redemptionMethod = redemptionMethod;
 	}
+	public void setiTunesReferralLink(URL iTunesReferralLink) {
+		this.iTunesReferralLink = iTunesReferralLink;
+	}
+	
 }

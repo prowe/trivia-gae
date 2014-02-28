@@ -102,6 +102,16 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	public QuestionController questionController(){
 		return new QuestionController();
 	}
+	
+	@Bean
+	public CreateQuestionController createQuestionController(){
+		return new CreateQuestionController();
+	}
+	@Bean
+	public EditQuestionController editQuestionController(){
+		return new EditQuestionController();
+	}
+	
 	@Bean
 	public MyAccountController myAccountController(){
 		return new MyAccountController();

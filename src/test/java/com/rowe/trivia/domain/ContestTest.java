@@ -1,10 +1,21 @@
 package com.rowe.trivia.domain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.easymock.EasyMock.*;
 
+import java.util.Arrays;
+
+import org.easymock.Capture;
 import org.easymock.EasyMockRunner;
 import org.easymock.Mock;
 import org.easymock.TestSubject;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -50,7 +61,13 @@ public class ContestTest extends ObjectifyTestCaseSupport{
 
 	@Test
 	public void testSave() {
-		fail("Not yet implemented");
+		Capture<Contest> contestCapture = new Capture<Contest>();
+		repo.save(capture(contestCapture));
+		replay(repo);
+		
+		contest.save();
+		verify(repo);
+		assertSame(contest, contestCapture.getValue());
 	}
 
 	@Test
@@ -67,7 +84,25 @@ public class ContestTest extends ObjectifyTestCaseSupport{
 
 	@Test
 	public void testStart() {
-		fail("Not yet implemented");
+		User user = new User("testUser");
+		expect(userRepo.listAll()).andReturn(Arrays.asList(user));
+		userQuestionRepo.save(notNull(UserQuestion.class));
+		emailService.notifyUserOfNewQuestionIfNeeded(notNull(UserQuestion.class));
+		
+		contest.setContestId("contestId");
+		contest.setDuration(new Period(0, 0, 0, 0, 1, 0, 0, 0));
+		
+		replay(userRepo, emailService, userQuestionRepo);
+		
+		contest.start();
+		
+		DateTime startTime = contest.getStartTime();
+		assertNotNull(startTime);
+		DateTime endTime = contest.getEndTime();
+		assertEquals(startTime.plusHours(1), endTime);
+
+		//TODO: assert end queued up
+		verify(userRepo, emailService, userQuestionRepo);
 	}
 
 	@Test
@@ -133,7 +168,8 @@ public class ContestTest extends ObjectifyTestCaseSupport{
 
 	@Test
 	public void testSetPrizeQuantity() {
-		fail("Not yet implemented");
+		contest.setPrizeQuantity(23);
+		assertEquals(new Integer(23), contest.getPrizeQuantity());
 	}
 
 	@Test

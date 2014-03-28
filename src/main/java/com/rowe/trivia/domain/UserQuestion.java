@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.twitter.api.Twitter;
 
@@ -170,6 +171,7 @@ public class UserQuestion {
 	public String getFormattedExpirationTime(){
 		return new ExpirationTimePrinter().print(getContest().getEndTime(), Locale.getDefault());
 	}
+
 	public Period getRemainingTime(){
 		return new Period(new DateTime(), getContest().getEndTime());
 	}
@@ -194,37 +196,6 @@ public class UserQuestion {
 	
 	public int getCorrectAnswerEntries(){
 		return getContest().getCorrectAnswerEntries();
-	}
-	
-	public List<UserAnswer> getUserAnswers(){
-		List<UserAnswer> userAnswers = new ArrayList<UserAnswer>();
-		for(String answer:getQuestion().getPossibleAnswers()){
-			userAnswers.add(new UserAnswer(answer));
-		}
-		return userAnswers;
-	}
-	
-	/**
-	 * Holds the relationship between a {@link UserQuestion} and an answer
-	 * @author paulrowe
-	 *
-	 */
-	public class UserAnswer {
-		private String answer;
-		
-		private UserAnswer(String answer) {
-			this.answer = answer;
-		}
-		
-		public boolean isCorrect(){
-			return getQuestion().isCorrect(answer);
-		}
-		public boolean isChoosen(){
-			return getChoosenAnswer() != null && answer.equals(getChoosenAnswer());
-		}
-		public String getText(){
-			return answer;
-		}
 	}
 	
 	public int getNumberOfEntries() {

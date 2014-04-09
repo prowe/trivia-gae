@@ -1,8 +1,5 @@
 package com.rowe.trivia.web;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.rowe.trivia.domain.NotificationMethod;
 import com.rowe.trivia.domain.StateCode;
 import com.rowe.trivia.domain.User;
 
@@ -25,10 +21,6 @@ public class MyAccountController {
 	@ModelAttribute("user")
 	public User getUser(){
 		return User.currentUser();
-	}
-	@ModelAttribute("notificationMethods")
-	public List<NotificationMethod> getNotificationMethods(){
-		return Arrays.asList(NotificationMethod.values());
 	}
 	@ModelAttribute("stateCodes")
 	public StateCode[] getStateCodes(){
@@ -44,7 +36,7 @@ public class MyAccountController {
 	    if (formBinding.hasErrors()) {
 	        return null;
 	    }
-	    user.save();
+	    logger.warn("need to save");
 	    return "redirect:/";
 	}
 }

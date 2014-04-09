@@ -1,9 +1,8 @@
 package com.rowe.trivia.repo.objectify;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import org.slf4j.LoggerFactory;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
@@ -13,22 +12,17 @@ import com.rowe.trivia.domain.UserQuestion;
 import com.rowe.trivia.repo.UserQuestionRepository;
 
 public class ObjectifyUserQuestionRepository extends ObjectifyRepositorySupport<UserQuestion> implements UserQuestionRepository{
-
+	
 	@Override
-	public UserQuestion findByUsernameContest(String username, String contestId) {
+	public UserQuestion findByUserAndId(User user, String id) {
 		return ObjectifyService.ofy()
 			.load()
 			.type(UserQuestion.class)
-			.parent(Key.create(User.class, username))
-			.id(contestId)
+			.parent(user)
+			.id(id)
 			.now();
 	}
 	
-	@Override
-	public UserQuestion findByUserContest(User user, String contestId) {
-		return findByUsernameContest(user.getUsername(), contestId);
-	}
-
 	@Override
 	public List<UserQuestion> findByUser(User user) {
 		return ObjectifyService.ofy()
@@ -40,11 +34,16 @@ public class ObjectifyUserQuestionRepository extends ObjectifyRepositorySupport<
 	
 	@Override
 	public List<UserQuestion> findAvailableForUser(User user) {
-		List<UserQuestion> results = new ArrayList<UserQuestion>();
-		//TODO: push this down into the datastore
-		for(UserQuestion uq:findByUser(user)){
-			if(uq.isAvailable()){
-				results.add(uq);
+		List<UserQuestion> results = ObjectifyService.ofy()
+			.load()
+			.type(UserQuestion.class)
+			.filter("status", UserQuestion.Status.ASKED)
+			.list();
+		
+		Iterator<UserQuestion> it = results.iterator();
+		while(it.hasNext()){
+			if(!it.next().isAvailable()){
+				it.remove();
 			}
 		}
 		return results;

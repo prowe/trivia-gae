@@ -2,15 +2,11 @@ package com.rowe.trivia;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -31,8 +27,10 @@ import com.rowe.trivia.repo.objectify.ObjectifyQuestionRepository;
 import com.rowe.trivia.repo.objectify.ObjectifyUserQuestionRepository;
 import com.rowe.trivia.repo.objectify.ObjectifyUserRepository;
 import com.rowe.trivia.repo.objectify.PeriodTranslatorFactory;
-import com.rowe.trivia.service.EmailService;
-import com.rowe.trivia.service.impl.EmailServiceImpl;
+import com.rowe.trivia.strategy.ContestSelectionStrategy;
+import com.rowe.trivia.strategy.QuestionSelectionStrategy;
+import com.rowe.trivia.strategy.contest.EarliestEndingSelectionStrategy;
+import com.rowe.trivia.strategy.question.RandomUnaskedSelectionStrategy;
 
 @Import({
 	DevelopmentConfiguration.class, 
@@ -40,12 +38,20 @@ import com.rowe.trivia.service.impl.EmailServiceImpl;
 	SecurityConfiguration.class,
 	SocialConfiguration.class
 })
-//@ImportResource("classpath:/com/rowe/trivia/securityConfiguration.xml")
 @Configuration
 @EnableSpringConfigured
 public class CoreConfiguration implements InitializingBean{
 	@Autowired
 	private Environment env;
+	
+	@Bean
+	public QuestionSelectionStrategy questionSelectionStrategy(){
+		return new RandomUnaskedSelectionStrategy();
+	}
+	@Bean
+	public ContestSelectionStrategy contestSelectionStrategy(){
+		return new EarliestEndingSelectionStrategy();
+	}
 	
 	@Bean
 	public DatastoreService datastoreService() {
@@ -69,12 +75,13 @@ public class CoreConfiguration implements InitializingBean{
 		return new ObjectifyQuestionRepository();
 	}
 	
+	/*
 	@Bean
 	public EmailService emailService(){
 		EmailServiceImpl service = new EmailServiceImpl(env.getProperty("applicationURL"));
 		service.setFromAddress(env.getProperty("email.fromAddress"));
 		return service;
-	}
+	}*/
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {

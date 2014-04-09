@@ -1,5 +1,6 @@
 package com.rowe.trivia.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.UriTemplate;
 
 import com.rowe.trivia.domain.User;
 import com.rowe.trivia.domain.UserQuestion;
@@ -23,66 +25,47 @@ public class UserQuestionController {
 	@Autowired
 	private UserQuestionRepository questionRepo;
 	
-	@RequestMapping(value="{contestId}/answer.html", method=RequestMethod.GET)
-	public String answerQuestion(
-		@PathVariable("contestId") String contestId,
-		Map<String, Object> modelMap	
-		){
-		UserQuestion uq = questionRepo.findByUserContest(User.currentUser(), contestId);
-		logger.info("Prompting question {}", uq);
-		modelMap.put("userQuestion", uq);
-		
-		return "questions/answer";
-	}
-	
-	@RequestMapping(value="history.html")
-	public void history(Map<String, Object> modelMap){
-		modelMap.put("userQuestionList", questionRepo.findAnsweredByUser(User.currentUser()));
-	}
-	
-	@RequestMapping(value="winning.html")
-	public void winning(Map<String, Object> modelMap){
-		modelMap.put("userQuestionList", questionRepo.findWinningByUser(User.currentUser()));
-	}
-	
-	@RequestMapping(value="{contestId}/shareViaTwitter.html", method=RequestMethod.POST)
-	public String shareViaTwitter(
-		@PathVariable("contestId") String contestId){
-		UserQuestion uq = questionRepo.findByUserContest(User.currentUser(), contestId);
-		logger.info("Sharing on twitter {}", uq);
-		uq.shareViaTwitter();
-		return "redirect:/#" + uq.getContest().getContestId();
-	}
-	
-	@RequestMapping(value="{contestId}/answer.html", method=RequestMethod.POST)
+	@RequestMapping(value="{id}/answer.html", method=RequestMethod.POST, params={"answer"})
 	public String submitAnswer(
-		@PathVariable("contestId") String contestId,
-		@RequestParam("answer") String answer,
-		Map<String, Object> modelMap	
+		@PathVariable("id") String id,
+		@RequestParam("answer") String answer
 		){
-		UserQuestion uq = questionRepo.findByUserContest(User.currentUser(), contestId);
-		logger.info("answering question {}", uq);
-		uq.answerQuestion(answer);
-		//questionRepo.save(uq);
-		
-		modelMap.put("userQuestion", uq);
-		return "questions/answerSubmitted";
-		//return "redirect:/#" + uq.getContest().getContestId();
-	}
-	
-	//TODO: combine these methods
-	@RequestMapping(value="{contestId}/answer.json", method=RequestMethod.POST)
-	public String submitAnswerJson(
-		@PathVariable("contestId") String contestId,
-		@RequestParam("answer") String answer,
-		Map<String, Object> modelMap	
-		){
-		UserQuestion uq = questionRepo.findByUserContest(User.currentUser(), contestId);
+		UserQuestion uq = questionRepo.findByUserAndId(User.currentUser(), id);
 		logger.info("answering question {}", uq);
 		uq.answerQuestion(answer);
 		questionRepo.save(uq);
 		
+		
+		return new UriTemplate("redirect:/questions/{id}/answer.html")
+			.expand(uq.getQuestion().getQuestionId())
+			.toString();
+	}
+	
+	@RequestMapping(value="{id}/answer.html", method=RequestMethod.GET)
+	public String submitAnswer(@PathVariable("id") String id, Map<String, Object> modelMap){
+		UserQuestion uq = questionRepo.findByUserAndId(User.currentUser(), id);
 		modelMap.put("userQuestion", uq);
 		return "questions/answerSubmitted";
 	}
+	
+	@RequestMapping(value="{id}/answer.html", method=RequestMethod.POST, params={"skip"})
+	public String skip(@PathVariable("id") String id){
+		UserQuestion uq = questionRepo.findByUserAndId(User.currentUser(), id);
+		logger.info("skipping question {}", uq);
+		uq.skipQuestion();
+		questionRepo.save(uq);
+		
+		return new UriTemplate("redirect:/questions/{id}/answer.html")
+			.expand(uq.getQuestion().getQuestionId())
+			.toString();
+	}
+	
+	@RequestMapping(value="/winning.html", method=RequestMethod.GET)
+	public String winners(Map<String, Object> modelMap){
+		List<UserQuestion> winningByUser = questionRepo.findWinningByUser(User.currentUser());
+		modelMap.put("winningList", winningByUser);
+		return "questions/winning";
+	}
+	
+	
 }

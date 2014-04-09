@@ -15,6 +15,7 @@
 
 #main-body {
 	.container();
+	padding-bottom: 15px;
 }
 
 #footer {
@@ -27,7 +28,6 @@
 		.list-inline();
 	}
 }
-
 
 .signin-panel {
 	.panel();
@@ -66,176 +66,111 @@
 	}
 }
 
-
-.question-panel2 {
-	.make-row();
-	border-top: solid thin rgb(255, 161, 0);
-	padding-top: 15px;
-	padding-bottom: 15px;
-	.question, .prize, .remaining-time, .share, .claim {
-		/*
-		text-indent: -.75em;
-		padding-left: 1.5em;
-		*/
-		.fa {
-			width: 1.5em;
-		}
-	}
-	
-	.question {
+.question-text {
+	margin-top: 0px;
+	text-align: center;
+}
+.answer-selection {
+	.answer {
 		.make-xs-column(12);
+		.make-sm-column(6);
+		.make-md-column(3);
+		margin-bottom: 15px;
 		
-		.fa-thumbs-up {
-			color: #47a447;
-		}
-	}
-	.answers {
-		.make-row();
-		.make-xs-column(12);
-		.answer {
-			.make-sm-column(12);
-			.make-md-column(3);
-			margin-bottom: 15px;
-			BUTTON {
-				.btn();
-				.btn-default();
-				.btn-sm();
-				.btn-block();
-			}
-			/* TODO: need to define colors */
-			.correct-true.choosen-true {
-				color: #47a447;
-				border-color: #47a447;
-				opacity: 1;
-			}
-			.correct-true.choosen-false {
-				color: #d43f3a;
-				border-color: #d43f3a;
-				opacity: 1;
-			}
-		}
-	}
-	.remaining-time {
-		.make-md-column(6);
-	}
-	.prize {
-		.make-xs-column(12);
-		.make-md-column(6);
-	}
-	.share {
-		.make-md-column(6);
-	}
-	.claim {
-		.make-xs-column(12);
-	}
-}
-.question-panel2.correct {
-	.fa-gift {
-		color: rgb(255, 161, 0);
-	}
-}
-
-.question-panel {
-	.question-text {
-		float: left;
-	}
-	.remaining {
-		.pull-right();
-	}
-	.result-indicator {
-		.pull-right();
-		padding-left: 15px;
-		.fa-thumbs-down {
-			color: #d9534f;
-		}
-	
-		.fa-thumbs-up {
-			color: #47a447;
-		}
-	}
-	.prize-description {
-		margin: 15px;
-	}
-	.answer-group {
-		margin: 15px;
-		.btn-answer {
+		.answer-btn {
 			.btn();
 			.btn-default();
-		}
-		@media (max-width: @screen-sm) {
-			.btn-answer {
-				.btn-block();
-			}
-			.btn-answer + .btn-answer {
-				margin-top: 5px;
-			}
-		}
-		
-		.btn-answer.correct {
-			color: #47a447;
-			border-color: #47a447;
-			opacity: 1;
-		}
-		.btn-answer.incorrect {
-			color: #d43f3a;
-			border-color: #d43f3a;
-			opacity: 1;
+			//.btn-sm();
+			.btn-block();
 		}
 	}
 }
-
-.question-row {
-	margin-bottom: 15px;
-	.question {
-		font-weight: bolder;
-		font-size: larger;
-	}
-	.btn-answer {
+.prize {
+	text-align: center;
+}
+.question-options {
+	.container();
+	.skip-btn {
 		.btn();
 		.btn-default();
-		.btn-xs();
-	}
-}
-
-.prize-pane {
-	.well();
-	
-	.prize-title {
-		font-size: larger;
-		font-weight: bolder;
-	}
-	.redemption-instructions{
+		//.btn-sm();
 		
+		@media(max-width: @screen-sm){
+			.btn-block();
+		}
 	}
 }
 
-
-.history-table {
-	.choosen-answer {
-		color: #d9534f;
-	}
-	.fa-thumbs-down {
-		color: #d9534f;
+.answer-result {
+	.clearfix();
+	.answer {
+		.make-xs-column(12);
+		.make-sm-column(6);
+		.make-md-column(3);
+		margin-bottom: 15px;
+		
+		.answer-btn {
+			.btn();
+			.btn-default();
+			//.btn-sm();
+			.btn-block();
+		}
 	}
 	
-	.fa-thumbs-up {
-		color: #47a447;
+	.selected-true.correct-true .answer-btn{
+		background-color: #dff0d8; /* success */
 	}
-	.correct-answer {
-		color: #47a447;
+	.selected-false.correct-true .answer-btn{
+		background-color: #dff0d8; /* success */
+	}
+	.selected-true.correct-false .answer-btn{
+		background-color: #f2dede; /* danger */
 	}
 }
 
-.address-entry {
-	.city {
-		.make-md-column(6);
-		padding-left: 0px;
+.share {
+	text-align: center;
+}
+
+.submitted-actions {
+	padding-left: 15px;
+	padding-right: 15px;
+	
+	.continue-btn {
+		//.pull-right();
+		//margin-left: 15px;
+		//margin-right: 15px;
+		.btn();
+		.btn-default();
+		//.btn-sm();
+		.btn-primary();
+		
+		@media(max-width: @screen-sm){
+			.btn-block();
+		}
+	}	
+	
+}
+
+.prize-row {
+	.clearfix();
+	border-bottom: rgb(255, 161, 0) solid thin;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	
+	.prize {
+		.make-xs-column(10);
+		vertical-align: middle;
 	}
-	.state {
-		.make-md-column(2);
-	}	
-	.zip {
-		.make-md-column(4);
-		padding-right: 0px;
-	}	
+	.redeem {
+		.make-xs-column(2);
+		.redeem-btn {
+			.pull-right();
+			.btn();
+			.btn-sm();
+			.btn-default();
+			.btn-primary();
+		}
+	}
+	
 }

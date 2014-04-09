@@ -1,58 +1,67 @@
 package com.rowe.trivia.domain;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.twitter.api.Twitter;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.condition.IfNotNull;
-import com.rowe.trivia.convert.ExpirationTimePrinter;
 import com.rowe.trivia.repo.BetterRef;
-import com.rowe.trivia.repo.UserQuestionRepository;
 
 @Configurable
 @Entity
 public class UserQuestion {
 	private static Random random = new Random();
-	
-	@Autowired @Ignore
-	private transient UserQuestionRepository repo;
+	public static enum Status {
+		ASKED,
+		SKIPPED,
+		CORRECT,
+		INCORRECT;
+	}
 	
 	@Parent
 	private Ref<User> contestant;
 	@Id
-	private String contestId;
+	private String id;
+	
+	
 	@Index
 	private Ref<Contest> contest;
+	private Ref<Question> question;
 
 	private String choosenAnswer;
-
+	@Index
+	private Status status;
+	private DateTime askedDate;
 	private DateTime answerDate;
 	
 	@Index(IfNotNull.class)
 	private Integer correctAnswerTicket;
+	
+	private boolean winner = false;
 	private int numberOfEntries = 0;
 	
-	public UserQuestion(User contestant, Contest contest) {
+	public UserQuestion(User contestant, Question question, Contest contest) {
 		this.contestant = BetterRef.create(contestant);
 		this.contest = BetterRef.create(contest);
-		this.contestId = contest.getContestId();
+		this.question = BetterRef.create(question);
+		this.id = question.getQuestionId();
+		markAsked();
+	}
+
+	private void markAsked() {
+		this.askedDate = new DateTime();
+		this.status = Status.ASKED;
 	}
 	
 	//added for Objectify
@@ -97,11 +106,10 @@ public class UserQuestion {
 	public User getContestant() {
 		return contestant == null ? null : contestant.get();
 	}
-
-	public void save() {
-		repo.save(this);
+	public Question getQuestion(){
+		return question == null ? null : question.get();
 	}
-
+	
 	public void answerQuestion(String answer) {
 		if(isAnswered()){
 			throw new IllegalStateException("UserQuestion already answered: " + this);
@@ -112,19 +120,31 @@ public class UserQuestion {
 		choosenAnswer = answer;
 		answerDate = new DateTime();
 		if(isCorrect()){
-			issueCorrectAnswerTickets(getCorrectAnswerEntries());
+			issueCorrectAnswerTickets(1);
+			status = Status.CORRECT;
+		}else{
+			status = Status.INCORRECT;
 		}
+	}
+	public void skipQuestion(){
+		answerDate = new DateTime();
+		status = Status.SKIPPED;
 	}
 
 	public boolean isCorrect(){
 		return getQuestion().isCorrect(choosenAnswer);
 	}
+	
 	/**
 	 * Has the contestant answered this question?
 	 * @return
 	 */
 	public boolean isAnswered(){
 		return answerDate != null;
+	}
+	public boolean isAvailable() {
+		return status == Status.ASKED 
+			&& getContest().isInProgress();
 	}
 	public boolean isWinner(){
 		List<UserQuestion> winningAnswers = getContest().getWinningAnswers();
@@ -159,46 +179,16 @@ public class UserQuestion {
 	public String getChoosenAnswer() {
 		return choosenAnswer;
 	}
-	
-	public Question getQuestion(){
-		return getContest().getQuestion();
-	}
-	
-	/**
-	 * TODO: clean this up, should be in a JSP tag
-	 * @return
-	 */
-	public String getFormattedExpirationTime(){
-		return new ExpirationTimePrinter().print(getContest().getEndTime(), Locale.getDefault());
-	}
 
 	public Period getRemainingTime(){
 		return new Period(new DateTime(), getContest().getEndTime());
 	}
 
-	/**
-	 * Returns true if this question has not yet been answered and it has not expired
-	 * @return
-	 */
-	public boolean isAvailable() {
-		return !isAnswered() && getContest().isInProgress();
+	public DateTime getAskedDate() {
+		return askedDate;
 	}
-	
-	public void shareViaTwitter(){
-		Connection<Twitter> twitterConnection = getContestant().getTwitterConnection();
-		if(twitterConnection == null){
-			throw new IllegalStateException("No twitter connection");
-		}
-		twitterConnection.getApi()
-			.timelineOperations()
-			.updateStatus(getQuestion().getQuestion());
+	public Status getStatus() {
+		return status;
 	}
-	
-	public int getCorrectAnswerEntries(){
-		return getContest().getCorrectAnswerEntries();
-	}
-	
-	public int getNumberOfEntries() {
-		return numberOfEntries;
-	}
+
 }

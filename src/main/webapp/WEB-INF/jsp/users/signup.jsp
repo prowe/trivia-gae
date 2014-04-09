@@ -22,6 +22,7 @@
 	<form:form cssClass="signup-form" modelAttribute="user">
 		<!-- Add CSRF token -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<form:errors path="*" />
 						
 		<div class="form-group email <form:errors path='username'>has-error</form:errors>">
 			<form:label cssClass="control-label" path="username">Email:</form:label>
@@ -59,64 +60,6 @@
 			</div>
    		</div>
    		
-   		<div class="form-group emailNotificationEnabled <form:errors path='emailNotificationEnabled'>has-error</form:errors>">
-			<div class="checkbox form-input">
-				<form:label cssClass="control-label" path="emailNotificationEnabled" for="emailNotificationEnabled">
-					<form:checkbox path="emailNotificationEnabled" id="emailNotificationEnabled" />
-					Notify by Email
-				</form:label>
-				<form:errors cssClass="help-block"  path="emailNotificationEnabled" />
-				<span class="help-block">Should we use email to notify you when there are new questions available or you have winnings to claim?</span>
-			</div>
-		</div>
-   		
-   		<fieldset class="address-entry" id="address-entry">
-			<legend>Address</legend>
-			<span class="help-block">Where should we send your winnings?</span>
-			
-			<div class="form-group line1 <form:errors path='address.line1'>has-error</form:errors>">
-				<form:label cssClass="control-label" path="address.line1">Line 1:</form:label>
-				<div class="form-input">
-					<form:input path="address.line1" cssClass="form-control" />
-					<form:errors cssClass="help-block"  path="address.line1" />
-				</div>
-			</div>
-			
-			<div class="form-group line2 <form:errors path='address.line2'>has-error</form:errors>">
-				<form:label cssClass="control-label" path="address.line2">Line 2:</form:label>
-				<div class="form-input">
-					<form:input path="address.line2" cssClass="form-control"/>
-					<form:errors cssClass="help-block"  path="address.line2" />
-				</div>
-			</div>
-			
-			<div class="form-group city <form:errors path='address.city'>has-error</form:errors>">
-				<form:label cssClass="control-label" path="address.city">City:</form:label>
-				<div class="form-input">
-					<form:input path="address.city" cssClass="form-control" />
-					<form:errors cssClass="help-block"  path="address.city" />
-				</div>
-			</div>
-			
-			<div class="form-group state <form:errors path='address.state'>has-error</form:errors>">
-				<form:label cssClass="control-label" path="address.state">State:</form:label>
-				<div class="form-input">
-					<form:select path="address.state" cssClass="form-control">
-						<form:option value=""></form:option>
-						<form:options items="${stateCodes}"/>
-					</form:select>
-					<form:errors cssClass="help-block"  path="address.state" />
-				</div>
-			</div>
-			<div class="form-group zip <form:errors path='address.zip'>has-error</form:errors>">
-				<form:label cssClass="control-label" path="address.zip">Zip:</form:label>
-				<div class="form-input">
-					<form:input path="address.zip" cssClass="form-control" />
-					<form:errors cssClass="help-block"  path="address.zip" />
-				</div>
-			</div>
-		</fieldset>
-		
 		<div class="form-group submit">
 			<button type="submit" class="btn btn-primary">Complete Sign Up</button>
 		</div>
@@ -125,3 +68,5 @@
 	
 	<%@ include file="../includes/footer.jsp" %>
 </body>
+
+<!-- keep -->

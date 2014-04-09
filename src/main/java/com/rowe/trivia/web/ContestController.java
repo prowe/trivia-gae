@@ -15,13 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.UriTemplate;
 
 import com.rowe.trivia.domain.Contest;
 import com.rowe.trivia.domain.Question;
-import com.rowe.trivia.domain.Prize.RedemptionMethod;
-import com.rowe.trivia.job.mapReduce.ContestStatsCalculation;
 import com.rowe.trivia.repo.ContestRepository;
 import com.rowe.trivia.repo.QuestionRepository;
 
@@ -40,13 +37,6 @@ public class ContestController {
 		modelMap.put("contestList", contestRepo.listAll());
 	}
 	
-	@RequestMapping("recalcStats.html")
-	public RedirectView recalcStats(){
-		logger.info("Recacluating stats");
-		String jobId = ContestStatsCalculation.start();
-		return new RedirectView("/_ah/pipeline/status?root=" + jobId);
-	}
-	
 	@ModelAttribute("contest")
 	public Contest create(){
 		Contest contest = new Contest();
@@ -56,10 +46,6 @@ public class ContestController {
 	@ModelAttribute("questionList")
 	public List<Question> getQuestionList(){
 		return questionRepo.listAll();
-	}
-	@ModelAttribute("redemptionMethodList")
-	public RedemptionMethod[] getRedemptionMethodList(){
-		return RedemptionMethod.values();
 	}
 	
 	@RequestMapping("create.html")
@@ -72,8 +58,6 @@ public class ContestController {
 		if(bindingResult.hasErrors()){
 			return null;
 		}
-		contest.completeCreation();
-		contest.save();
 		logger.info("Submitted Contest: {}", contest);
 		
 		URI expanded = redirectToView(contest);
@@ -104,18 +88,7 @@ public class ContestController {
 		return "contests/view";
 	}
 	
-	@RequestMapping(value="{contestId}/start.html")
-	public String startContest(
-		@PathVariable("contestId") String contestId,
-		Map<String, Object> modelMap) {
-		Contest contest = contestRepo.getContest(contestId);
-		logger.info("Starting contest");
-		contest.start();
-		contestRepo.save(contest);
-		return redirectToView(contest).toString();
-	}
-	
-	@RequestMapping(value="{contestId}/stop.html")
+	@RequestMapping(value="{contestId}/end.html", method=RequestMethod.POST)
 	public String endContest(
 		@PathVariable("contestId") String contestId,
 		Map<String, Object> modelMap) {
@@ -123,6 +96,6 @@ public class ContestController {
 		logger.info("Ending contest");
 		contest.end();
 		contestRepo.save(contest);
-		return redirectToView(contest).toString();
+		return "contests/end";
 	}
 }

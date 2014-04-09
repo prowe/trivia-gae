@@ -27,9 +27,6 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
 import com.rowe.trivia.domain.validation.PasswordConfirmed;
-import com.rowe.trivia.repo.ContestRepository;
-import com.rowe.trivia.repo.UserRepository;
-import com.rowe.trivia.service.EmailService;
 
 @Entity
 @Configurable
@@ -37,12 +34,6 @@ import com.rowe.trivia.service.EmailService;
 public class User implements UserDetails, SocialUserDetails{
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired @Ignore
-	private transient UserRepository repo;
-	@Autowired @Ignore
-	private transient ContestRepository contestRepo;
-	@Autowired @Ignore
-	private transient EmailService emailService;
 	@Autowired @Ignore
 	private transient UsersConnectionRepository usersConnectionRepository;
 	
@@ -174,10 +165,6 @@ public class User implements UserDetails, SocialUserDetails{
 		return true;
 	}
 
-	public void save() {
-		repo.save(this);
-	}
-
 	/**
 	 * Sign in this user as the current user. Making this user the current user returned by {@link User#currentUser()}
 	 */
@@ -218,17 +205,6 @@ public class User implements UserDetails, SocialUserDetails{
 	}
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-
-	/**
-	 * Sign up for all inProgress contests
-	 */
-	public void signUpForInProgressContests() {
-		List<Contest> inProgressContests = contestRepo.findInProgressContests();
-		for(Contest contest:inProgressContests){
-			UserQuestion uq = new UserQuestion(this, contest);
-			uq.save();
-		}
 	}
 
 	public boolean isEmailNotificationEnabled() {

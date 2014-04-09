@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -24,10 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.rowe.trivia.CoreConfiguration;
 import com.rowe.trivia.convert.PeriodFormatter;
-import com.rowe.trivia.convert.QuestionConverter;
-import com.rowe.trivia.repo.QuestionRepository;
 
 @Configuration
 //@EnableTransactionManagement(mode=AdviceMode.ASPECTJ)
@@ -37,13 +33,14 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	private ConnectionFactoryLocator connectionFactoryLocator;
 	@Autowired
 	private UsersConnectionRepository usersConnectionRepository;
-	//@Autowired
-	//private ConnectionRepository connectionRepository;
 	@Autowired
 	private SignInAdapter signInAdapter;
 	
-	@Autowired
-	private QuestionRepository questionRepo;
+	//@Autowired
+	//private ConnectionRepository connectionRepository;
+	
+	//@Autowired
+	//private QuestionRepository questionRepo;
 	
 	@Bean
 	public ViewResolver viewResolver(){
@@ -71,8 +68,7 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	protected void addFormatters(FormatterRegistry registry) {
 		super.addFormatters(registry);
 		registry.addFormatter(new PeriodFormatter());
-		
-		registry.addConverter(new QuestionConverter(questionRepo));
+		//registry.addConverter(new QuestionConverter(questionRepo));
 	}
 	
 	@Override
@@ -91,7 +87,7 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 	}
 	
 	@Bean
-	public WelcomeController helloController(){
+	public WelcomeController welcomeController(){
 		return new WelcomeController();
 	}
 	@Bean
@@ -99,42 +95,14 @@ public class ServletConfiguration extends WebMvcConfigurationSupport{
 		return new UserController();
 	}
 	@Bean
-	public QuestionController questionController(){
-		return new QuestionController();
-	}
-	
-	@Bean
-	public CreateQuestionController createQuestionController(){
-		return new CreateQuestionController();
-	}
-	@Bean
-	public EditQuestionController editQuestionController(){
-		return new EditQuestionController();
-	}
-	
-	@Bean
-	public MyAccountController myAccountController(){
-		return new MyAccountController();
-	}
-	
-	@Bean
-	public DebugController debugController(){
-		return new DebugController();
+	public UserQuestionController userQuestionController(){
+		return new UserQuestionController();
 	}
 	@Bean
 	public ContestController contestController(){
 		return new ContestController();
 	}
-	@Bean
-	public UserQuestionController userQuestionController(){
-		return new UserQuestionController();
-	}
-	
-	/*@Bean
-    public ConnectController connectController() {
-        return new ConnectController(connectionFactoryLocator, connectionRepository);
-    }*/
-	
+
 	@Bean
 	public ProviderSignInController providerSignInController() {
 		ProviderSignInController controller = new ProviderSignInController(connectionFactoryLocator, usersConnectionRepositoryProxy(), signInAdapter);

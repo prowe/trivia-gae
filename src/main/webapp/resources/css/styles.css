@@ -6050,6 +6050,7 @@ fieldset[disabled] .primary-button.active {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+  padding-bottom: 15px;
 }
 #main-body:before,
 #main-body:after {
@@ -6437,106 +6438,32 @@ fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin.active {
   color: #ffffff;
   background-color: #fff;
 }
-.question-panel2 {
-  margin-left: -15px;
-  margin-right: -15px;
-  border-top: solid thin #ffa100;
-  padding-top: 15px;
-  padding-bottom: 15px;
+.question-text {
+  margin-top: 0px;
+  text-align: center;
 }
-.question-panel2:before,
-.question-panel2:after {
-  content: " ";
-  display: table;
-}
-.question-panel2:after {
-  clear: both;
-}
-.question-panel2:before,
-.question-panel2:after {
-  content: " ";
-  display: table;
-}
-.question-panel2:after {
-  clear: both;
-}
-.question-panel2 .question,
-.question-panel2 .prize,
-.question-panel2 .remaining-time,
-.question-panel2 .share,
-.question-panel2 .claim {
-  /*
-		text-indent: -.75em;
-		padding-left: 1.5em;
-		*/
-
-}
-.question-panel2 .question .fa,
-.question-panel2 .prize .fa,
-.question-panel2 .remaining-time .fa,
-.question-panel2 .share .fa,
-.question-panel2 .claim .fa {
-  width: 1.5em;
-}
-.question-panel2 .question {
-  position: relative;
+.answer-selection .answer {
   float: left;
   width: 100%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-.question-panel2 .question .fa-thumbs-up {
-  color: #47a447;
-}
-.question-panel2 .answers {
-  margin-left: -15px;
-  margin-right: -15px;
-  position: relative;
-  float: left;
-  width: 100%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-.question-panel2 .answers:before,
-.question-panel2 .answers:after {
-  content: " ";
-  display: table;
-}
-.question-panel2 .answers:after {
-  clear: both;
-}
-.question-panel2 .answers:before,
-.question-panel2 .answers:after {
-  content: " ";
-  display: table;
-}
-.question-panel2 .answers:after {
-  clear: both;
-}
-.question-panel2 .answers .answer {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 15px;
-  /* TODO: need to define colors */
-
 }
 @media (min-width: 768px) {
-  .question-panel2 .answers .answer {
+  .answer-selection .answer {
     float: left;
-    width: 100%;
+    width: 50%;
   }
 }
 @media (min-width: 992px) {
-  .question-panel2 .answers .answer {
+  .answer-selection .answer {
     float: left;
     width: 25%;
   }
 }
-.question-panel2 .answers .answer BUTTON {
+.answer-selection .answer .answer-btn {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -6558,35 +6485,31 @@ fieldset[disabled] .signin-panel .social-signin .btn-facebook-signin.active {
   color: #333333;
   background-color: #ffffff;
   border-color: #cccccc;
-  padding: 5px 10px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 3px;
   display: block;
   width: 100%;
   padding-left: 0;
   padding-right: 0;
 }
-.question-panel2 .answers .answer BUTTON:focus {
+.answer-selection .answer .answer-btn:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.question-panel2 .answers .answer BUTTON:hover,
-.question-panel2 .answers .answer BUTTON:focus {
+.answer-selection .answer .answer-btn:hover,
+.answer-selection .answer .answer-btn:focus {
   color: #333333;
   text-decoration: none;
 }
-.question-panel2 .answers .answer BUTTON:active,
-.question-panel2 .answers .answer BUTTON.active {
+.answer-selection .answer .answer-btn:active,
+.answer-selection .answer .answer-btn.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.question-panel2 .answers .answer BUTTON.disabled,
-.question-panel2 .answers .answer BUTTON[disabled],
-fieldset[disabled] .question-panel2 .answers .answer BUTTON {
+.answer-selection .answer .answer-btn.disabled,
+.answer-selection .answer .answer-btn[disabled],
+fieldset[disabled] .answer-selection .answer .answer-btn {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -6594,124 +6517,83 @@ fieldset[disabled] .question-panel2 .answers .answer BUTTON {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.question-panel2 .answers .answer BUTTON:hover,
-.question-panel2 .answers .answer BUTTON:focus,
-.question-panel2 .answers .answer BUTTON:active,
-.question-panel2 .answers .answer BUTTON.active,
-.open .dropdown-toggle.question-panel2 .answers .answer BUTTON {
+.answer-selection .answer .answer-btn:hover,
+.answer-selection .answer .answer-btn:focus,
+.answer-selection .answer .answer-btn:active,
+.answer-selection .answer .answer-btn.active,
+.open .dropdown-toggle.answer-selection .answer .answer-btn {
   color: #333333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
-.question-panel2 .answers .answer BUTTON:active,
-.question-panel2 .answers .answer BUTTON.active,
-.open .dropdown-toggle.question-panel2 .answers .answer BUTTON {
+.answer-selection .answer .answer-btn:active,
+.answer-selection .answer .answer-btn.active,
+.open .dropdown-toggle.answer-selection .answer .answer-btn {
   background-image: none;
 }
-.question-panel2 .answers .answer BUTTON.disabled,
-.question-panel2 .answers .answer BUTTON[disabled],
-fieldset[disabled] .question-panel2 .answers .answer BUTTON,
-.question-panel2 .answers .answer BUTTON.disabled:hover,
-.question-panel2 .answers .answer BUTTON[disabled]:hover,
-fieldset[disabled] .question-panel2 .answers .answer BUTTON:hover,
-.question-panel2 .answers .answer BUTTON.disabled:focus,
-.question-panel2 .answers .answer BUTTON[disabled]:focus,
-fieldset[disabled] .question-panel2 .answers .answer BUTTON:focus,
-.question-panel2 .answers .answer BUTTON.disabled:active,
-.question-panel2 .answers .answer BUTTON[disabled]:active,
-fieldset[disabled] .question-panel2 .answers .answer BUTTON:active,
-.question-panel2 .answers .answer BUTTON.disabled.active,
-.question-panel2 .answers .answer BUTTON[disabled].active,
-fieldset[disabled] .question-panel2 .answers .answer BUTTON.active {
+.answer-selection .answer .answer-btn.disabled,
+.answer-selection .answer .answer-btn[disabled],
+fieldset[disabled] .answer-selection .answer .answer-btn,
+.answer-selection .answer .answer-btn.disabled:hover,
+.answer-selection .answer .answer-btn[disabled]:hover,
+fieldset[disabled] .answer-selection .answer .answer-btn:hover,
+.answer-selection .answer .answer-btn.disabled:focus,
+.answer-selection .answer .answer-btn[disabled]:focus,
+fieldset[disabled] .answer-selection .answer .answer-btn:focus,
+.answer-selection .answer .answer-btn.disabled:active,
+.answer-selection .answer .answer-btn[disabled]:active,
+fieldset[disabled] .answer-selection .answer .answer-btn:active,
+.answer-selection .answer .answer-btn.disabled.active,
+.answer-selection .answer .answer-btn[disabled].active,
+fieldset[disabled] .answer-selection .answer .answer-btn.active {
   background-color: #ffffff;
   border-color: #cccccc;
 }
-.question-panel2 .answers .answer BUTTON .badge {
+.answer-selection .answer .answer-btn .badge {
   color: #ffffff;
   background-color: #fff;
 }
-.question-panel2 .answers .answer .correct-true.choosen-true {
-  color: #47a447;
-  border-color: #47a447;
-  opacity: 1;
+.prize {
+  text-align: center;
 }
-.question-panel2 .answers .answer .correct-true.choosen-false {
-  color: #d43f3a;
-  border-color: #d43f3a;
-  opacity: 1;
-}
-.question-panel2 .remaining-time {
-  position: relative;
-  min-height: 1px;
+.question-options {
+  margin-right: auto;
+  margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 992px) {
-  .question-panel2 .remaining-time {
-    float: left;
-    width: 50%;
+.question-options:before,
+.question-options:after {
+  content: " ";
+  display: table;
+}
+.question-options:after {
+  clear: both;
+}
+.question-options:before,
+.question-options:after {
+  content: " ";
+  display: table;
+}
+.question-options:after {
+  clear: both;
+}
+@media (min-width: 768px) {
+  .question-options {
+    width: 750px;
   }
 }
-.question-panel2 .prize {
-  float: left;
-  width: 100%;
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
 @media (min-width: 992px) {
-  .question-panel2 .prize {
-    float: left;
-    width: 50%;
+  .question-options {
+    width: 970px;
   }
 }
-.question-panel2 .share {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  .question-panel2 .share {
-    float: left;
-    width: 50%;
+@media (min-width: 1200px) {
+  .question-options {
+    width: 1170px;
   }
 }
-.question-panel2 .claim {
-  position: relative;
-  float: left;
-  width: 100%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-.question-panel2.correct .fa-gift {
-  color: #ffa100;
-}
-.question-panel .question-text {
-  float: left;
-}
-.question-panel .remaining {
-  float: right !important;
-}
-.question-panel .result-indicator {
-  float: right !important;
-  padding-left: 15px;
-}
-.question-panel .result-indicator .fa-thumbs-down {
-  color: #d9534f;
-}
-.question-panel .result-indicator .fa-thumbs-up {
-  color: #47a447;
-}
-.question-panel .prize-description {
-  margin: 15px;
-}
-.question-panel .answer-group {
-  margin: 15px;
-}
-.question-panel .answer-group .btn-answer {
+.question-options .skip-btn {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -6734,26 +6616,26 @@ fieldset[disabled] .question-panel2 .answers .answer BUTTON.active {
   background-color: #ffffff;
   border-color: #cccccc;
 }
-.question-panel .answer-group .btn-answer:focus {
+.question-options .skip-btn:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.question-panel .answer-group .btn-answer:hover,
-.question-panel .answer-group .btn-answer:focus {
+.question-options .skip-btn:hover,
+.question-options .skip-btn:focus {
   color: #333333;
   text-decoration: none;
 }
-.question-panel .answer-group .btn-answer:active,
-.question-panel .answer-group .btn-answer.active {
+.question-options .skip-btn:active,
+.question-options .skip-btn.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.question-panel .answer-group .btn-answer.disabled,
-.question-panel .answer-group .btn-answer[disabled],
-fieldset[disabled] .question-panel .answer-group .btn-answer {
+.question-options .skip-btn.disabled,
+.question-options .skip-btn[disabled],
+fieldset[disabled] .question-options .skip-btn {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -6761,71 +6643,88 @@ fieldset[disabled] .question-panel .answer-group .btn-answer {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.question-panel .answer-group .btn-answer:hover,
-.question-panel .answer-group .btn-answer:focus,
-.question-panel .answer-group .btn-answer:active,
-.question-panel .answer-group .btn-answer.active,
-.open .dropdown-toggle.question-panel .answer-group .btn-answer {
+.question-options .skip-btn:hover,
+.question-options .skip-btn:focus,
+.question-options .skip-btn:active,
+.question-options .skip-btn.active,
+.open .dropdown-toggle.question-options .skip-btn {
   color: #333333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
-.question-panel .answer-group .btn-answer:active,
-.question-panel .answer-group .btn-answer.active,
-.open .dropdown-toggle.question-panel .answer-group .btn-answer {
+.question-options .skip-btn:active,
+.question-options .skip-btn.active,
+.open .dropdown-toggle.question-options .skip-btn {
   background-image: none;
 }
-.question-panel .answer-group .btn-answer.disabled,
-.question-panel .answer-group .btn-answer[disabled],
-fieldset[disabled] .question-panel .answer-group .btn-answer,
-.question-panel .answer-group .btn-answer.disabled:hover,
-.question-panel .answer-group .btn-answer[disabled]:hover,
-fieldset[disabled] .question-panel .answer-group .btn-answer:hover,
-.question-panel .answer-group .btn-answer.disabled:focus,
-.question-panel .answer-group .btn-answer[disabled]:focus,
-fieldset[disabled] .question-panel .answer-group .btn-answer:focus,
-.question-panel .answer-group .btn-answer.disabled:active,
-.question-panel .answer-group .btn-answer[disabled]:active,
-fieldset[disabled] .question-panel .answer-group .btn-answer:active,
-.question-panel .answer-group .btn-answer.disabled.active,
-.question-panel .answer-group .btn-answer[disabled].active,
-fieldset[disabled] .question-panel .answer-group .btn-answer.active {
+.question-options .skip-btn.disabled,
+.question-options .skip-btn[disabled],
+fieldset[disabled] .question-options .skip-btn,
+.question-options .skip-btn.disabled:hover,
+.question-options .skip-btn[disabled]:hover,
+fieldset[disabled] .question-options .skip-btn:hover,
+.question-options .skip-btn.disabled:focus,
+.question-options .skip-btn[disabled]:focus,
+fieldset[disabled] .question-options .skip-btn:focus,
+.question-options .skip-btn.disabled:active,
+.question-options .skip-btn[disabled]:active,
+fieldset[disabled] .question-options .skip-btn:active,
+.question-options .skip-btn.disabled.active,
+.question-options .skip-btn[disabled].active,
+fieldset[disabled] .question-options .skip-btn.active {
   background-color: #ffffff;
   border-color: #cccccc;
 }
-.question-panel .answer-group .btn-answer .badge {
+.question-options .skip-btn .badge {
   color: #ffffff;
   background-color: #fff;
 }
 @media (max-width: 768px) {
-  .question-panel .answer-group .btn-answer {
+  .question-options .skip-btn {
     display: block;
     width: 100%;
     padding-left: 0;
     padding-right: 0;
   }
-  .question-panel .answer-group .btn-answer + .btn-answer {
-    margin-top: 5px;
-  }
 }
-.question-panel .answer-group .btn-answer.correct {
-  color: #47a447;
-  border-color: #47a447;
-  opacity: 1;
+.answer-result:before,
+.answer-result:after {
+  content: " ";
+  display: table;
 }
-.question-panel .answer-group .btn-answer.incorrect {
-  color: #d43f3a;
-  border-color: #d43f3a;
-  opacity: 1;
+.answer-result:after {
+  clear: both;
 }
-.question-row {
+.answer-result:before,
+.answer-result:after {
+  content: " ";
+  display: table;
+}
+.answer-result:after {
+  clear: both;
+}
+.answer-result .answer {
+  float: left;
+  width: 100%;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   margin-bottom: 15px;
 }
-.question-row .question {
-  font-weight: bolder;
-  font-size: larger;
+@media (min-width: 768px) {
+  .answer-result .answer {
+    float: left;
+    width: 50%;
+  }
 }
-.question-row .btn-answer {
+@media (min-width: 992px) {
+  .answer-result .answer {
+    float: left;
+    width: 25%;
+  }
+}
+.answer-result .answer .answer-btn {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -6847,31 +6746,31 @@ fieldset[disabled] .question-panel .answer-group .btn-answer.active {
   color: #333333;
   background-color: #ffffff;
   border-color: #cccccc;
-  padding: 1px 5px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 3px;
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }
-.question-row .btn-answer:focus {
+.answer-result .answer .answer-btn:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.question-row .btn-answer:hover,
-.question-row .btn-answer:focus {
+.answer-result .answer .answer-btn:hover,
+.answer-result .answer .answer-btn:focus {
   color: #333333;
   text-decoration: none;
 }
-.question-row .btn-answer:active,
-.question-row .btn-answer.active {
+.answer-result .answer .answer-btn:active,
+.answer-result .answer .answer-btn.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.question-row .btn-answer.disabled,
-.question-row .btn-answer[disabled],
-fieldset[disabled] .question-row .btn-answer {
+.answer-result .answer .answer-btn.disabled,
+.answer-result .answer .answer-btn[disabled],
+fieldset[disabled] .answer-result .answer .answer-btn {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -6879,107 +6778,362 @@ fieldset[disabled] .question-row .btn-answer {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.question-row .btn-answer:hover,
-.question-row .btn-answer:focus,
-.question-row .btn-answer:active,
-.question-row .btn-answer.active,
-.open .dropdown-toggle.question-row .btn-answer {
+.answer-result .answer .answer-btn:hover,
+.answer-result .answer .answer-btn:focus,
+.answer-result .answer .answer-btn:active,
+.answer-result .answer .answer-btn.active,
+.open .dropdown-toggle.answer-result .answer .answer-btn {
   color: #333333;
   background-color: #ebebeb;
   border-color: #adadad;
 }
-.question-row .btn-answer:active,
-.question-row .btn-answer.active,
-.open .dropdown-toggle.question-row .btn-answer {
+.answer-result .answer .answer-btn:active,
+.answer-result .answer .answer-btn.active,
+.open .dropdown-toggle.answer-result .answer .answer-btn {
   background-image: none;
 }
-.question-row .btn-answer.disabled,
-.question-row .btn-answer[disabled],
-fieldset[disabled] .question-row .btn-answer,
-.question-row .btn-answer.disabled:hover,
-.question-row .btn-answer[disabled]:hover,
-fieldset[disabled] .question-row .btn-answer:hover,
-.question-row .btn-answer.disabled:focus,
-.question-row .btn-answer[disabled]:focus,
-fieldset[disabled] .question-row .btn-answer:focus,
-.question-row .btn-answer.disabled:active,
-.question-row .btn-answer[disabled]:active,
-fieldset[disabled] .question-row .btn-answer:active,
-.question-row .btn-answer.disabled.active,
-.question-row .btn-answer[disabled].active,
-fieldset[disabled] .question-row .btn-answer.active {
+.answer-result .answer .answer-btn.disabled,
+.answer-result .answer .answer-btn[disabled],
+fieldset[disabled] .answer-result .answer .answer-btn,
+.answer-result .answer .answer-btn.disabled:hover,
+.answer-result .answer .answer-btn[disabled]:hover,
+fieldset[disabled] .answer-result .answer .answer-btn:hover,
+.answer-result .answer .answer-btn.disabled:focus,
+.answer-result .answer .answer-btn[disabled]:focus,
+fieldset[disabled] .answer-result .answer .answer-btn:focus,
+.answer-result .answer .answer-btn.disabled:active,
+.answer-result .answer .answer-btn[disabled]:active,
+fieldset[disabled] .answer-result .answer .answer-btn:active,
+.answer-result .answer .answer-btn.disabled.active,
+.answer-result .answer .answer-btn[disabled].active,
+fieldset[disabled] .answer-result .answer .answer-btn.active {
   background-color: #ffffff;
   border-color: #cccccc;
 }
-.question-row .btn-answer .badge {
+.answer-result .answer .answer-btn .badge {
   color: #ffffff;
   background-color: #fff;
 }
-.prize-pane {
-  min-height: 20px;
-  padding: 19px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #e3e3e3;
+.answer-result .selected-true.correct-true .answer-btn {
+  background-color: #dff0d8;
+  /* success */
+
+}
+.answer-result .selected-false.correct-true .answer-btn {
+  background-color: #dff0d8;
+  /* success */
+
+}
+.answer-result .selected-true.correct-false .answer-btn {
+  background-color: #f2dede;
+  /* danger */
+
+}
+.share {
+  text-align: center;
+}
+.submitted-actions {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.submitted-actions .continue-btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  color: #ffffff;
+  background-color: #428bca;
+  border-color: #357ebd;
 }
-.prize-pane blockquote {
-  border-color: #ddd;
-  border-color: rgba(0, 0, 0, 0.15);
+.submitted-actions .continue-btn:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
-.prize-pane .prize-title {
-  font-size: larger;
-  font-weight: bolder;
+.submitted-actions .continue-btn:hover,
+.submitted-actions .continue-btn:focus {
+  color: #333333;
+  text-decoration: none;
 }
-.history-table .choosen-answer {
-  color: #d9534f;
+.submitted-actions .continue-btn:active,
+.submitted-actions .continue-btn.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.history-table .fa-thumbs-down {
-  color: #d9534f;
+.submitted-actions .continue-btn.disabled,
+.submitted-actions .continue-btn[disabled],
+fieldset[disabled] .submitted-actions .continue-btn {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
-.history-table .fa-thumbs-up {
-  color: #47a447;
+.submitted-actions .continue-btn:hover,
+.submitted-actions .continue-btn:focus,
+.submitted-actions .continue-btn:active,
+.submitted-actions .continue-btn.active,
+.open .dropdown-toggle.submitted-actions .continue-btn {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
 }
-.history-table .correct-answer {
-  color: #47a447;
+.submitted-actions .continue-btn:active,
+.submitted-actions .continue-btn.active,
+.open .dropdown-toggle.submitted-actions .continue-btn {
+  background-image: none;
 }
-.address-entry .city {
+.submitted-actions .continue-btn.disabled,
+.submitted-actions .continue-btn[disabled],
+fieldset[disabled] .submitted-actions .continue-btn,
+.submitted-actions .continue-btn.disabled:hover,
+.submitted-actions .continue-btn[disabled]:hover,
+fieldset[disabled] .submitted-actions .continue-btn:hover,
+.submitted-actions .continue-btn.disabled:focus,
+.submitted-actions .continue-btn[disabled]:focus,
+fieldset[disabled] .submitted-actions .continue-btn:focus,
+.submitted-actions .continue-btn.disabled:active,
+.submitted-actions .continue-btn[disabled]:active,
+fieldset[disabled] .submitted-actions .continue-btn:active,
+.submitted-actions .continue-btn.disabled.active,
+.submitted-actions .continue-btn[disabled].active,
+fieldset[disabled] .submitted-actions .continue-btn.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.submitted-actions .continue-btn .badge {
+  color: #ffffff;
+  background-color: #fff;
+}
+.submitted-actions .continue-btn:hover,
+.submitted-actions .continue-btn:focus,
+.submitted-actions .continue-btn:active,
+.submitted-actions .continue-btn.active,
+.open .dropdown-toggle.submitted-actions .continue-btn {
+  color: #ffffff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+.submitted-actions .continue-btn:active,
+.submitted-actions .continue-btn.active,
+.open .dropdown-toggle.submitted-actions .continue-btn {
+  background-image: none;
+}
+.submitted-actions .continue-btn.disabled,
+.submitted-actions .continue-btn[disabled],
+fieldset[disabled] .submitted-actions .continue-btn,
+.submitted-actions .continue-btn.disabled:hover,
+.submitted-actions .continue-btn[disabled]:hover,
+fieldset[disabled] .submitted-actions .continue-btn:hover,
+.submitted-actions .continue-btn.disabled:focus,
+.submitted-actions .continue-btn[disabled]:focus,
+fieldset[disabled] .submitted-actions .continue-btn:focus,
+.submitted-actions .continue-btn.disabled:active,
+.submitted-actions .continue-btn[disabled]:active,
+fieldset[disabled] .submitted-actions .continue-btn:active,
+.submitted-actions .continue-btn.disabled.active,
+.submitted-actions .continue-btn[disabled].active,
+fieldset[disabled] .submitted-actions .continue-btn.active {
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+.submitted-actions .continue-btn .badge {
+  color: #428bca;
+  background-color: #fff;
+}
+@media (max-width: 768px) {
+  .submitted-actions .continue-btn {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+.prize-row {
+  border-bottom: #ffa100 solid thin;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.prize-row:before,
+.prize-row:after {
+  content: " ";
+  display: table;
+}
+.prize-row:after {
+  clear: both;
+}
+.prize-row:before,
+.prize-row:after {
+  content: " ";
+  display: table;
+}
+.prize-row:after {
+  clear: both;
+}
+.prize-row .prize {
   position: relative;
+  float: left;
+  width: 83.33333333333334%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  padding-left: 0px;
+  vertical-align: middle;
 }
-@media (min-width: 992px) {
-  .address-entry .city {
-    float: left;
-    width: 50%;
-  }
-}
-.address-entry .state {
+.prize-row .redeem {
   position: relative;
+  float: left;
+  width: 16.666666666666664%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 992px) {
-  .address-entry .state {
-    float: left;
-    width: 16.666666666666664%;
-  }
+.prize-row .redeem .redeem-btn {
+  float: right !important;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  color: #ffffff;
+  background-color: #428bca;
+  border-color: #357ebd;
 }
-.address-entry .zip {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-right: 0px;
+.prize-row .redeem .redeem-btn:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
-@media (min-width: 992px) {
-  .address-entry .zip {
-    float: left;
-    width: 33.33333333333333%;
-  }
+.prize-row .redeem .redeem-btn:hover,
+.prize-row .redeem .redeem-btn:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.prize-row .redeem .redeem-btn:active,
+.prize-row .redeem .redeem-btn.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.prize-row .redeem .redeem-btn.disabled,
+.prize-row .redeem .redeem-btn[disabled],
+fieldset[disabled] .prize-row .redeem .redeem-btn {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.prize-row .redeem .redeem-btn:hover,
+.prize-row .redeem .redeem-btn:focus,
+.prize-row .redeem .redeem-btn:active,
+.prize-row .redeem .redeem-btn.active,
+.open .dropdown-toggle.prize-row .redeem .redeem-btn {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.prize-row .redeem .redeem-btn:active,
+.prize-row .redeem .redeem-btn.active,
+.open .dropdown-toggle.prize-row .redeem .redeem-btn {
+  background-image: none;
+}
+.prize-row .redeem .redeem-btn.disabled,
+.prize-row .redeem .redeem-btn[disabled],
+fieldset[disabled] .prize-row .redeem .redeem-btn,
+.prize-row .redeem .redeem-btn.disabled:hover,
+.prize-row .redeem .redeem-btn[disabled]:hover,
+fieldset[disabled] .prize-row .redeem .redeem-btn:hover,
+.prize-row .redeem .redeem-btn.disabled:focus,
+.prize-row .redeem .redeem-btn[disabled]:focus,
+fieldset[disabled] .prize-row .redeem .redeem-btn:focus,
+.prize-row .redeem .redeem-btn.disabled:active,
+.prize-row .redeem .redeem-btn[disabled]:active,
+fieldset[disabled] .prize-row .redeem .redeem-btn:active,
+.prize-row .redeem .redeem-btn.disabled.active,
+.prize-row .redeem .redeem-btn[disabled].active,
+fieldset[disabled] .prize-row .redeem .redeem-btn.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.prize-row .redeem .redeem-btn .badge {
+  color: #ffffff;
+  background-color: #fff;
+}
+.prize-row .redeem .redeem-btn:hover,
+.prize-row .redeem .redeem-btn:focus,
+.prize-row .redeem .redeem-btn:active,
+.prize-row .redeem .redeem-btn.active,
+.open .dropdown-toggle.prize-row .redeem .redeem-btn {
+  color: #ffffff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+.prize-row .redeem .redeem-btn:active,
+.prize-row .redeem .redeem-btn.active,
+.open .dropdown-toggle.prize-row .redeem .redeem-btn {
+  background-image: none;
+}
+.prize-row .redeem .redeem-btn.disabled,
+.prize-row .redeem .redeem-btn[disabled],
+fieldset[disabled] .prize-row .redeem .redeem-btn,
+.prize-row .redeem .redeem-btn.disabled:hover,
+.prize-row .redeem .redeem-btn[disabled]:hover,
+fieldset[disabled] .prize-row .redeem .redeem-btn:hover,
+.prize-row .redeem .redeem-btn.disabled:focus,
+.prize-row .redeem .redeem-btn[disabled]:focus,
+fieldset[disabled] .prize-row .redeem .redeem-btn:focus,
+.prize-row .redeem .redeem-btn.disabled:active,
+.prize-row .redeem .redeem-btn[disabled]:active,
+fieldset[disabled] .prize-row .redeem .redeem-btn:active,
+.prize-row .redeem .redeem-btn.disabled.active,
+.prize-row .redeem .redeem-btn[disabled].active,
+fieldset[disabled] .prize-row .redeem .redeem-btn.active {
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+.prize-row .redeem .redeem-btn .badge {
+  color: #428bca;
+  background-color: #fff;
 }

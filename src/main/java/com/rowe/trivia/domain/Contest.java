@@ -3,14 +3,11 @@ package com.rowe.trivia.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
-import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.ObjectUtils;
 import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,161 +21,80 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
-import com.rowe.trivia.repo.BetterRef;
-import com.rowe.trivia.repo.ContestRepository;
+import com.googlecode.objectify.annotation.Index;
 import com.rowe.trivia.repo.UserQuestionRepository;
-import com.rowe.trivia.repo.UserRepository;
-import com.rowe.trivia.service.EmailService;
 
 @Configurable
 @Entity
 public class Contest implements Serializable{
 	private static final long serialVersionUID = 6204432236658802049L;
-
+	public static final Comparator<? super Contest> END_TIME_COMPARATOR = new Comparator<Contest>() {
+		@Override
+		public int compare(Contest o1, Contest o2) {
+			return o1.getEndTime().compareTo(o2.getEndTime());
+		}
+	};
+	
 	private static Logger logger = LoggerFactory.getLogger(Contest.class);
 			
 	@Autowired @Ignore
-	private transient ContestRepository repo;
-	@Autowired @Ignore
-	private transient UserRepository userRepo;
-	@Autowired @Ignore
 	private transient UserQuestionRepository userQuestionRepo;
-	@Autowired @Ignore
-	private transient EmailService emailService;
 	
 	@Id
 	private String contestId;
 	
-	private Ref<User> sponsor;
-	@NotNull
-	private Ref<Question> question;
-	
-	@NotNull
-	private Period duration;
-	
+	@Index
 	private DateTime startTime;
+	@Index
 	private DateTime endTime;
 	
 	private Prize prize;
 	private Integer prizeQuantity;
-	private int correctAnswerEntries = 3;
 	
 	private List<Ref<UserQuestion>> winningAnswers;
-	private Integer askedCount;
-	private Integer answeredCount;
-	private Integer correctCount;
 	
-	
-	public void completeCreation() {
-		if(contestId == null){
-			contestId = UUID.randomUUID().toString();
-		}
-		//set the sponsor
-		User currentUser = User.currentUser();
-        if (currentUser == null) {
-            throw new IllegalStateException("Unable to set sponsor: no user signed in");
-        }
-		setSponsor(currentUser);
+	public Contest() {
+		contestId = UUID.randomUUID().toString();
 	}
 	
-	public void save(){
-		repo.save(this);
+	public Contest(DateTime startTime, DateTime endTime, Prize prize,
+			Integer prizeQuantity) {
+		this();
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.prize = prize;
+		this.prizeQuantity = prizeQuantity;
 	}
 	
-	/**
-	 * Is the given user eligible to be entered into this contest?
-	 * @param user
-	 * @return
-	 */
-	public boolean isElgible(User user){
-		//commented out for testing
-		//if(ObjectUtils.equals(getSponsor(), user)){
-		//	return false;
-		//}
-		return true;
-	}
-	
-	/**
-	 * Start this contest
-	 */
-	public void start(){
-		logger.info("Starting contest {}", this);
-		startTime = new DateTime();
-		if(endTime == null){
-			endTime = startTime.plus(duration);
-		}
-		selectContestants();
-		scheduleEndContest();
-		logger.info("Contest started: {}", this);
-	}
-	
-	private void scheduleEndContest() {
+	public void scheduleEnd() {
 		Queue queue = QueueFactory.getDefaultQueue();
-		queue.add(Builder.withUrl("/contests/" + contestId + "/stop.html")
-			//.param("contestId", contestId)
+		queue.add(Builder.withUrl("/contests/" + contestId + "/end.html")
 			.method(Method.POST)
-			.etaMillis(endTime.getMillis()));
+			.etaMillis(endTime.getMillis() + 10000));
 		
 	}
 
-	//TODO: move this to be a map reduce
-	private void selectContestants() {
-		logger.info("Starting contestant selection for {}", this);
-		int usersEntered = 0;
-		for(User user:userRepo.listAll()){
-			if(isElgible(user)){
-				UserQuestion uq = new UserQuestion(user, this);
-				emailService.notifyUserOfNewQuestionIfNeeded(uq);
-				userQuestionRepo.save(uq);
-				usersEntered++;
-			}
-		}
-		logger.info("Contestant selection done for {}. {} users entered", this, usersEntered);
-	}
-	
-	/**
-	 * End this contest
-	 */
 	public void end(){
 		logger.info("Ending contest {}", this);
 		List<UserQuestion> winners = userQuestionRepo.findWinners(this, prizeQuantity);
 		winningAnswers = new ArrayList<Ref<UserQuestion>>();
 		for(UserQuestion winner:winners){
 			winningAnswers.add(Ref.create(winner));
-			emailService.notifyUserOfWinningQuestion(winner);
-			
 		}
 		logger.info("Contest Ended. {} winners selected", winners.size());
 	}
+	
 	public Prize getPrize() {
 		return prize;
 	}
 	public void setPrize(Prize prize) {
 		this.prize = prize;
 	}
-	public User getSponsor() {
-		return sponsor == null ? null : sponsor.get();
-	}
 	public String getContestId() {
 		return contestId;
 	}
-	public Question getQuestion() {
-		return question == null ? null : question.get();
-	}
-	public void setSponsor(User sponsor) {
-		this.sponsor = BetterRef.create(sponsor);
-	}
 	public void setContestId(String contestId) {
 		this.contestId = contestId;
-	}
-	public void setQuestion(Question question) {
-		this.question = BetterRef.create(question);
-	}
-	public void setDuration(Period duration) {
-		this.duration = duration;
-	}
-	public Period getDuration() {
-		return duration;
 	}
 
 	public Integer getPrizeQuantity() {
@@ -217,23 +133,12 @@ public class Contest implements Serializable{
 			&& now.isAfter(startTime)
 			&& (endTime == null || now.isBefore(endTime));
 	}
-	
-	public Integer getAskedCount() {
-		return askedCount;
+
+	public void setStartTime(DateTime startTime) {
+		this.startTime = startTime;
 	}
-	public Integer getAnsweredCount() {
-		return answeredCount;
-	}
-	public Integer getCorrectCount() {
-		return correctCount;
-	}
-	
-	public void setStats(int asked, int answered, int correct){
-		askedCount = asked;
-		answeredCount = answered;
-		correctCount = correct;
-	}
-	public int getCorrectAnswerEntries() {
-		return correctAnswerEntries;
+
+	public void setEndTime(DateTime endTime) {
+		this.endTime = endTime;
 	}
 }

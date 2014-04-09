@@ -1,6 +1,7 @@
 package com.rowe.trivia.domain;
 
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -11,19 +12,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Configurable;
 
-import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.rowe.trivia.repo.BetterRef;
 
 @Configurable
 @Entity
 public class Question {
-	
 	@Id
 	private String questionId;
 
-	private Ref<User> author;
 	@NotBlank
 	private String question;
 	@NotBlank
@@ -31,15 +28,18 @@ public class Question {
 	@Size(min=1, max=3)
 	private List<String> possibleAnswers;
 	
-	private URL sourceURL;
-	
+	public Question(String text, String correct, String...wrong){
+		this();
+		setQuestion(text);
+		setCorrectAnswer(correct);
+		setPossibleAnswers(new ArrayList<String>(Arrays.asList(wrong)));
+		completeCreation();
+	}
 	public Question() {
 		questionId = UUID.randomUUID().toString();
 	}
 	
 	public void completeCreation(){
-		author = BetterRef.create(User.currentUser());
-		
 		//make sure the possible answers contains the correct answers
 		if(possibleAnswers != null && !possibleAnswers.contains(correctAnswer)){
 			possibleAnswers.add(correctAnswer);
@@ -48,7 +48,6 @@ public class Question {
 		if(possibleAnswers != null){
 			Collections.shuffle(possibleAnswers);
 		}
-		
 	}
 	
 	public boolean isCorrect(String choosenAnswer) {
@@ -75,17 +74,5 @@ public class Question {
 	}
 	public void setPossibleAnswers(List<String> possibleAnswers) {
 		this.possibleAnswers = possibleAnswers;
-	}
-	
-	public User getAuthor() {
-		return author == null ? null : author.get();
-	}
-	
-	
-	public URL getSourceURL() {
-		return sourceURL;
-	}
-	public void setSourceURL(URL sourceURL) {
-		this.sourceURL = sourceURL;
 	}
 }

@@ -15,36 +15,14 @@
 	<div id="main-body">
 		<h1>Your Winnings</h1>
 		
-		<c:if test="${empty userQuestionList}">
+		<c:if test="${empty winningList}">
 			<p>You have not yet won any prizes. <a href="/">Answer more questions</a> for more chances to win.
 		</c:if>
 		
-		<div class="modal fade" id="prizeDetailsModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-		</div>
-		
-		<c:forEach items="${userQuestionList}" var="uq">
-			<div class="prize-pane">
-				<div class="prize-title"><a data-toggle="modal" data-target="#prizeDetailsModal" href="<c:url value='/contests/${uq.contest.contestId}/prizeDetails.html' />"><c:out value="${uq.contest.prize.title}" /></a></div>
-				
-				<div class="form-group" >
-					<label class="control-label">Question:</label>
-					<p class="form-control-static"><c:out value="${uq.question.question}" /></p>
-				</div>
-				<div class="form-group" >
-					<label class="control-label">Winning Answer:</label>
-					<p class="form-control-static"><c:out value="${uq.question.correctAnswer}" /></p>
-				</div>
-				<div class="redemption-instructions help-text">
-					<c:choose>
-						<c:when test="${uq.contest.prize.addressRequired and empty uq.contestant.address}">
-							This prize is awarded via mail but you have not entered an address. <a href="<c:url value='/users/myAccount.html#address-entry' />">Enter an address</a> and your prize will be mailed to you.
-						</c:when>
-						<c:when test="${uq.contest.prize.addressRequired}">
-							This prize is awarded via mail and will be mailed to you. Ensure your <a href="<c:url value='/users/myAccount.html#address-entry' />">mailing address</a> is accurate.
-						</c:when>
-					</c:choose>
-				</div>
+		<c:forEach items="${winningList}" var="uq">
+			<div class="prize-row">
+				<div class="prize"><c:out value="${uq.contest.prize.title }" /></div>
+				<div class="redeem"><button class="redeem-btn">Redeem</button></div>
 			</div>
 		</c:forEach>
 	</div>
